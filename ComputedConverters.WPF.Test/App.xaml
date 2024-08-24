@@ -7,7 +7,7 @@
     StartupUri="MainWindow.xaml">
     <Application.Resources>
         <cc:String
-            x:Key="Key"
-            Value="asdb" />
+            x:Key="Guid"
+            Value="b5ffd5f4-12c1-49ae-bb40-18da2f7643a7" />
     </Application.Resources>
 </Application>

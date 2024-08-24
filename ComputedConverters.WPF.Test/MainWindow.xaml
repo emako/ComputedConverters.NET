@@ -11,6 +11,14 @@
     Height="450"
     mc:Ignorable="d">
     <Grid>
-        <TextBlock Text="{cc:BindableDynamicResource ResourceKey={Binding TitleKey}}" />
+        <StackPanel>
+            <TextBlock Text="{DynamicResource Guid}" />
+            <TextBlock Text="{cc:DynamicResource Guid}" />
+            <TextBlock Text="{cc:DynamicResource {Binding GuidKey}}" />
+            <TextBlock Text="{cc:DynamicResource {Binding GuidKey, Mode=OneTime}}" />
+            <Button
+                Command="{Binding ChangeGuidCommand}"
+                Content="ChangeGuid" />
+        </StackPanel>
     </Grid>
 </Window>
