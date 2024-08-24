@@ -13,6 +13,7 @@
     <Grid>
         <StackPanel>
             <TextBlock Text="{DynamicResource Guid}" />
+            <TextBlock Text="{DynamicResource {cc:Unbinding {Binding GuidKey}}}" />
             <TextBlock Text="{cc:DynamicResource Guid}" />
             <TextBlock Text="{cc:DynamicResource {Binding GuidKey}}" />
             <TextBlock Text="{cc:DynamicResource {Binding GuidKey, Mode=OneTime}}" />
