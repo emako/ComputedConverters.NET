@@ -4,12 +4,12 @@ using System.Windows.Markup;
 namespace ComputedConverters;
 
 [MarkupExtensionReturnType(typeof(int))]
-public sealed class Int32Extension(int value) : MarkupExtension
+public sealed class IntExtension(int value) : MarkupExtension
 {
     [ConstructorArgument("value")]
     public int Value { get; set; } = value;
 
-    public Int32Extension() : this(default)
+    public IntExtension() : this(default)
     {
     }
 
