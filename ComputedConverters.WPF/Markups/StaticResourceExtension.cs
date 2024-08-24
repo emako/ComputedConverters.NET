@@ -14,8 +14,8 @@ public sealed class StaticResourceExtension : MarkupExtension
     {
         if (TargetObject != null)
         {
-            return TargetObject.FindResource(ResourceKey);
+            return TargetObject.TryFindResource(ResourceKey);
         }
-        return Application.Current.FindResource(ResourceKey);
+        return Application.Current.TryFindResource(ResourceKey);
     }
 }
