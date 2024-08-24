@@ -1,0 +1,13 @@
+﻿<Application
+    x:Class="ComputedConverters.Test.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cc="urn:ComputedConverters"
+    xmlns:local="clr-namespace:ComputedConverters.Test"
+    StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <cc:String
+            x:Key="Key"
+            Value="asdb" />
+    </Application.Resources>
+</Application>

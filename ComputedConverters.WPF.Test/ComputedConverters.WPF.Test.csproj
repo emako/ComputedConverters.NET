@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <UseWPF>true</UseWPF>
+		<LangVersion>latest</LangVersion>
+        <AssemblyName>ComputedConverters.Test</AssemblyName>
+    </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+	</ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\ComputedConverters.WPF\ComputedConverters.WPF.csproj" />
+    </ItemGroup>
+
+</Project>
