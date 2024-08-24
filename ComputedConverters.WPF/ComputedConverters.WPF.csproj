@@ -15,7 +15,7 @@
 		<Version>$(VersionPrefix)0.0.1.0</Version>
 		<Authors>ema</Authors>
 		<Company>ema</Company>
-		<Description>ComputedConverters provides you with XAML markup that allows you to write inline converters (Vue-like computed method) and expand some converters commonly used.</Description>
+		<Description>Vue-like computed in .NET XAML markup.</Description>
 		<PackageProjectUrl>https://github.com/emako/wpfui.violeta</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/emako/wpfui.violeta</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
