@@ -5,13 +5,11 @@ using System.Windows.Data;
 namespace ComputedConverters;
 
 [ValueConversion(typeof(string), typeof(bool))]
-public sealed class StringStartsWithConverter : IValueConverter
+public sealed class StringStartsWithConverter : SingletonValueConverterBase<StringStartsWithConverter>
 {
-    public static StringStartsWithConverter Instance { get; } = new();
-
     public StringComparison ComparisonType { get; set; } = StringComparison.OrdinalIgnoreCase;
 
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is string inputString && parameter is not null)
         {
@@ -20,7 +18,7 @@ public sealed class StringStartsWithConverter : IValueConverter
         return false;
     }
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         bool isChecked = (bool)value!;
 

@@ -5,13 +5,11 @@ using System.Windows.Data;
 namespace ComputedConverters;
 
 [ValueConversion(typeof(object), typeof(bool))]
-public sealed class EqualityConverter : IValueConverter
+public sealed class EqualityConverter : SingletonValueConverterBase<EqualityConverter>
 {
-    public static EqualityConverter Instance { get; } = new();
-
     public bool Invert { get; set; } = false;
 
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         bool result = false;
 
@@ -31,7 +29,7 @@ public sealed class EqualityConverter : IValueConverter
         return Invert ? !result : result;
     }
 
-    public object? ConvertBack(object? value, Type targetTypes, object? parameter, CultureInfo culture)
+    public override object? ConvertBack(object? value, Type targetTypes, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

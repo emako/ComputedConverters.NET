@@ -5,11 +5,9 @@ using System.Windows.Data;
 namespace ComputedConverters;
 
 [ValueConversion(typeof(string), typeof(string))]
-public sealed class StringTrimEndConverter : IValueConverter
+public sealed class StringTrimEndConverter : SingletonValueConverterBase<StringTrimEndConverter>
 {
-    public static StringTrimEndConverter Instance { get; } = new();
-
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (parameter is string trimChars && !string.IsNullOrEmpty(trimChars))
         {
@@ -18,7 +16,7 @@ public sealed class StringTrimEndConverter : IValueConverter
         return value?.ToString()?.TrimEnd();
     }
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         return parameter;
     }

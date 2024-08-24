@@ -6,11 +6,9 @@ using System.Windows.Data;
 namespace ComputedConverters;
 
 [ValueConversion(typeof(object), typeof(object))]
-public sealed class ChangeTypeConverter : IValueConverter
+public sealed class ChangeTypeConverter : SingletonValueConverterBase<ChangeTypeConverter>
 {
-    public static ChangeTypeConverter Instance { get; } = new();
-
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         try
         {
@@ -22,7 +20,7 @@ public sealed class ChangeTypeConverter : IValueConverter
         }
     }
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         try
         {

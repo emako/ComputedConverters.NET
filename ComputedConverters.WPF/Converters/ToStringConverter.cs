@@ -7,9 +7,9 @@ using System.Windows.Data;
 namespace ComputedConverters;
 
 [ValueConversion(typeof(object), typeof(string))]
-public sealed class ToStringConverter : IValueConverter
+public sealed class ToStringConverter : SingletonValueConverterBase<ToStringConverter>
 {
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value != null && parameter != null)
         {
@@ -24,7 +24,7 @@ public sealed class ToStringConverter : IValueConverter
         return value?.ToString();
     }
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

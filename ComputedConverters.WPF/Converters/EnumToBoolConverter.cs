@@ -6,11 +6,9 @@ using System.Windows.Data;
 namespace ComputedConverters;
 
 [ValueConversion(typeof(Enum), typeof(bool))]
-public sealed class EnumToBoolConverter : IValueConverter
+public sealed class EnumToBoolConverter : SingletonValueConverterBase<EnumToBoolConverter>
 {
-    public static EnumToBoolConverter Instance { get; } = new();
-
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value == null || parameter == null)
         {
@@ -20,7 +18,7 @@ public sealed class EnumToBoolConverter : IValueConverter
         return value.Equals(parameter);
     }
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value == null || parameter == null)
         {
