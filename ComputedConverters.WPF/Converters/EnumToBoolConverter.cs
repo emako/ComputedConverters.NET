@@ -6,9 +6,9 @@ using System.Windows.Data;
 namespace ComputedConverters;
 
 [ValueConversion(typeof(Enum), typeof(bool))]
-public sealed class EnumBooleanConverter : IValueConverter
+public sealed class EnumToBoolConverter : IValueConverter
 {
-    public static EnumBooleanConverter Instance { get; } = new();
+    public static EnumToBoolConverter Instance { get; } = new();
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
