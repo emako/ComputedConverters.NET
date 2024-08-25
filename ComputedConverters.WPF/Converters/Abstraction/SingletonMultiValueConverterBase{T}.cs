@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace ComputedConverters;
 
-public abstract class SingletonMultiValueConverterBase<TSelf> : IMultiValueConverter where TSelf : SingletonValueConverterBase<TSelf>, new()
+public abstract class SingletonMultiValueConverterBase<TSelf> : Reactive, IMultiValueConverter where TSelf : SingletonValueConverterBase<TSelf>, new()
 {
     private static TSelf? _instance = null;
 

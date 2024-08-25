@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace ComputedConverters;
 
-public abstract class Reactive : INotifyPropertyChanged
+public abstract class Reactive : DependencyObject, INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 

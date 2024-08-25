@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Collections;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
 namespace ComputedConverters;
 
-[ValueConversion(typeof(double), typeof(bool))]
-public sealed class IsNaNConverter : SingletonValueConverterBase<IsNaNConverter>
+[ValueConversion(typeof(IEnumerable), typeof(bool))]
+[ValueConversion(typeof(object), typeof(bool))]
+public sealed class IsEmptyConverter : SingletonValueConverterBase<IsEmptyConverter>
 {
     public static readonly DependencyProperty IsInvertedProperty =
-        DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(IsNaNConverter), new PropertyMetadata(false));
+        DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(IsEmptyConverter), new PropertyMetadata(false));
 
     public bool IsInverted
     {
@@ -19,13 +21,13 @@ public sealed class IsNaNConverter : SingletonValueConverterBase<IsNaNConverter>
 
     public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        bool result = false;
-
-        if (value is double { })
+        if (value is IEnumerable enumerable)
         {
-            result = double.IsNaN((double)value);
+            var hasAtLeastOne = enumerable.GetEnumerator().MoveNext();
+            return (hasAtLeastOne == false) ^ IsInverted;
         }
-        return IsInverted ? !result : result;
+
+        return true ^ IsInverted;
     }
 
     public override object? ConvertBack(object? value, Type targetTypes, object? parameter, CultureInfo culture)

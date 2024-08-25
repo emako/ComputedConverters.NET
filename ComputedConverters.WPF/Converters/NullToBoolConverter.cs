@@ -5,11 +5,11 @@ using System.Windows.Data;
 
 namespace ComputedConverters;
 
-[ValueConversion(typeof(double), typeof(bool))]
-public sealed class IsNaNConverter : SingletonValueConverterBase<IsNaNConverter>
+[ValueConversion(typeof(object), typeof(bool))]
+public sealed class NullToBoolConverter : SingletonValueConverterBase<NullToBoolConverter>
 {
     public static readonly DependencyProperty IsInvertedProperty =
-        DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(IsNaNConverter), new PropertyMetadata(false));
+        DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(NullToBoolConverter), new PropertyMetadata(false));
 
     public bool IsInverted
     {
@@ -19,13 +19,7 @@ public sealed class IsNaNConverter : SingletonValueConverterBase<IsNaNConverter>
 
     public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        bool result = false;
-
-        if (value is double { })
-        {
-            result = double.IsNaN((double)value);
-        }
-        return IsInverted ? !result : result;
+        return value == null ^ IsInverted;
     }
 
     public override object? ConvertBack(object? value, Type targetTypes, object? parameter, CultureInfo culture)

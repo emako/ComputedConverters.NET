@@ -1,19 +1,24 @@
 ﻿using System;
+using System.Collections;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
 namespace ComputedConverters;
 
-[ValueConversion(typeof(string), typeof(double))]
-public sealed class DoubleSubtractConverter : SingletonValueConverterBase<DoubleSubtractConverter>
+[ValueConversion(typeof(IEnumerable), typeof(object))]
+public sealed class FirstOrDefaultConverter : SingletonValueConverterBase<FirstOrDefaultConverter>
 {
     public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (double.TryParse(value?.ToString(), NumberStyles.Any, culture, out var basis)
-         && double.TryParse(parameter?.ToString(), NumberStyles.Any, culture, out var subtract))
+        if (value is IEnumerable enumerable)
         {
-            return basis - subtract;
+            IEnumerator enumerator = enumerable.GetEnumerator();
+
+            if (enumerator.MoveNext())
+            {
+                return enumerator.Current;
+            }
         }
 
         return DependencyProperty.UnsetValue;
