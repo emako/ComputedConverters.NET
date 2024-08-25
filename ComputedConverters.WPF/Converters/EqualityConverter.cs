@@ -6,7 +6,7 @@ using System.Windows.Data;
 namespace ComputedConverters;
 
 [ValueConversion(typeof(object), typeof(bool))]
-public sealed class EqualityConverter : SingletonValueConverterBase<EqualityConverter>
+public class EqualityConverter : SingletonValueConverterBase<EqualityConverter>
 {
     public static readonly DependencyProperty IsInvertedProperty =
         DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(EqualityConverter), new PropertyMetadata(false));
