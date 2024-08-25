@@ -6,7 +6,7 @@ using System.Windows.Data;
 namespace ComputedConverters;
 
 [ValueConversion(typeof(double), typeof(bool))]
-public sealed class IsNaNConverter : SingletonValueConverterBase<IsNaNConverter>
+public class IsNaNConverter : SingletonValueConverterBase<IsNaNConverter>
 {
     public static readonly DependencyProperty IsInvertedProperty =
         DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(IsNaNConverter), new PropertyMetadata(false));

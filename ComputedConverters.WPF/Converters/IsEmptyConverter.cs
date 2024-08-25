@@ -8,7 +8,7 @@ namespace ComputedConverters;
 
 [ValueConversion(typeof(IEnumerable), typeof(bool))]
 [ValueConversion(typeof(object), typeof(bool))]
-public sealed class IsEmptyConverter : SingletonValueConverterBase<IsEmptyConverter>
+public class IsEmptyConverter : SingletonValueConverterBase<IsEmptyConverter>
 {
     public static readonly DependencyProperty IsInvertedProperty =
         DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(IsEmptyConverter), new PropertyMetadata(false));

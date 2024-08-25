@@ -6,10 +6,10 @@ using System.Windows.Data;
 namespace ComputedConverters;
 
 [ValueConversion(typeof(object), typeof(bool))]
-public sealed class NullToBoolConverter : SingletonValueConverterBase<NullToBoolConverter>
+public class IsNullConverter : SingletonValueConverterBase<IsNullConverter>
 {
     public static readonly DependencyProperty IsInvertedProperty =
-        DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(NullToBoolConverter), new PropertyMetadata(false));
+        DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(IsNullConverter), new PropertyMetadata(false));
 
     public bool IsInverted
     {
