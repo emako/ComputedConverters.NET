@@ -12,7 +12,10 @@ public sealed class StringToUriConverter : SingletonValueConverterBase<StringToU
     {
         if (value is string uriString)
         {
-            return new Uri(uriString);
+            if (Uri.TryCreate(uriString, UriKind.RelativeOrAbsolute, out Uri? uri))
+            {
+                return uri;
+            }
         }
 
         return DependencyProperty.UnsetValue;

@@ -37,7 +37,10 @@ public sealed class UriToImageSourceConverter : SingletonValueConverterBase<UriT
         }
         else if (value is string uriString)
         {
-            return new Uri(uriString).ToImageSource(decodePixelWidth);
+            if (Uri.TryCreate(uriString, UriKind.RelativeOrAbsolute, out Uri? uriOk))
+            {
+                return uriOk.ToImageSource(decodePixelWidth);
+            }
         }
 
         return DependencyProperty.UnsetValue;
