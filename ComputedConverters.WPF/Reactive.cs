@@ -23,7 +23,7 @@ public abstract class Reactive : DependencyObject, INotifyPropertyChanged
         return true;
     }
 
-    protected virtual bool SetProperty<T>(ref T storage, T value, Action onChanged, [CallerMemberName] string propertyName = null)
+    protected virtual bool SetProperty<T>(ref T storage, T value, Action onChanged, [CallerMemberName] string propertyName = null!)
     {
         if (EqualityComparer<T>.Default.Equals(storage, value))
         {

@@ -11,11 +11,11 @@ public sealed class ComputedConverter : IValueConverter
     {
         throw new NotImplementedException();
 
-        if (parameter is string expression)
-        {
-            // TODO
-        }
-        return value;
+        //if (parameter is string expression)
+        //{
+        //    // TODO
+        //}
+        //return value;
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
