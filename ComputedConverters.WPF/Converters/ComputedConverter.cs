@@ -9,6 +9,8 @@ public sealed class ComputedConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
+        throw new NotImplementedException();
+
         if (parameter is string expression)
         {
             // TODO
