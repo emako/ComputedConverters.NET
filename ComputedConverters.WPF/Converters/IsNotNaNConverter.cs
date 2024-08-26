@@ -1,5 +1,5 @@
-﻿using System.Threading;
-using System;
+﻿using System;
+using System.Threading;
 using System.Windows.Data;
 
 namespace ComputedConverters;
