@@ -17,15 +17,15 @@ public sealed class BoolToThicknessConverter : SingletonValueConverterBase<BoolT
     public static readonly DependencyProperty IsInvertedProperty =
         DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(BoolToThicknessConverter), new PropertyMetadata(false));
 
-    public object TrueValue
+    public Thickness TrueValue
     {
-        get => GetValue(TrueValueProperty);
+        get => (Thickness)GetValue(TrueValueProperty);
         set => SetValue(TrueValueProperty, value);
     }
 
-    public object FalseValue
+    public Thickness FalseValue
     {
-        get => GetValue(FalseValueProperty);
+        get => (Thickness)GetValue(FalseValueProperty);
         set => SetValue(FalseValueProperty, value);
     }
 

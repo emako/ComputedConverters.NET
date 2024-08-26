@@ -17,15 +17,15 @@ public sealed class BoolToStyleConverter : SingletonValueConverterBase<BoolToSty
     public static readonly DependencyProperty IsInvertedProperty =
         DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(BoolToStyleConverter), new PropertyMetadata(false));
 
-    public object TrueValue
+    public Style? TrueValue
     {
-        get => GetValue(TrueValueProperty);
+        get => (Style)GetValue(TrueValueProperty);
         set => SetValue(TrueValueProperty, value);
     }
 
-    public object FalseValue
+    public Style? FalseValue
     {
-        get => GetValue(FalseValueProperty);
+        get => (Style)GetValue(FalseValueProperty);
         set => SetValue(FalseValueProperty, value);
     }
 

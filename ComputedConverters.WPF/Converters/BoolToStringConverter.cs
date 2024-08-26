@@ -17,15 +17,15 @@ public sealed class BoolToStringConverter : SingletonValueConverterBase<BoolToSt
     public static readonly DependencyProperty IsInvertedProperty =
         DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(BoolToStringConverter), new PropertyMetadata(false));
 
-    public object TrueValue
+    public string? TrueValue
     {
-        get => GetValue(TrueValueProperty);
+        get => (string)GetValue(TrueValueProperty);
         set => SetValue(TrueValueProperty, value);
     }
 
-    public object FalseValue
+    public string? FalseValue
     {
-        get => GetValue(FalseValueProperty);
+        get => (string)GetValue(FalseValueProperty);
         set => SetValue(FalseValueProperty, value);
     }
 

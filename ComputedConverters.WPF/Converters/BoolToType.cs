@@ -1,32 +1,31 @@
-﻿using System.Globalization;
-using System;
+﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media;
 
 namespace ComputedConverters;
 
-[ValueConversion(typeof(bool), typeof(Brush))]
-public sealed class BoolToBrushConverter : SingletonValueConverterBase<BoolToBrushConverter>
+[ValueConversion(typeof(bool), typeof(Type))]
+public sealed class BoolToTypeConverter : SingletonValueConverterBase<BoolToTypeConverter>
 {
     public static readonly DependencyProperty TrueValueProperty =
-        DependencyProperty.Register(nameof(TrueValue), typeof(Brush), typeof(BoolToBrushConverter), new PropertyMetadata(default(Brush)));
+        DependencyProperty.Register(nameof(TrueValue), typeof(Type), typeof(BoolToTypeConverter), new PropertyMetadata(default(Type)));
 
     public static readonly DependencyProperty FalseValueProperty =
-        DependencyProperty.Register(nameof(FalseValue), typeof(Brush), typeof(BoolToBrushConverter), new PropertyMetadata(default(Brush)));
+        DependencyProperty.Register(nameof(FalseValue), typeof(Type), typeof(BoolToTypeConverter), new PropertyMetadata(default(Type)));
 
     public static readonly DependencyProperty IsInvertedProperty =
-        DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(BoolToBrushConverter), new PropertyMetadata(false));
+        DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(BoolToTypeConverter), new PropertyMetadata(false));
 
-    public Brush? TrueValue
+    public Type? TrueValue
     {
-        get => (Brush)GetValue(TrueValueProperty);
+        get => (Type)GetValue(TrueValueProperty);
         set => SetValue(TrueValueProperty, value);
     }
 
-    public Brush? FalseValue
+    public Type? FalseValue
     {
-        get => (Brush)GetValue(FalseValueProperty);
+        get => (Type)GetValue(FalseValueProperty);
         set => SetValue(FalseValueProperty, value);
     }
 

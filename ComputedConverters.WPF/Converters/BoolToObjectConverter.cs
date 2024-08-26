@@ -17,13 +17,13 @@ public sealed class BoolToObjectConverter : SingletonValueConverterBase<BoolToOb
     public static readonly DependencyProperty IsInvertedProperty =
         DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(BoolToObjectConverter), new PropertyMetadata(false));
 
-    public object TrueValue
+    public object? TrueValue
     {
         get => GetValue(TrueValueProperty);
         set => SetValue(TrueValueProperty, value);
     }
 
-    public object FalseValue
+    public object? FalseValue
     {
         get => GetValue(FalseValueProperty);
         set => SetValue(FalseValueProperty, value);

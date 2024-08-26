@@ -17,15 +17,15 @@ public sealed class BoolToVisibilityConverter : SingletonValueConverterBase<Bool
     public static readonly DependencyProperty IsInvertedProperty =
         DependencyProperty.Register(nameof(IsInverted), typeof(bool), typeof(BoolToVisibilityConverter), new PropertyMetadata(false));
 
-    public object TrueValue
+    public Visibility TrueValue
     {
-        get => GetValue(TrueValueProperty);
+        get => (Visibility)GetValue(TrueValueProperty);
         set => SetValue(TrueValueProperty, value);
     }
 
-    public object FalseValue
+    public Visibility FalseValue
     {
-        get => GetValue(FalseValueProperty);
+        get => (Visibility)GetValue(FalseValueProperty);
         set => SetValue(FalseValueProperty, value);
     }
 
