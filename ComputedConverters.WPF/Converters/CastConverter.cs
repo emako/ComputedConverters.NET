@@ -6,7 +6,7 @@ using System.Windows.Data;
 namespace ComputedConverters;
 
 [ValueConversion(typeof(object), typeof(object))]
-public sealed class ChangeTypeConverter : SingletonValueConverterBase<ChangeTypeConverter>
+public sealed class CastConverter : SingletonValueConverterBase<CastConverter>
 {
     public Type? TargetType
     {
@@ -15,7 +15,7 @@ public sealed class ChangeTypeConverter : SingletonValueConverterBase<ChangeType
     }
 
     public static readonly DependencyProperty TargetTypeProperty =
-        DependencyProperty.Register(nameof(TargetType), typeof(Type), typeof(ChangeTypeConverter), new PropertyMetadata(null));
+        DependencyProperty.Register(nameof(TargetType), typeof(Type), typeof(CastConverter), new PropertyMetadata(null));
 
     public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
