@@ -12,7 +12,7 @@ public sealed class IfConverter : Reactive, IValueConverter
         DependencyProperty.Register(nameof(Condition), typeof(bool), typeof(IfConverter), new PropertyMetadata(false));
 
     public static readonly DependencyProperty TrueValueProperty =
-    DependencyProperty.Register(nameof(TrueValue), typeof(object), typeof(IfConverter), new PropertyMetadata(default(object)));
+        DependencyProperty.Register(nameof(TrueValue), typeof(object), typeof(IfConverter), new PropertyMetadata(default(object)));
 
     public static readonly DependencyProperty FalseValueProperty =
         DependencyProperty.Register(nameof(FalseValue), typeof(object), typeof(IfConverter), new PropertyMetadata(default(object)));
