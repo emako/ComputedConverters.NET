@@ -100,11 +100,19 @@ public class DynamicSingleConverter : IValueConverter
                 LastException = e;
                 ++ExceptionCount;
                 if (Debugger.IsAttached)
+                {
                     Console.WriteLine("QuickMultiConverter Exception (\"" + (convertingBack ? ConvertBackExpression : ConvertExpression) + "\") - " + e.Message + (e.InnerException != null ? " (Inner - " + e.InnerException.Message + ")" : ""));
+                }
+
                 if (convertingBack)
+                {
                     EquationTokenizer.ThrowQuickConverterEvent(new RuntimeSingleConvertExceptionEventArgs(ConvertBackExpression, ConvertBackExpressionDebugView, null!, value, _values, parameter, this, e));
+                }
                 else
+                {
                     EquationTokenizer.ThrowQuickConverterEvent(new RuntimeSingleConvertExceptionEventArgs(ConvertExpression, ConvertExpressionDebugView, value, null!, _values, parameter, this, e));
+                }
+
                 return DependencyProperty.UnsetValue;
             }
             finally
@@ -112,8 +120,10 @@ public class DynamicSingleConverter : IValueConverter
                 var dataContainers = convertingBack ? _fromDataContainers : _toDataContainers;
                 if (dataContainers != null)
                 {
-                    foreach (var container in dataContainers)
+                    foreach (DataContainer container in dataContainers)
+                    {
                         container.Value = null;
+                    }
                 }
             }
         }

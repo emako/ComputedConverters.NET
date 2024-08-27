@@ -16,15 +16,22 @@ public sealed class ColorExtension(object? value) : MarkupExtension
 
     public override object? ProvideValue(IServiceProvider serviceProvider)
     {
-        return Value switch
+        try
         {
-            null => Colors.Transparent,
-            string => (Color)ColorConverter.ConvertFromString((string)Value),
-            Color => (Color)Value,
-            SolidColorBrush => ((SolidColorBrush)Value).Color,
-            LinearGradientBrush => ((LinearGradientBrush)Value).GradientStops[0].Color,
-            RadialGradientBrush => ((RadialGradientBrush)Value).GradientStops[0].Color,
-            _ => throw new InvalidOperationException("Value must be a string, Color, SolidColorBrush, LinearGradientBrush or RadialGradientBrush."),
-        };
+            return Value switch
+            {
+                null or "" => Colors.Transparent,
+                string => (Color)ColorConverter.ConvertFromString((string)Value),
+                Color => (Color)Value,
+                SolidColorBrush => ((SolidColorBrush)Value).Color,
+                LinearGradientBrush => ((LinearGradientBrush)Value).GradientStops[0].Color,
+                RadialGradientBrush => ((RadialGradientBrush)Value).GradientStops[0].Color,
+                _ => throw new InvalidOperationException("Value must be a string, Color, SolidColorBrush, LinearGradientBrush or RadialGradientBrush."),
+            };
+        }
+        catch
+        {
+            return Colors.Transparent;
+        }
     }
 }

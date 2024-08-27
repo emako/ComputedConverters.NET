@@ -14,4 +14,10 @@ public partial class MainViewModel : ObservableObject
     {
         Application.Current.Resources[GuidKey] = Guid.NewGuid().ToString();
     }
+
+    [ObservableProperty]
+    private int state = 1;
+
+    [ObservableProperty]
+    private int value = 2;
 }

@@ -12,6 +12,10 @@ public sealed class CastExtension(object? value, Type? targetType) : MarkupExten
     [ConstructorArgument("targetType")]
     public Type? TargetType { get; set; } = targetType;
 
+    public CastExtension(object? value) : this(value, default)
+    {
+    }
+
     public CastExtension() : this(default, default)
     {
     }

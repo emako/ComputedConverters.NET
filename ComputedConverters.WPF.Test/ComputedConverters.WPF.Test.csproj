@@ -8,10 +8,23 @@
         <UseWPF>true</UseWPF>
 		<LangVersion>latest</LangVersion>
         <AssemblyName>ComputedConverters.Test</AssemblyName>
+        <ApplicationIcon>..\Images\logo.ico</ApplicationIcon>
     </PropertyGroup>
+
+    <ItemGroup>
+        <Resource Include="..\Images\logo.ico" />
+    </ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="" />
+		<None Include="..\Images\logo.ico" Pack="true" PackagePath="" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="EleCho.WpfSuite" Version="0.7.2" />
+		<PackageReference Include="WPF-UI" Version="3.0.5" />
+		<PackageReference Include="WPF-UI.Violeta" Version="3.0.5.4" />
 	</ItemGroup>
 
     <ItemGroup>

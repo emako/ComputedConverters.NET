@@ -4,10 +4,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:cc="urn:ComputedConverters"
     xmlns:local="clr-namespace:ComputedConverters.Test"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:vio="http://schemas.lepo.co/wpfui/2022/xaml/violeta"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <cc:String
-            x:Key="Guid"
-            Value="b5ffd5f4-12c1-49ae-bb40-18da2f7643a7" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ui:ThemesDictionary Theme="Dark" />
+                <ui:ControlsDictionary />
+                <vio:ControlsDictionary />
+            </ResourceDictionary.MergedDictionaries>
+            <cc:String
+                x:Key="Guid"
+                Value="b5ffd5f4-12c1-49ae-bb40-18da2f7643a7" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
