@@ -611,5 +611,5 @@ public static class EquationTokenizer
         QuickConverterEvent?.Invoke(args);
     }
 
-    public static event QuickConverterEventHandler QuickConverterEvent;
+    public static event QuickConverterEventHandler? QuickConverterEvent;
 }

@@ -83,7 +83,7 @@ public class StaticFunctionToken : TokenBase
             if (i < Arguments.Arguments.Length)
             {
                 CallSiteBinder binder = Binder.Convert(CSharpBinderFlags.None, pars[i].ParameterType, dynamicContext ?? typeof(object));
-                args[i] = Expression.Dynamic(binder, pars[i].ParameterType, Arguments.Arguments[i].GetExpression(parameters, locals, dataContainers, dynamicContext, label));
+                args[i] = Expression.Dynamic(binder, pars[i].ParameterType, Arguments.Arguments[i].GetExpression(parameters, locals, dataContainers, dynamicContext!, label));
             }
             else
             {

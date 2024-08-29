@@ -53,7 +53,7 @@ public class InstanceMemberToken : TokenBase, IPostToken
 
     internal override Expression GetExpression(List<ParameterExpression> parameters, Dictionary<string, ConstantExpression> locals, List<DataContainer> dataContainers, Type dynamicContext, LabelTarget label, bool requiresReturnValue = true)
     {
-        CallSiteBinder binder = Binder.GetMember(CSharpBinderFlags.None, MemberName, dynamicContext ?? typeof(object), new[] { CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null) });
-        return Expression.Dynamic(binder, typeof(object), Target.GetExpression(parameters, locals, dataContainers, dynamicContext, label));
+        CallSiteBinder binder = Binder.GetMember(CSharpBinderFlags.None, MemberName, dynamicContext ?? typeof(object), [CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null)]);
+        return Expression.Dynamic(binder, typeof(object), Target.GetExpression(parameters, locals, dataContainers, dynamicContext!, label));
     }
 }

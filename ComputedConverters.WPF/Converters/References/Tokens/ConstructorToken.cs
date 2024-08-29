@@ -203,7 +203,7 @@ public class ConstructorToken : TokenBase
                 List<Expression> args = [];
                 for (int i = 0; i < info.Length; ++i)
                 {
-                    args.Add(Expression.Dynamic(Binder.Convert(CSharpBinderFlags.None, info[i].ParameterType, dynamicContext ?? typeof(object)), info[i].ParameterType, Arguments.Arguments[i].GetExpression(parameters, locals, dataContainers, dynamicContext, label)));
+                    args.Add(Expression.Dynamic(Binder.Convert(CSharpBinderFlags.None, info[i].ParameterType, dynamicContext ?? typeof(object)), info[i].ParameterType, Arguments.Arguments[i].GetExpression(parameters, locals, dataContainers, dynamicContext!, label)));
                 }
 
                 exp = Expression.New(Constructor, args);
@@ -223,7 +223,7 @@ public class ConstructorToken : TokenBase
                 }
                 else
                 {
-                    exp = Expression.ListInit((exp as NewExpression)!, ConvertInitializers(Initializers, parameters, locals, dataContainers, dynamicContext, null!, label).Cast<ElementInit>());
+                    exp = Expression.ListInit((exp as NewExpression)!, ConvertInitializers(Initializers, parameters, locals, dataContainers, dynamicContext!, null!, label).Cast<ElementInit>());
                 }
             }
         }

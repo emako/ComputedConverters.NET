@@ -91,7 +91,7 @@ public class InstanceFunctionToken : TokenBase, IPostToken
     internal override Expression GetExpression(List<ParameterExpression> parameters, Dictionary<string, ConstantExpression> locals, List<DataContainer> dataContainers, Type dynamicContext, LabelTarget label, bool requiresReturnValue = true)
     {
         CallSiteBinder binder = Binder.InvokeMember(requiresReturnValue ? CSharpBinderFlags.None : CSharpBinderFlags.ResultDiscarded, MethodName, Types, dynamicContext ?? typeof(object), new object[Arguments.Arguments.Length + 1].Select(val => CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null)));
-        Expression dynamicCall = Expression.Dynamic(binder, requiresReturnValue ? typeof(object) : typeof(void), new[] { Target.GetExpression(parameters, locals, dataContainers, dynamicContext, label) }.Concat(Arguments.Arguments.Select(token => token.GetExpression(parameters, locals, dataContainers, dynamicContext, label))));
+        Expression dynamicCall = Expression.Dynamic(binder, requiresReturnValue ? typeof(object) : typeof(void), new[] { Target.GetExpression(parameters, locals, dataContainers, dynamicContext!, label) }.Concat(Arguments.Arguments.Select(token => token.GetExpression(parameters, locals, dataContainers, dynamicContext!, label))));
 
         var targetVar = Expression.Variable(typeof(object));
         var argsVar = Expression.Variable(typeof(object[]));
@@ -111,8 +111,8 @@ public class InstanceFunctionToken : TokenBase, IPostToken
 
             Expression block = Expression.Block([targetVar, argsVar, methodVar],
             [
-                Expression.Assign(targetVar, Target.GetExpression(parameters, locals, dataContainers, dynamicContext, label)),
-                Expression.Assign(argsVar, Expression.NewArrayInit(typeof(object), new[] { targetVar }.Concat(Arguments.Arguments.Select(token => token.GetExpression(parameters, locals, dataContainers, dynamicContext, label))))),
+                Expression.Assign(targetVar, Target.GetExpression(parameters, locals, dataContainers, dynamicContext!, label)),
+                Expression.Assign(argsVar, Expression.NewArrayInit(typeof(object), new[] { targetVar }.Concat(Arguments.Arguments.Select(token => token.GetExpression(parameters, locals, dataContainers, dynamicContext!, label))))),
                 Expression.Assign(methodVar, Expression.Call(GetMethod, Expression.Constant(MethodName, typeof(string)), Expression.Constant(Types, typeof(Type[])), argsVar)),
                 branch,
                 resultVar
@@ -130,8 +130,8 @@ public class InstanceFunctionToken : TokenBase, IPostToken
 
             Expression block = Expression.Block(typeof(void), [targetVar, argsVar, methodVar],
             [
-                Expression.Assign(targetVar, Target.GetExpression(parameters, locals, dataContainers, dynamicContext, label)),
-                Expression.Assign(argsVar, Expression.NewArrayInit(typeof(object), new[] { targetVar }.Concat(Arguments.Arguments.Select(token => token.GetExpression(parameters, locals, dataContainers, dynamicContext, label))))),
+                Expression.Assign(targetVar, Target.GetExpression(parameters, locals, dataContainers, dynamicContext!, label)),
+                Expression.Assign(argsVar, Expression.NewArrayInit(typeof(object), new[] { targetVar }.Concat(Arguments.Arguments.Select(token => token.GetExpression(parameters, locals, dataContainers, dynamicContext!, label))))),
                 Expression.Assign(methodVar, Expression.Call(GetMethod, Expression.Constant(MethodName, typeof(string)), Expression.Constant(Types, typeof(Type[])), argsVar)),
                 branch
             ]);
