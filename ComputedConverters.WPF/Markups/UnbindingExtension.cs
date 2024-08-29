@@ -43,6 +43,10 @@ public sealed class UnbindingExtension(object? resourceKey) : MarkupExtension
                 }
             }
         }
+        else if (ResourceKey is MarkupExtension markup)
+        {
+            return markup.ProvideValue(serviceProvider);
+        }
 
         return DependencyProperty.UnsetValue;
     }
