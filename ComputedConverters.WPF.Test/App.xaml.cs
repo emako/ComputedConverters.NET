@@ -12,6 +12,8 @@ public partial class App : Application
         // Add the System.Windows namespace so we can use Visibility.Collapsed, etc.
         EquationTokenizer.AddNamespace(typeof(System.Windows.Visibility));
 
+        //I18nManager.Instance.Add(ComputedConverters.WPF.Test.Properties.Resources.ResourceManager);
+
         InitializeComponent();
     }
 }

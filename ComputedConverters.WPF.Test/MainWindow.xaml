@@ -79,6 +79,7 @@
                 </ws:StackPanel>
             </ui:Card>
             <!-- IfConverter -->
+            <!-- If -->
             <ui:Card>
                 <ws:StackPanel>
                     <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
@@ -130,6 +131,18 @@
                             </cc:If.FalseValue>
                         </cc:If>
                     </UserControl>
+                </ws:StackPanel>
+            </ui:Card>
+            <!-- I18N -->
+            <ui:Card>
+                <ws:StackPanel>
+                    <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
+                        <TextBlock.Inlines>
+                            <TextBlock>Markup:</TextBlock>
+                            <TextBlock>I18N</TextBlock>
+                        </TextBlock.Inlines>
+                    </TextBlock>
+                    <TextBlock Text="{cc:I18n AboutProgram}" />
                 </ws:StackPanel>
             </ui:Card>
         </ws:WrapPanel>

@@ -3,25 +3,28 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
+using System.Reflection;
 using System.Resources;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
+using System.Xaml;
 
 namespace ComputedConverters;
 
 [MarkupExtensionReturnType(typeof(object))]
-public sealed class EmbeddedResourceExtension(ComponentResourceKey key) : I18nExtension(key)
+public sealed class EmbeddedResourceExtension(string key) : I18nExtension(key)
 {
 }
 
 [MarkupExtensionReturnType(typeof(object))]
-public class I18nExtension(ComponentResourceKey key) : MarkupExtension
+public class I18nExtension(string key) : MarkupExtension
 {
     private static readonly I18nResourceConverter I18NResourceConverter = new();
 
     [ConstructorArgument(nameof(Key))]
-    public ComponentResourceKey Key { get; set; } = key;
+    public string Key { get; set; } = key;
 
     public override object? ProvideValue(IServiceProvider serviceProvider)
     {
@@ -40,9 +43,27 @@ public class I18nExtension(ComponentResourceKey key) : MarkupExtension
             return this;
         }
 
+        if (serviceProvider.GetService(typeof(IRootObjectProvider)) is not IRootObjectProvider rootObjectProvider)
+        {
+            throw new ArgumentException($"The {nameof(serviceProvider)} must implement {nameof(IRootObjectProvider)} interface.");
+        }
+
+        Type typeInTargetAssembly = rootObjectProvider.RootObject.GetType().Assembly.DefinedTypes.Where(t => t.FullName?.EndsWith(".Properties.Resources") ?? false).FirstOrDefault()
+            ?? throw new InvalidOperationException($"File `Resources.Designer.cs` can not be found from requested assembly.");
+
+        if (!I18nManager.Instance.Contains(typeInTargetAssembly.FullName!))
+        {
+            // Store ResourceManager from `Properties.Resources.ResourceManager`.
+            PropertyInfo resourceManagerProperty = typeInTargetAssembly.GetProperty("ResourceManager", BindingFlags.Static | BindingFlags.Public)
+                 ?? throw new InvalidOperationException($"Property `ResourceManager` can not be found from file `Resources.Designer.cs`.");
+            ResourceManager resourceManager = (ResourceManager)resourceManagerProperty.GetValue(null)!;
+            
+            I18nManager.Instance.Add(resourceManager);
+        }
+
         return new Binding(nameof(I18nSource.Value))
         {
-            Source = new I18nSource(Key, provideValueTarget.TargetObject),
+            Source = new I18nSource(new ComponentResourceKey(typeInTargetAssembly, Key), provideValueTarget.TargetObject),
             Mode = BindingMode.OneWay,
             Converter = I18NResourceConverter
         }.ProvideValue(serviceProvider);
@@ -143,7 +164,9 @@ public class I18nManager : INotifyPropertyChanged
     public void Add(ResourceManager resourceManager)
     {
         if (_resourceManagerStorage.ContainsKey(resourceManager.BaseName))
+        {
             throw new ArgumentException($"The ResourceManager named {resourceManager.BaseName} already exists, cannot be added repeatedly. ", nameof(resourceManager));
+        }
 
         _resourceManagerStorage[resourceManager.BaseName] = resourceManager;
     }
@@ -152,6 +175,12 @@ public class I18nManager : INotifyPropertyChanged
     {
         return GetCurrentResourceManager(key.TypeInTargetAssembly.FullName!)?
             .GetObject(key.ResourceId.ToString()!, CurrentUICulture) ?? $"<MISSING: {key}>";
+    }
+
+
+    public bool Contains(string key)
+    {
+        return _resourceManagerStorage.ContainsKey(key);
     }
 
     private ResourceManager GetCurrentResourceManager(string key)
