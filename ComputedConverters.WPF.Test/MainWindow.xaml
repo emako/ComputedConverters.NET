@@ -110,6 +110,26 @@
                         </TextBlock.Text>
                     </TextBlock>
                     <TextBlock Text="{cc:Binding '$P == 1 ? \'is 1\' : \'is 2\'', P={Binding State}}" />
+                    <UserControl>
+                        <cc:If Condition="{Binding IsLoading}">
+                            <cc:If.TrueValue>
+                                <TextBlock Text="1" />
+                            </cc:If.TrueValue>
+                            <cc:If.FalseValue>
+                                <TextBlock Text="0" />
+                            </cc:If.FalseValue>
+                        </cc:If>
+                    </UserControl>
+                    <UserControl>
+                        <cc:If ConditionValue="True">
+                            <cc:If.TrueValue>
+                                <TextBlock Text="1" />
+                            </cc:If.TrueValue>
+                            <cc:If.FalseValue>
+                                <TextBlock Text="0" />
+                            </cc:If.FalseValue>
+                        </cc:If>
+                    </UserControl>
                 </ws:StackPanel>
             </ui:Card>
         </ws:WrapPanel>

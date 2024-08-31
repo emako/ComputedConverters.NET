@@ -20,4 +20,7 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty]
     private int value = 2;
+
+    [ObservableProperty]
+    public bool isLoading = true;
 }
