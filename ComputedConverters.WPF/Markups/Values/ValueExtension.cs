@@ -6,10 +6,10 @@ namespace ComputedConverters;
 [MarkupExtensionReturnType(typeof(object))]
 public sealed class ValueExtension(string? value, Type? targetType) : MarkupExtension
 {
-    [ConstructorArgument("targetType")]
+    [ConstructorArgument(nameof(TargetType))]
     public Type? TargetType { get; set; } = targetType;
 
-    [ConstructorArgument("value")]
+    [ConstructorArgument(nameof(Value))]
     public string? Value { get; set; } = value;
 
     public ValueExtension() : this(default, default)

@@ -6,7 +6,7 @@ namespace ComputedConverters;
 [MarkupExtensionReturnType(typeof(decimal))]
 public sealed class DecimalExtension(decimal value) : MarkupExtension
 {
-    [ConstructorArgument("value")]
+    [ConstructorArgument(nameof(Value))]
     public decimal Value { get; set; } = value;
 
     public DecimalExtension() : this(default)

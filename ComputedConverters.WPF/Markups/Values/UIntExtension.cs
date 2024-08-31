@@ -6,7 +6,7 @@ namespace ComputedConverters;
 [MarkupExtensionReturnType(typeof(uint))]
 public sealed class UIntExtension(uint value) : MarkupExtension
 {
-    [ConstructorArgument("value")]
+    [ConstructorArgument(nameof(Value))]
     public uint Value { get; set; } = value;
 
     public UIntExtension() : this(default)

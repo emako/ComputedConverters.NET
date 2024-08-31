@@ -7,7 +7,7 @@ namespace ComputedConverters;
 [MarkupExtensionReturnType(typeof(Brush))]
 public sealed class SolidColorBrushExtension(object? value) : MarkupExtension
 {
-    [ConstructorArgument("value")]
+    [ConstructorArgument(nameof(Value))]
     public object? Value { get; set; } = value;
 
     public bool Freeze { get; set; } = false;

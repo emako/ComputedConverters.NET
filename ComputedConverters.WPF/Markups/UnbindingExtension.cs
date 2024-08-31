@@ -10,7 +10,7 @@ namespace ComputedConverters;
 [MarkupExtensionReturnType(typeof(object))]
 public sealed class UnbindingExtension(object? resourceKey) : MarkupExtension
 {
-    [ConstructorArgument("resourceKey")]
+    [ConstructorArgument(nameof(ResourceKey))]
     public object? ResourceKey { get; set; } = resourceKey;
 
     public UnbindingExtension() : this(default)

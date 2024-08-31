@@ -7,7 +7,7 @@ namespace ComputedConverters;
 [MarkupExtensionReturnType(typeof(bool))]
 public sealed class LogicalNotExtension(object? value) : MarkupExtension
 {
-    [ConstructorArgument("value")]
+    [ConstructorArgument(nameof(Value))]
     public object? Value { get; set; } = value;
 
     public LogicalNotExtension() : this(default)

@@ -6,7 +6,7 @@ namespace ComputedConverters;
 [MarkupExtensionReturnType(typeof(byte))]
 public sealed class ByteExtension(byte value) : MarkupExtension
 {
-    [ConstructorArgument("value")]
+    [ConstructorArgument(nameof(Value))]
     public byte Value { get; set; } = value;
 
     public ByteExtension() : this(default)

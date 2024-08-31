@@ -6,7 +6,7 @@ namespace ComputedConverters;
 [MarkupExtensionReturnType(typeof(short))]
 public sealed class ShortExtension(short value) : MarkupExtension
 {
-    [ConstructorArgument("value")]
+    [ConstructorArgument(nameof(Value))]
     public short Value { get; set; } = value;
 
     public ShortExtension() : this(default)

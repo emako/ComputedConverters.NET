@@ -6,7 +6,7 @@ namespace ComputedConverters;
 [MarkupExtensionReturnType(typeof(long))]
 public sealed class LongExtension(long value) : MarkupExtension
 {
-    [ConstructorArgument("value")]
+    [ConstructorArgument(nameof(Value))]
     public long Value { get; set; } = value;
 
     public LongExtension() : this(default)

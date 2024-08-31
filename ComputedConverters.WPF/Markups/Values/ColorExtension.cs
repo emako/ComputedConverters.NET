@@ -7,7 +7,7 @@ namespace ComputedConverters;
 [MarkupExtensionReturnType(typeof(Color))]
 public sealed class ColorExtension(object? value) : MarkupExtension
 {
-    [ConstructorArgument("value")]
+    [ConstructorArgument(nameof(Value))]
     public object? Value { get; set; } = value;
 
     public ColorExtension() : this(default)

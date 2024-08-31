@@ -6,7 +6,7 @@ namespace ComputedConverters;
 [MarkupExtensionReturnType(typeof(bool))]
 public sealed class BoolExtension(bool value) : MarkupExtension
 {
-    [ConstructorArgument("value")]
+    [ConstructorArgument(nameof(Value))]
     public bool Value { get; set; } = value;
 
     public BoolExtension() : this(default)

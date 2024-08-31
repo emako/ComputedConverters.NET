@@ -13,7 +13,7 @@ namespace ComputedConverters;
 [MarkupExtensionReturnType(typeof(object))]
 public sealed class DynamicResourceExtension(object? resourceKey) : MarkupExtension
 {
-    [ConstructorArgument("resourceKey")]
+    [ConstructorArgument(nameof(ResourceKey))]
     public object? ResourceKey { get; set; } = resourceKey;
 
     private DependencyProperty? targetProperty;

@@ -6,7 +6,7 @@ namespace ComputedConverters;
 [MarkupExtensionReturnType(typeof(char))]
 public sealed class CharExtension(char value) : MarkupExtension
 {
-    [ConstructorArgument("value")]
+    [ConstructorArgument(nameof(Value))]
     public char Value { get; set; } = value;
 
     public CharExtension() : this(default)

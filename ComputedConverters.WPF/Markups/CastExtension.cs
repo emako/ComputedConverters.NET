@@ -6,10 +6,10 @@ namespace ComputedConverters;
 [MarkupExtensionReturnType(typeof(object))]
 public sealed class CastExtension(object? value, Type? targetType) : MarkupExtension
 {
-    [ConstructorArgument("value")]
+    [ConstructorArgument(nameof(Value))]
     public object? Value { get; set; } = value;
 
-    [ConstructorArgument("targetType")]
+    [ConstructorArgument(nameof(TargetType))]
     public Type? TargetType { get; set; } = targetType;
 
     public CastExtension(object? value) : this(value, default)
