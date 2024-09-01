@@ -3,13 +3,19 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
+using System.Threading;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Interop;
 using System.Windows.Markup;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Xaml;
+using static ComputedConverters.Interop;
 
 namespace ComputedConverters;
 
@@ -21,8 +27,6 @@ public sealed class EmbeddedResourceExtension(string key) : I18nExtension(key)
 [MarkupExtensionReturnType(typeof(object))]
 public class I18nExtension(string key) : MarkupExtension
 {
-    private static readonly I18nResourceConverter I18NResourceConverter = new();
-
     [ConstructorArgument(nameof(Key))]
     public string Key { get; set; } = key;
 
@@ -57,7 +61,7 @@ public class I18nExtension(string key) : MarkupExtension
             PropertyInfo resourceManagerProperty = typeInTargetAssembly.GetProperty("ResourceManager", BindingFlags.Static | BindingFlags.Public)
                  ?? throw new InvalidOperationException($"Property `ResourceManager` can not be found from file `Resources.Designer.cs`.");
             ResourceManager resourceManager = (ResourceManager)resourceManagerProperty.GetValue(null)!;
-            
+
             I18nManager.Instance.Add(resourceManager);
         }
 
@@ -65,18 +69,73 @@ public class I18nExtension(string key) : MarkupExtension
         {
             Source = new I18nSource(new ComponentResourceKey(typeInTargetAssembly, Key), provideValueTarget.TargetObject),
             Mode = BindingMode.OneWay,
-            Converter = I18NResourceConverter
+            Converter = I18nResourceConverter.Instance,
         }.ProvideValue(serviceProvider);
     }
 
     private class I18nResourceConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        private static readonly Lazy<I18nResourceConverter> _instance = new(() => new I18nResourceConverter(), LazyThreadSafetyMode.PublicationOnly);
+
+        public static I18nResourceConverter Instance => _instance.Value;
+
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
+            if (value == null)
+            {
+                return null;
+            }
+
+            if (value.GetType().FullName == "System.Drawing.Bitmap")
+            {
+                dynamic bitmap = value;
+                nint hBitmap = bitmap.GetHbitmap();
+                ImageSource imageSource = Imaging.CreateBitmapSourceFromHBitmap(
+                    hBitmap,
+                    IntPtr.Zero,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions()
+                );
+
+                _ = Gdi32.DeleteObject(hBitmap);
+                return imageSource;
+            }
+            else if (value.GetType().FullName == "System.Drawing.Image")
+            {
+                dynamic image = value;
+                using MemoryStream memoryStream = new();
+                dynamic imageFormatPng = value.GetType().Assembly
+                    .GetType("System.Drawing.Imaging.ImageFormat")!
+                    .GetField("Png", BindingFlags.Public | BindingFlags.Static)!
+                    .GetValue(null)!;
+
+                image.Save(memoryStream, imageFormatPng);
+
+                BitmapImage imageSource = new();
+
+                imageSource.BeginInit();
+                imageSource.StreamSource = memoryStream;
+                imageSource.CacheOption = BitmapCacheOption.OnLoad;
+                imageSource.EndInit();
+                imageSource.Freeze();
+
+                return imageSource;
+            }
+            else if (value.GetType().FullName == "System.Drawing.Icon")
+            {
+                dynamic icon = value;
+                ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
+                    icon.Handle,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions());
+
+                return imageSource;
+            }
+
             return value;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }
@@ -176,7 +235,6 @@ public class I18nManager : INotifyPropertyChanged
         return GetCurrentResourceManager(key.TypeInTargetAssembly.FullName!)?
             .GetObject(key.ResourceId.ToString()!, CurrentUICulture) ?? $"<MISSING: {key}>";
     }
-
 
     public bool Contains(string key)
     {

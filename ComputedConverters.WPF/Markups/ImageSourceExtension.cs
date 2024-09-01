@@ -24,47 +24,59 @@ public sealed class ImageSourceExtension(object? value) : MarkupExtension
 
     public override object? ProvideValue(IServiceProvider serviceProvider)
     {
-        if (Value != null)
+        if (Value == null)
         {
-            if (Value.GetType().FullName == "System.Drawing.Bitmap")
+            return null;
+        }
+
+        if (Value.GetType().FullName == "System.Drawing.Bitmap")
+        {
+            dynamic bitmap = Value;
+            nint hBitmap = bitmap.GetHbitmap();
+            ImageSource imageSource = Imaging.CreateBitmapSourceFromHBitmap(
+                hBitmap,
+                IntPtr.Zero,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions()
+            );
+
+            _ = Gdi32.DeleteObject(hBitmap);
+            return imageSource;
+        }
+        else if (Value.GetType().FullName == "System.Drawing.Image")
+        {
+            dynamic image = Value;
+            using MemoryStream memoryStream = new();
+            dynamic imageFormatPng = Value.GetType().Assembly
+                .GetType("System.Drawing.Imaging.ImageFormat")!
+                .GetField("Png", BindingFlags.Public | BindingFlags.Static)!
+                .GetValue(null)!;
+
+            image.Save(memoryStream, imageFormatPng);
+
+            BitmapImage imageSource = new();
+
+            imageSource.BeginInit();
+            imageSource.StreamSource = memoryStream;
+            imageSource.CacheOption = BitmapCacheOption.OnLoad;
+            if (DecodePixelWidth != null)
             {
-                dynamic bitmap = Value;
-                nint hBitmap = bitmap.GetHbitmap();
-                ImageSource imageSource = Imaging.CreateBitmapSourceFromHBitmap(
-                    hBitmap,
-                    IntPtr.Zero,
-                    Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions()
-                );
-
-                _ = Gdi32.DeleteObject(hBitmap);
-                return imageSource;
+                imageSource.DecodePixelWidth = DecodePixelWidth.Value;
             }
-            else if (Value.GetType().FullName == "System.Drawing.Image")
-            {
-                dynamic image = Value;
-                using MemoryStream memoryStream = new();
-                dynamic imageFormatPng = Value.GetType().Assembly
-                    .GetType("System.Drawing.Imaging.ImageFormat")!
-                    .GetField("Png", BindingFlags.Public | BindingFlags.Static)!
-                    .GetValue(null)!;
+            imageSource.EndInit();
+            imageSource.Freeze();
 
-                image.Save(memoryStream, imageFormatPng);
+            return imageSource;
+        }
+        else if (Value.GetType().FullName == "System.Drawing.Icon")
+        {
+            dynamic icon = Value;
+            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
+                icon.Handle,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
 
-                BitmapImage imageSource = new();
-
-                imageSource.BeginInit();
-                imageSource.StreamSource = memoryStream;
-                imageSource.CacheOption = BitmapCacheOption.OnLoad;
-                if (DecodePixelWidth != null)
-                {
-                    imageSource.DecodePixelWidth = DecodePixelWidth.Value;
-                }
-                imageSource.EndInit();
-                imageSource.Freeze();
-
-                return imageSource;
-            }
+            return imageSource;
         }
 
         return Value switch
