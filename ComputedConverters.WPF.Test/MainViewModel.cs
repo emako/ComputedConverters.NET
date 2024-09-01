@@ -23,4 +23,8 @@ public partial class MainViewModel : ObservableObject
 
     [ObservableProperty]
     public bool isLoading = true;
+
+    public MainViewModel()
+    {
+    }
 }
