@@ -3,19 +3,14 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
 using System.Windows;
 using System.Windows.Data;
-using System.Windows.Interop;
 using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Xaml;
-using static ComputedConverters.Interop;
 
 namespace ComputedConverters;
 
@@ -81,55 +76,9 @@ public class I18nExtension(string key) : MarkupExtension
 
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if (value == null)
+            if (value?.GetType().FullName?.StartsWith("System.Drawing") ?? false)
             {
-                return null;
-            }
-
-            if (value.GetType().FullName == "System.Drawing.Bitmap")
-            {
-                dynamic bitmap = value;
-                nint hBitmap = bitmap.GetHbitmap();
-                ImageSource imageSource = Imaging.CreateBitmapSourceFromHBitmap(
-                    hBitmap,
-                    IntPtr.Zero,
-                    Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions()
-                );
-
-                _ = Gdi32.DeleteObject(hBitmap);
-                return imageSource;
-            }
-            else if (value.GetType().FullName == "System.Drawing.Image")
-            {
-                dynamic image = value;
-                using MemoryStream memoryStream = new();
-                dynamic imageFormatPng = value.GetType().Assembly
-                    .GetType("System.Drawing.Imaging.ImageFormat")!
-                    .GetField("Png", BindingFlags.Public | BindingFlags.Static)!
-                    .GetValue(null)!;
-
-                image.Save(memoryStream, imageFormatPng);
-
-                BitmapImage imageSource = new();
-
-                imageSource.BeginInit();
-                imageSource.StreamSource = memoryStream;
-                imageSource.CacheOption = BitmapCacheOption.OnLoad;
-                imageSource.EndInit();
-                imageSource.Freeze();
-
-                return imageSource;
-            }
-            else if (value.GetType().FullName == "System.Drawing.Icon")
-            {
-                dynamic icon = value;
-                ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
-                    icon.Handle,
-                    Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions());
-
-                return imageSource;
+                return ImageExtension.ToBitmapSource(value, null);
             }
 
             return value;

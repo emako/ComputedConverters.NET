@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace ComputedConverters;
 
@@ -49,24 +48,5 @@ public sealed class UriToImageSourceConverter : SingletonValueConverterBase<UriT
     public override object? ConvertBack(object? value, Type targetTypes, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
-    }
-}
-
-file static class ImageExtension
-{
-    public static ImageSource ToImageSource(this Uri imageUri, int? decodePixelWidth = null)
-    {
-        BitmapImage imageSource = new();
-
-        imageSource.BeginInit();
-        imageSource.CacheOption = BitmapCacheOption.OnLoad;
-        imageSource.UriSource = imageUri;
-        if (decodePixelWidth != null)
-        {
-            imageSource.DecodePixelWidth = decodePixelWidth.Value;
-        }
-        imageSource.EndInit();
-        imageSource.Freeze();
-        return imageSource;
     }
 }
