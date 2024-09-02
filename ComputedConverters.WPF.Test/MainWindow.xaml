@@ -157,6 +157,45 @@
                     <TextBlock Text="{Binding TestLocaleEnumValue, Converter={x:Static cc:EnumLocaleDescriptionConverter.Instance}}" />
                 </ws:StackPanel>
             </ui:Card>
+            <!-- AlternatingGridColorExtension -->
+            <ui:Card>
+                <ws:StackPanel>
+                    <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
+                        <TextBlock.Inlines>
+                            <TextBlock>Markup:</TextBlock>
+                            <TextBlock>AlternatingGridColor</TextBlock>
+                        </TextBlock.Inlines>
+                    </TextBlock>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            Foreground="{cc:AlternatingGridColor ColorEven='Yellow',
+                                                                 ColorOdd='Red'}"
+                            Text="0" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Foreground="{cc:AlternatingGridColor ColorEven='Yellow',
+                                                                 ColorOdd='Red'}"
+                            Text="1" />
+                        <TextBlock
+                            Grid.Row="2"
+                            Foreground="{cc:AlternatingGridColor ColorEven='Yellow',
+                                                                 ColorOdd='Red'}"
+                            Text="2" />
+                        <TextBlock
+                            Grid.Row="3"
+                            Foreground="{cc:AlternatingGridColor ColorEven='Yellow',
+                                                                 ColorOdd='Red'}"
+                            Text="3" />
+                    </Grid>
+                </ws:StackPanel>
+            </ui:Card>
         </ws:WrapPanel>
         <ui:TitleBar Title="ComputedConverters.Test">
             <ui:TitleBar.Icon>
