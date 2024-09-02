@@ -196,6 +196,19 @@
                     </Grid>
                 </ws:StackPanel>
             </ui:Card>
+            <!-- StaticExtension -->
+            <ui:Card>
+                <ws:StackPanel>
+                    <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
+                        <TextBlock.Inlines>
+                            <TextBlock>Markup:</TextBlock>
+                            <TextBlock>StaticExtension</TextBlock>
+                        </TextBlock.Inlines>
+                    </TextBlock>
+                    <!--<Label Content="{x:Static local:StaticClass.Instance.StaticProperty}" />-->
+                    <Label Content="{Binding StaticProperty, Source={cc:Static local:StaticClass.Instance}}" />
+                </ws:StackPanel>
+            </ui:Card>
         </ws:WrapPanel>
         <ui:TitleBar Title="ComputedConverters.Test">
             <ui:TitleBar.Icon>

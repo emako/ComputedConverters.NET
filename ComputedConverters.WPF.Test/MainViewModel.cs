@@ -36,6 +36,12 @@ public partial class MainViewModel : ObservableObject
     }
 }
 
+public class StaticClass
+{
+    public static StaticClass Instance { get; } = new StaticClass();
+    public string StaticProperty { get; set; } = "I'm a StaticProperty";
+}
+
 public enum TestEnum
 {
     [Description("First")]
