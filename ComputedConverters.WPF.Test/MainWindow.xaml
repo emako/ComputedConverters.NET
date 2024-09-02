@@ -145,6 +145,18 @@
                     <TextBlock Text="{cc:I18n AboutProgram}" />
                 </ws:StackPanel>
             </ui:Card>
+            <!-- LocaleDescriptionConverter -->
+            <ui:Card>
+                <ws:StackPanel>
+                    <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
+                        <TextBlock.Inlines>
+                            <TextBlock>Converter:</TextBlock>
+                            <TextBlock>LocaleDescriptionConverter</TextBlock>
+                        </TextBlock.Inlines>
+                    </TextBlock>
+                    <TextBlock Text="{Binding TestLocaleEnumValue, Converter={x:Static cc:EnumLocaleDescriptionConverter.Instance}}" />
+                </ws:StackPanel>
+            </ui:Card>
         </ws:WrapPanel>
         <ui:TitleBar Title="ComputedConverters.Test">
             <ui:TitleBar.Icon>
