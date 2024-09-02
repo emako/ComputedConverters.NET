@@ -207,6 +207,8 @@
                     </TextBlock>
                     <!--<Label Content="{x:Static local:StaticClass.Instance.StaticProperty}" />-->
                     <Label Content="{Binding StaticProperty, Source={cc:Static local:StaticClass.Instance}}" />
+                    <Label Content="{cc:Type local:StaticClass}" />
+                    <Label Content="{x:Type local:StaticClass}" />
                 </ws:StackPanel>
             </ui:Card>
         </ws:WrapPanel>
