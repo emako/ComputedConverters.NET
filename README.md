@@ -14,11 +14,5 @@ TBD
 
 ## Thanks
 
-https://github.com/JohannesMoersch/QuickConverter
-
-https://github.com/thomasgalliker/ValueConverters.NET
-
-https://github.com/OrgEleCho/EleCho.WpfSuite
-
-https://github.com/CommunityToolkit/Maui
+https://github.com/emako/ComputedConverters.NET/discussions/2
 
