@@ -65,10 +65,12 @@ public partial class MainViewModel : ReactiveObject
     {
         (object _, DragEventArgs e) = param.Deconstruct<DragEventArgs>();
 
-        if (e.Data.GetDataPresent(DataFormats.FileDrop))
+        if (e.Data?.GetDataPresent(DataFormats.FileDrop) ?? false)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            Toast.Information(string.Join(Environment.NewLine, files));
+            if (e.Data.GetData(DataFormats.FileDrop) is string[] { } files)
+            {
+                Toast.Information(string.Join(Environment.NewLine, files));
+            }
         }
     }
 }
