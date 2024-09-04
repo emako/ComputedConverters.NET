@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ComputedConverters.Test"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:vio="http://schemas.lepo.co/wpfui/2022/xaml/violeta"
     xmlns:ws="https://schemas.elecho.dev/wpfsuite"
@@ -212,10 +213,22 @@
                 </ws:StackPanel>
             </ui:Card>
         </ws:WrapPanel>
-        <ui:TitleBar Title="ComputedConverters.Test">
+        <ui:TitleBar>
             <ui:TitleBar.Icon>
                 <ui:ImageIcon Source="pack://application:,,,/logo.ico" />
             </ui:TitleBar.Icon>
+            <ui:TitleBar.Title>
+                <cc:StringFormat Format="{}{0} v{1}">
+                    <cc:StringFormat.Values>
+                        <x:Array Type="{cc:TypeofString}">
+                            <x:Array.Items>
+                                <cc:String Value="ComputedConverters.Test" />
+                                <x:Static Member="local:AppConfig.Version" />
+                            </x:Array.Items>
+                        </x:Array>
+                    </cc:StringFormat.Values>
+                </cc:StringFormat>
+            </ui:TitleBar.Title>
         </ui:TitleBar>
     </Grid>
 </ui:FluentWindow>

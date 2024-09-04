@@ -129,6 +129,6 @@ internal class DeepObjectNode : DeepNode
 
     private static bool IsIndexer(PropertyInfo property)
     {
-        return property.Name is "Item" && property.GetMethod.GetParameters().Length > 0;
+        return property.Name is "Item" && property.GetMethod!.GetParameters().Length > 0;
     }
 }

@@ -14,14 +14,19 @@ public sealed class StringFormatExtension() : MarkupExtension
 
     public override object? ProvideValue(IServiceProvider serviceProvider)
     {
-        if (Value == null)
+        if (Value == null && Values == null)
         {
-            return null;
+            return Format;
         }
 
         if (string.IsNullOrWhiteSpace(Format))
         {
             return Format;
+        }
+
+        if (Value is object?[] value)
+        {
+            return string.Format(Format!, value);
         }
 
         if (Values != null && Values.Length > 0)
