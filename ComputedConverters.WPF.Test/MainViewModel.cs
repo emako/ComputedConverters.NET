@@ -5,7 +5,8 @@ using System.Windows;
 
 namespace ComputedConverters.Test;
 
-public partial class MainViewModel : ObservableObject
+[ObservableObject]
+public partial class MainViewModel : ReactiveObject
 {
     [ObservableProperty]
     private string? guidKey = "Guid";
@@ -31,8 +32,31 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty]
     public TestLocaleEnum testLocaleEnumValue = TestLocaleEnum.Second;
 
+    [ObservableProperty]
+    public double width = 10d;
+
+    [ObservableProperty]
+    public double height = 10d;
+
+    public double Area => Computed(() => Width * Height);
+
     public MainViewModel()
     {
+    }
+
+    [RelayCommand]
+    private void ChangeWithOrHeight()
+    {
+        if (Width == 10d)
+        {
+            Width = 20d;
+            Height = 20d;
+        }
+        else
+        {
+            Width = 10d;
+            Height = 10d;
+        }
     }
 }
 

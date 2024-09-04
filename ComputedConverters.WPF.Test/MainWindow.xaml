@@ -212,6 +212,24 @@
                     <Label Content="{x:Type local:StaticClass}" />
                 </ws:StackPanel>
             </ui:Card>
+            <!-- Computed -->
+            <ui:Card>
+                <ws:StackPanel>
+                    <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
+                        <TextBlock.Inlines>
+                            <TextBlock>Reactivity:</TextBlock>
+                            <TextBlock>Computed</TextBlock>
+                        </TextBlock.Inlines>
+                    </TextBlock>
+                    <!--<Label Content="{x:Static local:StaticClass.Instance.StaticProperty}" />-->
+                    <Label Content="{Binding Width}" />
+                    <Label Content="{Binding Height}" />
+                    <Label Content="{Binding Area}" />
+                    <Button
+                        Command="{Binding ChangeWithOrHeightCommand}"
+                        Content="ChangeWithOrHeight" />
+                </ws:StackPanel>
+            </ui:Card>
         </ws:WrapPanel>
         <ui:TitleBar>
             <ui:TitleBar.Icon>
