@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
 using System.Windows;
+using Wpf.Ui.Violeta.Controls;
 
 namespace ComputedConverters.Test;
 
@@ -56,6 +57,18 @@ public partial class MainViewModel : ReactiveObject
         {
             Width = 10d;
             Height = 10d;
+        }
+    }
+
+    [RelayCommand]
+    private void Drop(RelayEventArgs param)
+    {
+        (object _, DragEventArgs e) = param.Deconstruct<DragEventArgs>();
+
+        if (e.Data.GetDataPresent(DataFormats.FileDrop))
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            Toast.Information(string.Join(Environment.NewLine, files));
         }
     }
 }

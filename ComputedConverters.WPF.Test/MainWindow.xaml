@@ -11,9 +11,11 @@
     xmlns:vio="http://schemas.lepo.co/wpfui/2022/xaml/violeta"
     xmlns:ws="https://schemas.elecho.dev/wpfsuite"
     Title="MainWindow"
-    Width="800"
-    Height="450"
+    Width="1200"
+    Height="800"
     d:Background="#232323"
+    AllowDrop="True"
+    Drop="{cc:EventBinding DropCommand}"
     ExtendsContentIntoTitleBar="True"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">

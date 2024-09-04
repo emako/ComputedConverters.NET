@@ -10,7 +10,7 @@ public partial class App : Application
         // Add the System namespace so we can use primitive types (i.e. int, etc.).
         EquationTokenizer.AddNamespace(typeof(object));
         // Add the System.Windows namespace so we can use Visibility.Collapsed, etc.
-        EquationTokenizer.AddNamespace(typeof(System.Windows.Visibility));
+        EquationTokenizer.AddNamespace(typeof(Visibility));
 
         //I18nManager.Instance.Add(ComputedConverters.WPF.Test.Properties.Resources.ResourceManager);
 
