@@ -19,7 +19,7 @@
 		<PackageProjectUrl>https://github.com/emako/ComputedConverters.NET</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/emako/ComputedConverters.NET</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageTags>WPF-UI .NET WPF Violeta</PackageTags>
+		<PackageTags>.NET WPF Avalonia</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageIcon>logo.png</PackageIcon>
