@@ -1,6 +1,8 @@
-﻿namespace ComputedConverters.Test;
+﻿using System.Reflection;
+
+namespace ComputedConverters.Test;
 
 public static class AppConfig
 {
-    public static string Version => "1.0.0";
+    public static string Version => Assembly.GetExecutingAssembly().GetName().Version!.ToString(3);
 }
