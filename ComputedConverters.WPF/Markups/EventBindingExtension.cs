@@ -30,7 +30,7 @@ public sealed class EventBindingExtension : MarkupExtension
          && frameworkElement.DataContext is object dataContext
          && dataContext.GetType().GetProperty(commandName)?.GetValue(dataContext) is ICommand command)
         {
-            RelayEventArgs commandParameter = new(sender, eventArgs);
+            RelayEventParameter commandParameter = new(sender, eventArgs);
             if (command.CanExecute(commandParameter))
             {
                 command.Execute(commandParameter);
@@ -78,7 +78,7 @@ public sealed class EventBindingExtension : MarkupExtension
     }
 }
 
-public sealed class RelayEventArgs(object sender, EventArgs e) : Tuple<object, EventArgs>(sender, e)
+public sealed class RelayEventParameter(object sender, EventArgs e) : Tuple<object, EventArgs>(sender, e)
 {
     public object Sender => Item1;
 

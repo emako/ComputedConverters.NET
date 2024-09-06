@@ -13,12 +13,12 @@ Avalonia (TBD)
 Add XML namespace to your XAML file:
 
 ```xaml
-<Window xmlns:c="https://schemas.elecho.dev/wpfsuite">
+<Window xmlns:c="http://schemas.lemutec.cn/computedconverters/2024/xaml">
     ...
 </Window>
 ```
 
-### Reactivity MVVM
+### Reactivity
 
 #### Reactive Definition
 
@@ -30,7 +30,7 @@ public class ViewModel : Reactive
 }
 ```
 
-- Use `ComputedConverters` with `CommunityToolkit.Mvvm`.
+- Recommend: Use `ComputedConverters` with `CommunityToolkit.Mvvm`.
 
 ```xml
 <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
@@ -100,6 +100,23 @@ public partial class ViewModel : ReactiveObject
 ### Value Converters
 
 ### Markup Extensions
+
+1. EventBinding
+
+```xaml
+<Window xmlns:c="http://schemas.lemutec.cn/computedconverters/2024/xaml"
+        Drop="{c:EventBinding DropCommand}">
+</Window>
+```
+
+```c#
+[RelayCommand]
+private void Drop(RelayEventParameter param)
+{
+    (object sender, DragEventArgs e) = param.Deconstruct<DragEventArgs>();
+    // ...
+}
+```
 
 ## Examples
 

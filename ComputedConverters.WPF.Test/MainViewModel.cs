@@ -61,7 +61,7 @@ public partial class MainViewModel : ReactiveObject
     }
 
     [RelayCommand]
-    private void Drop(RelayEventArgs param)
+    private void Drop(RelayEventParameter param)
     {
         (object _, DragEventArgs e) = param.Deconstruct<DragEventArgs>();
 
