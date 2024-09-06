@@ -307,7 +307,7 @@ Binding any event from a delegate to an `ICommand`.
 Note that there are differences with `ComputedEvent`.
 
 ```xaml
-<Window xmlns:c="http://schemas.lemutec.cn/computedconverters/2024/xaml"
+<Window xmlns:c="http://schemas.github.com/computedconverters/2024/xaml"
         Drop="{c:EventBinding DropCommand}">
 </Window>
 ```

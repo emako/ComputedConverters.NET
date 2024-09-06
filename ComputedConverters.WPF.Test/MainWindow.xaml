@@ -2,7 +2,7 @@
     x:Class="ComputedConverters.Test.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:c="http://schemas.lemutec.cn/computedconverters/2024/xaml"
+    xmlns:c="http://schemas.github.com/computedconverters/2024/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ComputedConverters.Test"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -95,7 +95,7 @@
                         <TextBlock.Text>
                             <Binding Path="State">
                                 <Binding.Converter>
-                                    <c:IfConverter Condition="{c:Binding '$P == 1', P={Binding State}}">
+                                    <c:IfConverter Condition="{c:Computed '$P == 1', P={Binding State}}">
                                         <c:IfConverter.TrueValue>
                                             <c:ValueConverterGroup>
                                                 <c:IntToBoolConverter TrueValue="1" />
@@ -113,7 +113,7 @@
                             </Binding>
                         </TextBlock.Text>
                     </TextBlock>
-                    <TextBlock Text="{c:Binding '$P == 1 ? \'is 1\' : \'is 2\'', P={Binding State}}" />
+                    <TextBlock Text="{c:Computed '$P == 1 ? \'is 1\' : \'is 2\'', P={Binding State}}" />
                     <UserControl>
                         <c:If Condition="{Binding IsLoading}">
                             <c:If.TrueValue>

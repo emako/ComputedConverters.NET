@@ -2,7 +2,7 @@
     x:Class="ComputedConverters.Test.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:c="http://schemas.lemutec.cn/computedconverters/2024/xaml"
+    xmlns:c="http://schemas.github.com/computedconverters/2024/xaml"
     xmlns:local="clr-namespace:ComputedConverters.Test"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:vio="http://schemas.lepo.co/wpfui/2022/xaml/violeta"
