@@ -15,7 +15,7 @@ Avalonia (TBD)
 Add XML namespace to your XAML file:
 
 ```xaml
-<Window xmlns:c="http://schemas.lemutec.cn/computedconverters/2024/xaml">
+<Window xmlns:c="http://schemas.github.com/computedconverters/2024/xaml">
 </Window>
 ```
 
