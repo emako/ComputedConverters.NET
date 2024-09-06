@@ -2,7 +2,7 @@
     x:Class="ComputedConverters.Test.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:cc="urn:ComputedConverters"
+    xmlns:c="http://schemas.lemutec.cn/computedconverters/2024/xaml"
     xmlns:local="clr-namespace:ComputedConverters.Test"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:vio="http://schemas.lepo.co/wpfui/2022/xaml/violeta"
@@ -14,7 +14,7 @@
                 <ui:ControlsDictionary />
                 <vio:ControlsDictionary />
             </ResourceDictionary.MergedDictionaries>
-            <cc:String
+            <c:String
                 x:Key="Guid"
                 Value="b5ffd5f4-12c1-49ae-bb40-18da2f7643a7" />
         </ResourceDictionary>

@@ -25,19 +25,19 @@ public partial class MainViewModel : ReactiveObject
     private int value = 2;
 
     [ObservableProperty]
-    public bool isLoading = true;
+    private bool isLoading = true;
 
     [ObservableProperty]
-    public TestEnum testEnumValue = TestEnum.Second;
+    private TestEnum testEnumValue = TestEnum.Second;
 
     [ObservableProperty]
-    public TestLocaleEnum testLocaleEnumValue = TestLocaleEnum.Second;
+    private TestLocaleEnum testLocaleEnumValue = TestLocaleEnum.Second;
 
     [ObservableProperty]
-    public double width = 10d;
+    private double width = 10d;
 
     [ObservableProperty]
-    public double height = 10d;
+    private double height = 10d;
 
     public double Area => Computed(() => Width * Height);
 

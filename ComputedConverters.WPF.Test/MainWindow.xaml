@@ -2,7 +2,7 @@
     x:Class="ComputedConverters.Test.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:cc="urn:ComputedConverters"
+    xmlns:c="http://schemas.lemutec.cn/computedconverters/2024/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:ComputedConverters.Test"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,7 +15,7 @@
     Height="800"
     d:Background="#232323"
     AllowDrop="True"
-    Drop="{cc:EventBinding DropCommand}"
+    Drop="{c:EventBinding DropCommand}"
     ExtendsContentIntoTitleBar="True"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
@@ -37,10 +37,10 @@
                         </TextBlock.Inlines>
                     </TextBlock>
                     <TextBlock Text="{DynamicResource Guid}" />
-                    <TextBlock Text="{DynamicResource {cc:Unbinding {Binding GuidKey}}}" />
-                    <TextBlock Text="{cc:DynamicResource Guid}" />
-                    <TextBlock Text="{cc:DynamicResource {Binding GuidKey}}" />
-                    <TextBlock Text="{cc:DynamicResource {Binding GuidKey, Mode=OneTime}}" />
+                    <TextBlock Text="{DynamicResource {c:Unbinding {Binding GuidKey}}}" />
+                    <TextBlock Text="{c:DynamicResource Guid}" />
+                    <TextBlock Text="{c:DynamicResource {Binding GuidKey}}" />
+                    <TextBlock Text="{c:DynamicResource {Binding GuidKey, Mode=OneTime}}" />
                     <Button
                         Command="{Binding ChangeGuidCommand}"
                         Content="ChangeGuid" />
@@ -61,8 +61,8 @@
                             <TextBlock>StringEmpty</TextBlock>
                         </TextBlock.Inlines>
                     </TextBlock>
-                    <TextBlock Text="{cc:Cast {cc:Bool false}, TargetType={cc:GetType {cc:StringEmpty}}}" />
-                    <TextBlock Text="{cc:Cast {cc:Bool true}, TargetType={cc:GetType {cc:StringEmpty}}}" />
+                    <TextBlock Text="{c:Cast {c:Bool false}, TargetType={c:GetType {c:StringEmpty}}}" />
+                    <TextBlock Text="{c:Cast {c:Bool true}, TargetType={c:GetType {c:StringEmpty}}}" />
                 </ws:StackPanel>
             </ui:Card>
             <!-- Color -->
@@ -77,7 +77,7 @@
                         </TextBlock.Inlines>
                     </TextBlock>
                     <TextBlock
-                        Foreground="{cc:SolidColorBrush {cc:Color '#980230'}}"
+                        Foreground="{c:SolidColorBrush {c:Color '#980230'}}"
                         Text="Color" />
                 </ws:StackPanel>
             </ui:Card>
@@ -95,44 +95,44 @@
                         <TextBlock.Text>
                             <Binding Path="State">
                                 <Binding.Converter>
-                                    <cc:IfConverter Condition="{cc:Binding '$P == 1', P={Binding State}}">
-                                        <cc:IfConverter.TrueValue>
-                                            <cc:ValueConverterGroup>
-                                                <cc:IntToBoolConverter TrueValue="1" />
-                                                <cc:BoolToStringConverter TrueValue="is 1" />
-                                            </cc:ValueConverterGroup>
-                                        </cc:IfConverter.TrueValue>
-                                        <cc:IfConverter.FalseValue>
-                                            <cc:ValueConverterGroup>
-                                                <cc:IntToBoolConverter TrueValue="2" />
-                                                <cc:BoolToStringConverter TrueValue="is 2" />
-                                            </cc:ValueConverterGroup>
-                                        </cc:IfConverter.FalseValue>
-                                    </cc:IfConverter>
+                                    <c:IfConverter Condition="{c:Binding '$P == 1', P={Binding State}}">
+                                        <c:IfConverter.TrueValue>
+                                            <c:ValueConverterGroup>
+                                                <c:IntToBoolConverter TrueValue="1" />
+                                                <c:BoolToStringConverter TrueValue="is 1" />
+                                            </c:ValueConverterGroup>
+                                        </c:IfConverter.TrueValue>
+                                        <c:IfConverter.FalseValue>
+                                            <c:ValueConverterGroup>
+                                                <c:IntToBoolConverter TrueValue="2" />
+                                                <c:BoolToStringConverter TrueValue="is 2" />
+                                            </c:ValueConverterGroup>
+                                        </c:IfConverter.FalseValue>
+                                    </c:IfConverter>
                                 </Binding.Converter>
                             </Binding>
                         </TextBlock.Text>
                     </TextBlock>
-                    <TextBlock Text="{cc:Binding '$P == 1 ? \'is 1\' : \'is 2\'', P={Binding State}}" />
+                    <TextBlock Text="{c:Binding '$P == 1 ? \'is 1\' : \'is 2\'', P={Binding State}}" />
                     <UserControl>
-                        <cc:If Condition="{Binding IsLoading}">
-                            <cc:If.TrueValue>
+                        <c:If Condition="{Binding IsLoading}">
+                            <c:If.TrueValue>
                                 <TextBlock Text="1" />
-                            </cc:If.TrueValue>
-                            <cc:If.FalseValue>
+                            </c:If.TrueValue>
+                            <c:If.FalseValue>
                                 <TextBlock Text="0" />
-                            </cc:If.FalseValue>
-                        </cc:If>
+                            </c:If.FalseValue>
+                        </c:If>
                     </UserControl>
                     <UserControl>
-                        <cc:If ConditionValue="True">
-                            <cc:If.TrueValue>
+                        <c:If ConditionValue="True">
+                            <c:If.TrueValue>
                                 <TextBlock Text="1" />
-                            </cc:If.TrueValue>
-                            <cc:If.FalseValue>
+                            </c:If.TrueValue>
+                            <c:If.FalseValue>
                                 <TextBlock Text="0" />
-                            </cc:If.FalseValue>
-                        </cc:If>
+                            </c:If.FalseValue>
+                        </c:If>
                     </UserControl>
                 </ws:StackPanel>
             </ui:Card>
@@ -145,7 +145,7 @@
                             <TextBlock>I18N</TextBlock>
                         </TextBlock.Inlines>
                     </TextBlock>
-                    <TextBlock Text="{cc:I18n AboutProgram}" />
+                    <TextBlock Text="{c:I18n AboutProgram}" />
                 </ws:StackPanel>
             </ui:Card>
             <!-- LocaleDescriptionConverter -->
@@ -157,7 +157,7 @@
                             <TextBlock>LocaleDescriptionConverter</TextBlock>
                         </TextBlock.Inlines>
                     </TextBlock>
-                    <TextBlock Text="{Binding TestLocaleEnumValue, Converter={x:Static cc:EnumLocaleDescriptionConverter.Instance}}" />
+                    <TextBlock Text="{Binding TestLocaleEnumValue, Converter={x:Static c:EnumLocaleDescriptionConverter.Instance}}" />
                 </ws:StackPanel>
             </ui:Card>
             <!-- AlternatingGridColorExtension -->
@@ -178,23 +178,23 @@
                         </Grid.RowDefinitions>
                         <TextBlock
                             Grid.Row="0"
-                            Foreground="{cc:AlternatingGridColor ColorEven='Yellow',
-                                                                 ColorOdd='Red'}"
+                            Foreground="{c:AlternatingGridColor ColorEven='Yellow',
+                                                                ColorOdd='Red'}"
                             Text="0" />
                         <TextBlock
                             Grid.Row="1"
-                            Foreground="{cc:AlternatingGridColor ColorEven='Yellow',
-                                                                 ColorOdd='Red'}"
+                            Foreground="{c:AlternatingGridColor ColorEven='Yellow',
+                                                                ColorOdd='Red'}"
                             Text="1" />
                         <TextBlock
                             Grid.Row="2"
-                            Foreground="{cc:AlternatingGridColor ColorEven='Yellow',
-                                                                 ColorOdd='Red'}"
+                            Foreground="{c:AlternatingGridColor ColorEven='Yellow',
+                                                                ColorOdd='Red'}"
                             Text="2" />
                         <TextBlock
                             Grid.Row="3"
-                            Foreground="{cc:AlternatingGridColor ColorEven='Yellow',
-                                                                 ColorOdd='Red'}"
+                            Foreground="{c:AlternatingGridColor ColorEven='Yellow',
+                                                                ColorOdd='Red'}"
                             Text="3" />
                     </Grid>
                 </ws:StackPanel>
@@ -209,8 +209,8 @@
                         </TextBlock.Inlines>
                     </TextBlock>
                     <!--<Label Content="{x:Static local:StaticClass.Instance.StaticProperty}" />-->
-                    <Label Content="{Binding StaticProperty, Source={cc:Static local:StaticClass.Instance}}" />
-                    <Label Content="{cc:Type local:StaticClass}" />
+                    <Label Content="{Binding StaticProperty, Source={c:Static local:StaticClass.Instance}}" />
+                    <Label Content="{c:Type local:StaticClass}" />
                     <Label Content="{x:Type local:StaticClass}" />
                 </ws:StackPanel>
             </ui:Card>
@@ -238,16 +238,16 @@
                 <ui:ImageIcon Source="pack://application:,,,/logo.ico" />
             </ui:TitleBar.Icon>
             <ui:TitleBar.Title>
-                <cc:StringFormat Format="{}{0} v{1}">
-                    <cc:StringFormat.Values>
-                        <x:Array Type="{cc:TypeofString}">
+                <c:StringFormat Format="{}{0} v{1}">
+                    <c:StringFormat.Values>
+                        <x:Array Type="{c:TypeofString}">
                             <x:Array.Items>
-                                <cc:String Value="ComputedConverters.Test" />
+                                <c:String Value="ComputedConverters.Test" />
                                 <x:Static Member="local:AppConfig.Version" />
                             </x:Array.Items>
                         </x:Array>
-                    </cc:StringFormat.Values>
-                </cc:StringFormat>
+                    </c:StringFormat.Values>
+                </c:StringFormat>
             </ui:TitleBar.Title>
         </ui:TitleBar>
     </Grid>

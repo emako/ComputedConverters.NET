@@ -48,9 +48,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		<PackageReference Include="EleCho.WpfSuite" Version="0.7.2" />
+		<PackageReference Include="EleCho.WpfSuite" Version="0.8.1" />
 		<PackageReference Include="WPF-UI" Version="3.0.5" />
-		<PackageReference Include="WPF-UI.Violeta" Version="3.0.5.4" />
+		<PackageReference Include="WPF-UI.Violeta" Version="3.0.5.7" />
 	</ItemGroup>
 
     <ItemGroup>
