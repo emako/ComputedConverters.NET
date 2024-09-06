@@ -209,6 +209,9 @@
                         </TextBlock.Inlines>
                     </TextBlock>
                     <!--<Label Content="{x:Static local:StaticClass.Instance.StaticProperty}" />-->
+                    <Label
+                        xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=System.Runtime"
+                        Content="{x:Static diagnostics:Debugger.IsAttached}" />
                     <Label Content="{Binding StaticProperty, Source={c:Static local:StaticClass.Instance}}" />
                     <Label Content="{c:Type local:StaticClass}" />
                     <Label Content="{x:Type local:StaticClass}" />
@@ -230,6 +233,21 @@
                     <Button
                         Command="{Binding ChangeWithOrHeightCommand}"
                         Content="ChangeWithOrHeight" />
+                </ws:StackPanel>
+            </ui:Card>
+            <ui:Card>
+                <ws:StackPanel>
+                    <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
+                        <TextBlock.Inlines>
+                            <TextBlock>Markup:</TextBlock>
+                            <TextBlock>Converter</TextBlock>
+                        </TextBlock.Inlines>
+                    </TextBlock>
+                    <TextBlock
+                        xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=System.Runtime"
+                        Text="Visiable on debugger attached."
+                        Visibility="{c:Converter Value={x:Static diagnostics:Debugger.IsAttached},
+                                                 Converter={x:Static c:BoolToVisibilityConverter.Instance}}" />
                 </ws:StackPanel>
             </ui:Card>
         </ws:WrapPanel>

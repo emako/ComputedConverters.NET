@@ -48,9 +48,9 @@ public partial class ViewModel : ReactiveObject
 
 And also `ReactiveCollection<T>` / `Ref<T>` are availabled.
 
-`ReactiveCollection<T>` is similar to vuejs `reactive(T[])`.
+`ReactiveCollection<T>` is similar to Vue `reactive(T[])`.
 
-`Ref<T>` is similar to vuejs `ref(T)`.
+`Ref<T>` is similar to Vue `ref(T)`.
 
 #### 1.2 Computed
 
@@ -102,7 +102,90 @@ public partial class ViewModel : ReactiveObject
 
 ### 2. Value Converters
 
+#### 2.1 ValueConverterGroup
 
+Supports continuous value converters from group.
+
+```xaml
+<c:ValueConverterGroup x:Key="NullToVisibilityConverter">
+    <c:NullToBoolConverter />
+    <c:BoolToVisibilityConverter />
+</c:ValueConverterGroup>
+```
+
+#### 2.2 BoolToVisibilityConverter
+
+```xaml
+<TextBlock
+  xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=System.Runtime"
+  Text="Visiable on debugger attached."
+  Visibility="{c:Converter Value={x:Static diagnostics:Debugger.IsAttached},
+                           Converter={x:Static c:BoolToVisibilityConverter.Instance}}" />
+```
+
+#### 2.3 EnumLocaleDescriptionConverter
+
+```xaml
+<TextBlock Text="{Binding TestLocaleEnumValue, Converter={x:Static c:EnumLocaleDescriptionConverter.Instance}}" />
+```
+
+```c#
+class ViewModel
+{
+    public TestLocaleEnum testLocaleEnumValue { get; set; } = TestLocaleEnum.Second;
+}
+
+enum TestLocaleEnum
+{
+    [LocaleDescription("en", "First", isFallback: true)]
+    [LocaleDescription("ja", "ファースト")]
+    [LocaleDescription("zh", "第一个")]
+    First = 1,
+
+    [LocaleDescription("en", "Second", isFallback: true)]
+    [LocaleDescription("ja", "セカンド")]
+    [LocaleDescription("zh", "第二个")]
+    Second = 2,
+
+    [LocaleDescription("en", "Third", isFallback: true)]
+    [LocaleDescription("ja", "サード")]
+    [LocaleDescription("zh", "第三个")]
+    Third = 3
+}
+```
+
+#### 2.4 EnumWrapperConverter
+
+EnumWrapperConverter is used to display localized enums. The concept is fairly simple: Enums are annotated with localized string resources and wrapped into EnumWrapper. The view uses the EnumWrapperConverter to extract the localized string resource from the resx file. Following step-by-step instructions show how to localize and bind a simple enum type in a WPF view:
+
+1. Define new public enum type and annotate enum values with [Display] attributes:
+
+```c#
+[DataContract] 
+public enum PartyMode 
+{ 
+    [EnumMember] 
+    [Display(Name = "PartyMode_Off", ResourceType = typeof(PartyModeResources))] 
+    Off, 
+
+    // … 
+} 
+```
+
+2. Create StringResources.resx and define strings with appropriate keys (e.g. "PartyMode__Off"). Make sure PublicResXFileCodeGenerator is used to generate the .Designer.cs file. (If ResXFileCodeGenerator is used, the resource lookup operations may require more time to complete).
+3. Create StringResources.resx for other languages (e.g. StringResources.de.resx) and translate all strings accordingly. Use [Multilingual App Toolkit](https://visualstudiogallery.msdn.microsoft.com/6dab9154-a7e1-46e4-bbfa-18b5e81df520) for easy localization of the defined string resources.
+4. Expose enum property in the ViewModel.
+
+```c#
+[ObservableProperty]
+private PartyMode partyMode;
+```
+
+3. Bind to enum property in the View and define Converter={StaticResource EnumWrapperConverter}.
+
+```xaml
+<Label Content="{Binding PartyMode, Converter={StaticResource EnumWrapperConverter}}" /> 
+```
 
 ### 3. Computed Markup
 
@@ -402,6 +485,70 @@ Use the `Switch expression` in XAML.
         </c:Case>
     </c:Switch>
 </UserControl>
+```
+
+#### 4.6 Unbinding
+
+Provide Binding/Markup value for some one not support binding.
+
+```xaml
+<TextBlock Text="{DynamicResource {c:Unbinding {Binding GuidKey}}}" />
+<!-- Same as -->
+<TextBlock Text="{DynamicResource Guid}" />
+```
+
+```c#
+class ViewModel
+{
+    private string GuidKey = "Guid";
+}
+```
+
+#### 4.7 Static
+
+Difference from `x:Static`: supports static singleton.
+
+```xaml
+<Label Content="{Binding StaticProperty, Source={c:Static local:StaticClass.Instance}}" />
+```
+
+```c#
+public class StaticClass
+{
+    public static StaticClass Instance { get; } = new StaticClass();
+    public string StaticProperty { get; set; } = "I'm a StaticProperty";
+}
+```
+
+#### 4.8 Converter
+
+Use IValueConverter without Binding.
+
+```xaml
+<TextBlock
+    xmlns:diagnostics="clr-namespace:System.Diagnostics;assembly=System.Runtime"
+    Text="Visiable on debugger attached."
+    Visibility="{c:Converter Value={x:Static diagnostics:Debugger.IsAttached},
+                                   Converter={x:Static c:BoolToVisibilityConverter.Instance}}" />
+```
+
+#### 4.9 StringFormat
+
+Use StringFormat without Binding and support `Array<string>`.
+
+```xaml
+<ui:TitleBar.Title>
+    <c:StringFormat Format="{}{0} v{1}">
+        <c:StringFormat.Values>
+            <x:Array Type="{c:TypeofString}">
+                <x:Array.Items>
+                    <c:String Value="ComputedConverters.Test" />
+                    <x:Static Member="local:AppConfig.Version" />
+                </x:Array.Items>
+            </x:Array>
+        </c:StringFormat.Values>
+    </c:StringFormat>
+</ui:TitleBar.Title>
 ```
 
 
