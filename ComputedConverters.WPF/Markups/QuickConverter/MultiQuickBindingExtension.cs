@@ -260,7 +260,7 @@ public class MultiQuickBindingExtension : MarkupExtension
                 else
                 {
                     Type propType = (targetProvider.TargetProperty as PropertyInfo)!.PropertyType;
-                    if (propType == typeof(MultiBindingExtension))
+                    if (propType == typeof(MultiQuickBindingExtension))
                     {
                         return this;
                     }
@@ -321,7 +321,7 @@ public class MultiQuickBindingExtension : MarkupExtension
 
                 foreach (string name in parameterOrder)
                 {
-                    holder.Bindings.Add(typeof(MultiBindingExtension).GetProperty(name)!.GetValue(this, null) as BindingBase);
+                    holder.Bindings.Add(typeof(MultiQuickBindingExtension).GetProperty(name)!.GetValue(this, null) as BindingBase);
                 }
 
                 if (!_modeSet)
@@ -329,7 +329,7 @@ public class MultiQuickBindingExtension : MarkupExtension
                     bool exists = false;
                     for (int i = 0; i <= 9; ++i)
                     {
-                        exists |= !string.IsNullOrWhiteSpace(typeof(MultiBindingExtension).GetProperty("ConvertBack" + i)!.GetValue(this, null) as string);
+                        exists |= !string.IsNullOrWhiteSpace(typeof(MultiQuickBindingExtension).GetProperty("ConvertBack" + i)!.GetValue(this, null) as string);
                     }
 
                     holder.Mode = exists ? BindingMode.TwoWay : BindingMode.OneWay;
@@ -349,7 +349,7 @@ public class MultiQuickBindingExtension : MarkupExtension
                 holder.Converter = ExternalConverter;
                 for (int i = 0; i <= 9; ++i)
                 {
-                    if (typeof(MultiBindingExtension).GetProperty("P" + i)!.GetValue(this, null) is BindingBase binding)
+                    if (typeof(MultiQuickBindingExtension).GetProperty("P" + i)!.GetValue(this, null) is BindingBase binding)
                     {
                         holder.Bindings.Add(binding);
                     }
