@@ -1,10 +1,12 @@
+[![GitHub license](https://img.shields.io/github/license/emako/ComputedConverters.NET)](https://github.com/emako/ComputedConverters.NET/blob/master/LICENSE.txt) [![Actions](https://github.com/emako/ComputedConverters.NET/actions/workflows/library.nuget.yml/badge.svg)](https://github.com/emako/ComputedConverters.NET/actions/workflows/library.nuget.yml)
+
 # ComputedConverters.NET
 
 ComputedConverters provides you with XAML markup that allows you to write inline converters (Vue-like computed method) and expand some converters commonly used.
 
 ## Support framework
 
-WPF (.NET Framewrok and .NET Core)
+WPF [![NuGet](https://img.shields.io/nuget/v/ComputedConverters.WPF.svg)](https://nuget.org/packages/ComputedConverters.WPF)
 
 Avalonia (TBD)
 
@@ -19,7 +21,7 @@ Add XML namespace to your XAML file:
 
 ### 1. Reactivity
 
-Reactivity is a vlue-like MVVM concept.
+Reactivity is a vue-like MVVM concept.
 
 #### 1.1 Reactive Definition
 
@@ -100,7 +102,7 @@ public partial class ViewModel : ReactiveObject
 
 ### 2. Value Converters
 
-...
+
 
 ### 3. Computed Markup
 
@@ -175,7 +177,7 @@ The following demonstrates an inline multibinding:
 
 #### 3.4 ComputedConverter
 
-Converters can also be created independently of the QuickConverter binding extensions. This allows an extra level of flexibility. The following is an example of this:
+Converters can also be created independently of the ComputedConverter binding extensions. This allows an extra level of flexibility. The following is an example of this:
 
 ```xaml
 <Control Width="{Binding Data, Converter={c:ComputedConverter '$P * 10', ConvertBack='$value * 0.1'}}" />
@@ -239,7 +241,7 @@ This operator is particularly useful in long statements where there are multiple
 
 #### 3.5 ComputedEvent
 
-This markup extension allows you to create event handlers inline. Aside from allowing void functions, the code is identical to QuickConverters. However, QuickEvent exposes a number of variables by default.
+This markup extension allows you to create event handlers inline. Aside from allowing void functions, the code is identical to ComputedConverters. However, ComputedEvent exposes a number of variables by default.
 
 ```xaml
 $sender - The sender of the event.
@@ -248,9 +250,9 @@ $eventArgs - The arguments object of the event.
 
 $dataContext - The data context of the sender.
 
-$V0-$V9 - The values set on the QuickEvent Vx properties.
+$V0-$V9 - The values set on the ComputedEvent Vx properties.
 
-$P0-$P4 - The values of the QuickEvent.P0-QuickEvent.P4 inherited attached properties on sender.
+$P0-$P4 - The values of the ComputedEvent.P0-ComputedEvent.P4 inherited attached properties on sender.
 
 ${name} - Any element within the name scope where {name} is the value of x:Name on that element.
 ```
@@ -272,9 +274,37 @@ This markup extension evaluates exactly like a ComputedConverter except there ar
 
 ### 4. Useful Markup
 
-1. 
+#### 4.1 DynamicResource
 
-2. EventBinding
+Enable `DynamicResource` to support `Binding`.
+
+```xaml
+ <Application.Resources>  
+    <c:String
+          x:Key="Guid"
+          Value="b5ffd5f4-12c1-49ae-bb40-18da2f7643a7" />
+</Application.Resources>
+
+<TextBlock Text="{DynamicResource Guid}" />
+<TextBlock Text="{c:DynamicResource Guid}" />
+<TextBlock Text="{c:DynamicResource {Binding GuidKey}}" />
+<TextBlock Text="{c:DynamicResource {Binding GuidKey, Mode=OneTime}}" />
+```
+
+```c#
+[ObservableObject]
+public partial class ViewModel : ReactiveObject
+{
+    [ObservableProperty]
+    private string? guidKey = "Guid";
+}
+```
+
+#### 4.2 EventBinding
+
+Binding any event from a delegate to an `ICommand`.
+
+Note that there are differences with `ComputedEvent`.
 
 ```xaml
 <Window xmlns:c="http://schemas.lemutec.cn/computedconverters/2024/xaml"
@@ -291,11 +321,13 @@ private void Drop(RelayEventParameter param)
 }
 ```
 
-3. Command
+#### 4.3 Command
+
+Used when `RelayCommand` is not used.
 
 ```xaml
-<Element Command={markup:Command Execute} />
-<Element Command={markup:Command ExecuteWithArgumentAsync, CanExecute}
+<Element Command={c:Command Execute} />
+<Element Command={c:Command ExecuteWithArgumentAsync, CanExecute}
          CommandParameter={Binding Argument} />
 ```
 
@@ -320,55 +352,55 @@ class ViewModel
 }
 ```
 
-4. IfExtension
+#### 4.4 IfExtension
 
 Use the `Conditional expression` in XAML.
 
 ```xaml
-<Button Command="{markup:If {Binding BoolProperty},
+<Button Command="{c:If {Binding BoolProperty},
                             {Binding OkCommand},
                             {Binding CancelCommand}}" />
 ```
 
 ```xaml
 <UserControl>
-    <markup:If Condition="{Binding IsLoading}">
-        <markup:If.True>
+    <c:If Condition="{Binding IsLoading}">
+        <c:If.True>
             <views:LoadingView />
-        </markup:If.True>
-        <markup:If.False>
+        </c:If.True>
+        <c:If.False>
             <views:LoadedView />
-        </markup:If.False>
-    </markup:If>
+        </c:If.False>
+    </c:If>
 </UserControl>
 ```
 
-5. SwitchExtension
+#### 4.5 SwitchExtension
 
 Use the `Switch expression` in XAML.
 
 ```xaml
-<Image Source="{markup:Switch {Binding FileType},
-                              {Case {x:Static res:FileType.Music}, {StaticResource MusicIcon}},
-                              {Case {x:Static res:FileType.Video}, {StaticResource VideoIcon}},
-                              {Case {x:Static res:FileType.Picture}, {StaticResource PictureIcon}},
+<Image Source="{c:Switch {Binding FileType},
+                              {c:Case {x:Static res:FileType.Music}, {StaticResource MusicIcon}},
+                              {c:Case {x:Static res:FileType.Video}, {StaticResource VideoIcon}},
+                              {c:Case {x:Static res:FileType.Picture}, {StaticResource PictureIcon}},
                               ...
-                              {Case {StaticResource UnknownFileIcon}}}" />
+                              {c:Case {StaticResource UnknownFileIcon}}}" />
 ```
 
 ```xaml
 <UserControl>
-    <Switch To="{Binding SelectedViewName}">
-        <Case Label="View1">
+    <c:Switch To="{Binding SelectedViewName}">
+        <c:Case Label="View1">
             <views:View1 />
-        </Case>
-        <Case Label="{x:Static res:Views.View2}">
+        </c:Case>
+        <c:Case Label="{x:Static res:Views.View2}">
             <views:View2 />
-        </Case>
-        <Case>
+        </c:Case>
+        <c:Case>
             <views:View404 />
-        </Case>
-    </Switch>
+        </c:Case>
+    </c:Switch>
 </UserControl>
 ```
 
