@@ -7,7 +7,7 @@ using System.Windows.Markup;
 
 namespace ComputedConverters;
 
-public class QuickMultiConverter : MarkupExtension
+public class QuickMultiConverterExtension : MarkupExtension
 {
     private static readonly Dictionary<string, Tuple<string, Func<object[], object[], object>, string[], DataContainer[]>> toFunctions = [];
     private static readonly Dictionary<string, Tuple<string, Func<object, object[], object>, DataContainer[]>> fromFunctions = [];
@@ -154,11 +154,11 @@ public class QuickMultiConverter : MarkupExtension
     /// </summary>
     public Type DynamicContext { get; set; } = null!;
 
-    public QuickMultiConverter()
+    public QuickMultiConverterExtension()
     {
     }
 
-    public QuickMultiConverter(string converter)
+    public QuickMultiConverterExtension(string converter)
     {
         Converter = converter;
     }
@@ -229,7 +229,7 @@ public class QuickMultiConverter : MarkupExtension
             Tuple<string, Func<object, object[], object>, DataContainer[]>[] backFuncs = new Tuple<string, Func<object, object[], object>, DataContainer[]>[10];
             for (int i = 0; i <= 9; ++i)
             {
-                var converter = typeof(QuickMultiConverter).GetProperty("ConvertBack" + i)!.GetValue(this, null) as string;
+                var converter = typeof(QuickMultiConverterExtension).GetProperty("ConvertBack" + i)!.GetValue(this, null) as string;
                 if (string.IsNullOrWhiteSpace(converter))
                 {
                     backFuncs[i] = new Tuple<string, Func<object, object[], object>, DataContainer[]>(null!, null!, []);
@@ -271,20 +271,20 @@ public class QuickMultiConverter : MarkupExtension
                 {
                     int index = name[1] - '0';
                     pIndicies.Add(index);
-                    pTypes.Add(typeof(QuickMultiConverter).GetProperty(name + "Type")!.GetValue(this, null)!);
-                    backs.Add(new Tuple<string, Func<object, object[], object>, DataContainer[], string>(backFuncs[index].Item1, backFuncs[index].Item2, backFuncs[index].Item3, (typeof(QuickMultiConverter).GetProperty("ConvertBack" + name[1])!.GetValue(this, null) as string)!));
+                    pTypes.Add(typeof(QuickMultiConverterExtension).GetProperty(name + "Type")!.GetValue(this, null)!);
+                    backs.Add(new Tuple<string, Func<object, object[], object>, DataContainer[], string>(backFuncs[index].Item1, backFuncs[index].Item2, backFuncs[index].Item3, (typeof(QuickMultiConverterExtension).GetProperty("ConvertBack" + name[1])!.GetValue(this, null) as string)!));
                 }
             }
 
             List<object> vals = [];
             for (int i = 0; i <= 9; ++i)
             {
-                vals.Add(typeof(QuickMultiConverter).GetProperty("V" + i)!.GetValue(this, null)!);
+                vals.Add(typeof(QuickMultiConverterExtension).GetProperty("V" + i)!.GetValue(this, null)!);
             }
 
             _parameterOrder = func.Item3!;
 
-            return new DynamicMultiConverter(func.Item2, backs.Select(t => t.Item2).ToArray(), [.. vals], Converter!, func.Item1, backs.Select(t => t.Item4).ToArray(), backs.Select(t => t.Item1).ToArray(), pTypes.Select(t => QuickConverter.GetType(t)).ToArray(), pIndicies.ToArray(), QuickConverter.GetType(ValueType), func.Item4, backs.SelectMany(t => t.Item3).ToArray(), ChainedConverter);
+            return new DynamicMultiConverter(func.Item2, backs.Select(t => t.Item2).ToArray(), [.. vals], Converter!, func.Item1, backs.Select(t => t.Item4).ToArray(), backs.Select(t => t.Item1).ToArray(), pTypes.Select(t => QuickConverterExtension.GetType(t)).ToArray(), pIndicies.ToArray(), QuickConverterExtension.GetType(ValueType), func.Item4, backs.SelectMany(t => t.Item3).ToArray(), ChainedConverter);
         }
         catch (Exception e)
         {

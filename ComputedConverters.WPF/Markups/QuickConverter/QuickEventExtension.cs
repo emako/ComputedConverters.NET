@@ -9,7 +9,7 @@ using Expression = System.Linq.Expressions.Expression;
 
 namespace ComputedConverters;
 
-public class QuickEvent : MarkupExtension
+public class QuickEventExtension : MarkupExtension
 {
     public static object GetP0(DependencyObject obj)
     {
@@ -21,7 +21,7 @@ public class QuickEvent : MarkupExtension
         obj.SetValue(P0Property, value);
     }
 
-    public static readonly DependencyProperty P0Property = DependencyProperty.RegisterAttached("P0", typeof(object), typeof(QuickEvent), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
+    public static readonly DependencyProperty P0Property = DependencyProperty.RegisterAttached("P0", typeof(object), typeof(QuickEventExtension), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
 
     public static object GetP1(DependencyObject obj)
     {
@@ -33,7 +33,7 @@ public class QuickEvent : MarkupExtension
         obj.SetValue(P1Property, value);
     }
 
-    public static readonly DependencyProperty P1Property = DependencyProperty.RegisterAttached("P1", typeof(object), typeof(QuickEvent), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
+    public static readonly DependencyProperty P1Property = DependencyProperty.RegisterAttached("P1", typeof(object), typeof(QuickEventExtension), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
 
     public static object GetP2(DependencyObject obj)
     {
@@ -45,7 +45,7 @@ public class QuickEvent : MarkupExtension
         obj.SetValue(P2Property, value);
     }
 
-    public static readonly DependencyProperty P2Property = DependencyProperty.RegisterAttached("P2", typeof(object), typeof(QuickEvent), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
+    public static readonly DependencyProperty P2Property = DependencyProperty.RegisterAttached("P2", typeof(object), typeof(QuickEventExtension), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
 
     public static object GetP3(DependencyObject obj)
     {
@@ -57,7 +57,7 @@ public class QuickEvent : MarkupExtension
         obj.SetValue(P3Property, value);
     }
 
-    public static readonly DependencyProperty P3Property = DependencyProperty.RegisterAttached("P3", typeof(object), typeof(QuickEvent), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
+    public static readonly DependencyProperty P3Property = DependencyProperty.RegisterAttached("P3", typeof(object), typeof(QuickEventExtension), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
 
     public static object GetP4(DependencyObject obj)
     {
@@ -69,7 +69,7 @@ public class QuickEvent : MarkupExtension
         obj.SetValue(P4Property, value);
     }
 
-    public static readonly DependencyProperty P4Property = DependencyProperty.RegisterAttached("P4", typeof(object), typeof(QuickEvent), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
+    public static readonly DependencyProperty P4Property = DependencyProperty.RegisterAttached("P4", typeof(object), typeof(QuickEventExtension), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.Inherits));
 
     private static readonly Dictionary<string, Tuple<string, Delegate, string[], DataContainer[]>> handlers = [];
 
@@ -128,12 +128,12 @@ public class QuickEvent : MarkupExtension
     /// </summary>
     public Type DelegateTypeOverride { get; set; } = null!;
 
-    public QuickEvent()
+    public QuickEventExtension()
     {
         SetHandled = true;
     }
 
-    public QuickEvent(string handlerExpression)
+    public QuickEventExtension(string handlerExpression)
         : this()
     {
         Handler = handlerExpression;

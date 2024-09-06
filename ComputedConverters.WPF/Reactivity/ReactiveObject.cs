@@ -14,7 +14,7 @@ public class ReactiveObject : DependencyObject
 
     private MulticastDelegate? _propertyChangedDelegate;
 
-    protected T Computed<T>(Expression<Func<T>> expression, [CallerMemberName] string propertyName = null!)
+    protected internal T Computed<T>(Expression<Func<T>> expression, [CallerMemberName] string propertyName = null!)
     {
         if (!typeof(INotifyPropertyChanged).IsAssignableFrom(GetType()))
         {
@@ -56,12 +56,12 @@ public class ReactiveObject : DependencyObject
         return ((StrongBox<T>)_cache[propertyName]).Value!;
     }
 
-    protected static void Watch<T>(Expression<Func<T>> expression, Action<T> callback)
+    protected internal static void Watch<T>(Expression<Func<T>> expression, Action<T> callback)
     {
         Reactivity.Default.Watch(expression, callback);
     }
 
-    protected static void WatchDeep<T>(object target, Action<string> callback)
+    protected internal static void WatchDeep<T>(object target, Action<string> callback)
     {
         Reactivity.Default.WatchDeep(target, callback);
     }

@@ -7,7 +7,7 @@ using System.Windows.Markup;
 
 namespace ComputedConverters;
 
-public class QuickConverter : MarkupExtension
+public class QuickConverterExtension : MarkupExtension
 {
     private static readonly Dictionary<string, Tuple<string, Func<object, object[], object, object>, DataContainer[]>> toFunctions = [];
     private static readonly Dictionary<string, Tuple<string, Func<object, object[], object, object>, DataContainer[]>> fromFunctions = [];
@@ -77,11 +77,11 @@ public class QuickConverter : MarkupExtension
     /// </summary>
     public Type DynamicContext { get; set; } = null!;
 
-    public QuickConverter()
+    public QuickConverterExtension()
     {
     }
 
-    public QuickConverter(string convert)
+    public QuickConverterExtension(string convert)
     {
         Convert = convert;
     }
@@ -180,7 +180,7 @@ public class QuickConverter : MarkupExtension
                     return null!;
                 }
 
-                Expression exp = QuickConverter.GetFinishedLambda(tuple, out inputP, out inputV, out value, out parameter);
+                Expression exp = QuickConverterExtension.GetFinishedLambda(tuple, out inputP, out inputV, out value, out parameter);
                 var result = Expression.Lambda<Func<object, object[], object, object>>(exp, inputP, inputV, parameter).Compile();
                 toFunc = new Tuple<string, Func<object, object[], object, object>, DataContainer[]>(tuple.Item1, result, tuple.Item4);
 
@@ -194,7 +194,7 @@ public class QuickConverter : MarkupExtension
                     return null!;
                 }
 
-                Expression exp = QuickConverter.GetFinishedLambda(tuple, out inputP, out inputV, out value, out parameter);
+                Expression exp = QuickConverterExtension.GetFinishedLambda(tuple, out inputP, out inputV, out value, out parameter);
                 var result = Expression.Lambda<Func<object, object[], object, object>>(exp, value, inputV, parameter).Compile();
                 fromFunc = new Tuple<string, Func<object, object[], object, object>, DataContainer[]>(tuple.Item1, result, tuple.Item4);
 
@@ -204,7 +204,7 @@ public class QuickConverter : MarkupExtension
             List<object> vals = [];
             for (int i = 0; i <= 9; ++i)
             {
-                vals.Add(typeof(QuickConverter).GetProperty("V" + i)!.GetValue(this, null)!);
+                vals.Add(typeof(QuickConverterExtension).GetProperty("V" + i)!.GetValue(this, null)!);
             }
 
             toFunc ??= new Tuple<string, Func<object, object[], object, object>, DataContainer[]>(null!, null!, null!);

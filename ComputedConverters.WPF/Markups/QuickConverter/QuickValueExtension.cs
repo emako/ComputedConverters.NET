@@ -4,7 +4,7 @@ using System.Windows.Markup;
 
 namespace ComputedConverters;
 
-public class QuickValue : MarkupExtension
+public class QuickValueExtension : MarkupExtension
 {
     /// <summary>
     /// The expression to use for calculating the value.
@@ -46,11 +46,11 @@ public class QuickValue : MarkupExtension
     /// </summary>
     public Type DynamicContext { get; set; } = null!;
 
-    public QuickValue()
+    public QuickValueExtension()
     {
     }
 
-    public QuickValue(string valueExpression)
+    public QuickValueExtension(string valueExpression)
     {
         Value = valueExpression;
     }
@@ -59,7 +59,7 @@ public class QuickValue : MarkupExtension
     {
         try
         {
-            var converter = new QuickConverter(Value)
+            var converter = new QuickConverterExtension(Value)
             {
                 V0 = V0,
                 V1 = V1,

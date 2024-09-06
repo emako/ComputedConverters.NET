@@ -9,7 +9,7 @@ namespace ComputedConverters;
 /// <summary>
 /// This type can be substituted for System.Windows.Data.MultiBinding. Multiple bindings and a one way converter can be specified inline.
 /// </summary>
-public class MultiBindingExtension : MarkupExtension
+public class MultiQuickBindingExtension : MarkupExtension
 {
     /// <summary>Creates a bound parameter. This can be accessed inside the converter as $P0.</summary>
     public BindingBase P0 { get; set; } = null!;
@@ -228,11 +228,11 @@ public class MultiBindingExtension : MarkupExtension
     /// </summary>
     public Type DynamicContext { get; set; } = null!;
 
-    public MultiBindingExtension()
+    public MultiQuickBindingExtension()
     {
     }
 
-    public MultiBindingExtension(string converter)
+    public MultiQuickBindingExtension(string converter)
     {
         Converter = converter;
     }
@@ -283,7 +283,7 @@ public class MultiBindingExtension : MarkupExtension
             if (ExternalConverter == null)
             {
                 holder.ConverterParameter = ConverterParameter;
-                holder.Converter = new QuickMultiConverter()
+                holder.Converter = new QuickMultiConverterExtension()
                 {
                     Converter = Converter,
                     DynamicContext = DynamicContext,

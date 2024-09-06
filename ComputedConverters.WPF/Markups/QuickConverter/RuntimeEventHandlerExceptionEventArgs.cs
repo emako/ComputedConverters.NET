@@ -52,11 +52,11 @@ public class RuntimeEventHandlerExceptionEventArgs : QuickConverterEventArgs
         V9 = values[9];
         if (sender is DependencyObject)
         {
-            P0 = QuickEvent.GetP0((sender as DependencyObject)!);
-            P1 = QuickEvent.GetP1((sender as DependencyObject)!);
-            P2 = QuickEvent.GetP2((sender as DependencyObject)!);
-            P3 = QuickEvent.GetP3((sender as DependencyObject)!);
-            P4 = QuickEvent.GetP4((sender as DependencyObject)!);
+            P0 = QuickEventExtension.GetP0((sender as DependencyObject)!);
+            P1 = QuickEventExtension.GetP1((sender as DependencyObject)!);
+            P2 = QuickEventExtension.GetP2((sender as DependencyObject)!);
+            P3 = QuickEventExtension.GetP3((sender as DependencyObject)!);
+            P4 = QuickEventExtension.GetP4((sender as DependencyObject)!);
         }
         Handler = handler;
         Exception = exception;

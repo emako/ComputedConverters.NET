@@ -9,7 +9,7 @@ namespace ComputedConverters;
 /// <summary>
 /// This type can be substituted for System.Windows.Data.Binding. Both Convert and ConvertBack to be specified inline which makes two way binding possible.
 /// </summary>
-public class BindingExtension : MarkupExtension
+public class QuickBindingExtension : MarkupExtension
 {
     /// <summary>Creates a bound parameter. This can be accessed inside the converter as $P.</summary>
     public Binding P { get; set; } = null!;
@@ -67,11 +67,11 @@ public class BindingExtension : MarkupExtension
     /// </summary>
     public Type DynamicContext { get; set; } = null!;
 
-    public BindingExtension()
+    public QuickBindingExtension()
     {
     }
 
-    public BindingExtension(string convert)
+    public QuickBindingExtension(string convert)
     {
         Convert = convert;
     }
@@ -104,7 +104,7 @@ public class BindingExtension : MarkupExtension
                 else
                 {
                     Type propType = (targetProvider.TargetProperty as PropertyInfo)!.PropertyType;
-                    if (propType == typeof(BindingExtension))
+                    if (propType == typeof(QuickBindingExtension))
                     {
                         return this;
                     }
@@ -113,7 +113,7 @@ public class BindingExtension : MarkupExtension
                 }
             }
 
-            P.Converter = new QuickConverter()
+            P.Converter = new QuickConverterExtension()
             {
                 Convert = Convert,
                 ConvertBack = ConvertBack,

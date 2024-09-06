@@ -119,7 +119,7 @@ public class CommandExtension(string executeName) : MarkupExtension, ICommand
             {
                 if (_isExecuting) return;
 
-                object? result = method.Invoke(context, hasParameter ? new[] { args } : null);
+                object? result = method.Invoke(context, hasParameter ? [args] : null);
                 if (isTask)
                 {
                     _isExecuting = true;

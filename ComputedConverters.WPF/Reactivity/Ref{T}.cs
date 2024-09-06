@@ -1,6 +1,6 @@
 ﻿namespace ComputedConverters;
 
-public class Ref<T>(T value) : Reactive
+public class Ref<T>(T value) : Reactive, IRef<T>
 {
     protected T value = value;
 
@@ -23,4 +23,9 @@ public class Ref<T>(T value) : Reactive
     {
         return value.Value;
     }
+}
+
+public interface IRef<T>
+{
+    public T Value { get; set; }
 }
