@@ -6,9 +6,11 @@ ComputedConverters provides you with XAML markup that allows you to write inline
 
 ## Support framework
 
-WPF [![NuGet](https://img.shields.io/nuget/v/ComputedConverters.WPF.svg)](https://nuget.org/packages/ComputedConverters.WPF)
+ComputedConverters.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedConverters.WPF.svg)](https://nuget.org/packages/ComputedConverters.WPF)
 
-Avalonia (TBD)
+ComputedConverters.Avalonia (TBD)
+
+ValueConverters.Avalonia [![Version](https://img.shields.io/nuget/v/ValueConverters.svg)](https://www.nuget.org/packages/ValueConverters.Avalonia)
 
 ## Usage
 
