@@ -110,7 +110,7 @@ Supports continuous value converters from group.
 
 ```xaml
 <c:ValueConverterGroup x:Key="NullToVisibilityConverter">
-    <c:NullToBoolConverter />
+    <c:IsNullConverter />
     <c:BoolToVisibilityConverter />
 </c:ValueConverterGroup>
 ```
