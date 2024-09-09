@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using Wpf.Ui.Violeta.Controls;
 
 namespace ComputedConverters.Test;
@@ -109,4 +110,12 @@ public enum TestLocaleEnum
     [LocaleDescription("ja", "サード")]
     [LocaleDescription("zh", "第三个")]
     Third = 3
+}
+
+public sealed class ServiceLocatorTestPage : UserControl
+{
+    public ServiceLocatorTestPage()
+    {
+        AddChild(new TextBlock { Text = "I'm a page named ServiceLocatorTestPage" });
+    }
 }

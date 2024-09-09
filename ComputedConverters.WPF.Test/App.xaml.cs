@@ -1,11 +1,18 @@
-﻿using System.Windows;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Windows;
 
 namespace ComputedConverters.Test;
 
 public partial class App : Application
 {
+    public ServiceProvider ServiceProvider { get; }
+
     public App()
     {
+        IServiceCollection services = new ServiceCollection();
+        services.AddTransient<ServiceLocatorTestPage>();
+        ServiceProvider = services.BuildServiceProvider();
+
         // Setup Quick Converter.
         // Add the System namespace so we can use primitive types (i.e. int, etc.).
         EquationTokenizer.AddNamespace(typeof(object));

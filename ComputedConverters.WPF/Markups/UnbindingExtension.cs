@@ -13,6 +13,9 @@ public sealed class UnbindingExtension(object? resourceKey) : MarkupExtension
     [ConstructorArgument(nameof(ResourceKey))]
     public object? ResourceKey { get; set; } = resourceKey;
 
+    [ConstructorArgument(nameof(Mode))]
+    public BindingMode Mode { get; set; } = BindingMode.OneTime;
+
     public UnbindingExtension() : this(default)
     {
     }
@@ -25,21 +28,66 @@ public sealed class UnbindingExtension(object? resourceKey) : MarkupExtension
         }
         else if (ResourceKey is Binding binding)
         {
-            if (serviceProvider.GetService(typeof(IProvideValueTarget)) is IRootObjectProvider provideValueTarget)
+            if (Mode != BindingMode.OneTime)
             {
-                if (provideValueTarget.RootObject is FrameworkElement targetObject)
+                throw new InvalidOperationException($"Only `BindingMode.OneTime` Mode supported.");
+            }
+
+            if (binding.RelativeSource != null)
+            {
+                // Not will be thrown nowadays.
+                // TODO: Support it.
+                _ = new InvalidOperationException($"RelativeSource is not supported.");
+            }
+
+            if (binding.ElementName != null)
+            {
+                if (serviceProvider.GetService(typeof(IProvideValueTarget)) is IRootObjectProvider provideValueTarget)
                 {
-                    if (targetObject.DataContext is null)
+                    if (provideValueTarget.RootObject is FrameworkElement targetObject)
                     {
-                        return DependencyProperty.UnsetValue;
+                        if (targetObject.FindName(binding.ElementName) is object { } targetElement)
+                        {
+                            string propertyPath = binding.Path.Path;
+
+                            if (targetElement.GetType().GetProperty(propertyPath) is PropertyInfo propInfo)
+                            {
+                                return propInfo.GetValue(targetElement);
+                            }
+                        }
                     }
+                }
+            }
 
-                    string propertyPath = binding.Path.Path;
-
-                    if (targetObject.DataContext.GetType().GetProperty(propertyPath) is PropertyInfo propInfo)
+            if (binding.Source == null)
+            {
+                // Solved from `DataContext` when the `Source` is null.
+                if (serviceProvider.GetService(typeof(IProvideValueTarget)) is IRootObjectProvider provideValueTarget)
+                {
+                    if (provideValueTarget.RootObject is FrameworkElement targetObject)
                     {
-                        return propInfo.GetValue(targetObject.DataContext);
+                        if (targetObject.DataContext is null)
+                        {
+                            // Not support cascading queries for `DataContext`.
+                            return DependencyProperty.UnsetValue;
+                        }
+
+                        string propertyPath = binding.Path.Path;
+
+                        if (targetObject.DataContext.GetType().GetProperty(propertyPath) is PropertyInfo propInfo)
+                        {
+                            return propInfo.GetValue(targetObject.DataContext);
+                        }
                     }
+                }
+            }
+            else
+            {
+                string propertyPath = binding.Path.Path;
+
+                if (binding.Source.GetType().GetProperty(propertyPath) is PropertyInfo propInfo)
+                {
+                    return propInfo.GetValue(binding.Source);
                 }
             }
         }

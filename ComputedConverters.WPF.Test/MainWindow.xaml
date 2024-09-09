@@ -235,6 +235,7 @@
                         Content="ChangeWithOrHeight" />
                 </ws:StackPanel>
             </ui:Card>
+            <!-- Converter -->
             <ui:Card>
                 <ws:StackPanel>
                     <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
@@ -248,6 +249,23 @@
                         Text="Visiable on debugger attached."
                         Visibility="{c:Converter Value={x:Static diagnostics:Debugger.IsAttached},
                                                  Converter={x:Static c:BoolToVisibilityConverter.Instance}}" />
+                </ws:StackPanel>
+            </ui:Card>
+            <!-- SetServiceLocator -->
+            <!-- ServiceLocator -->
+            <ui:Card>
+                <ws:StackPanel>
+                    <ws:StackPanel.Resources>
+                        <c:SetServiceLocator Value="{c:Unbinding {Binding ServiceProvider, Source={c:Static local:App.Current}}}" />
+                    </ws:StackPanel.Resources>
+                    <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
+                        <TextBlock.Inlines>
+                            <TextBlock>Markup:</TextBlock>
+                            <TextBlock>SetServiceLocator</TextBlock>
+                            <TextBlock>ServiceLocator</TextBlock>
+                        </TextBlock.Inlines>
+                    </TextBlock>
+                    <c:ServiceLocator Type="{x:Type local:ServiceLocatorTestPage}" />
                 </ws:StackPanel>
             </ui:Card>
         </ws:WrapPanel>
