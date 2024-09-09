@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Markup;
 
@@ -65,7 +66,11 @@ public sealed class StaticExtension(string member) : MarkupExtension
             return Enum.Parse(getMemberType, getMemberName, true);
         }
 
-        if (getMemberType.GetProperty(getMemberName, BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy) is PropertyInfo pi)
+        // Avoid the property use `new` keyword.
+        if (getMemberType
+            .GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
+            .Where(prop => prop.Name == getMemberName)
+            .FirstOrDefault() is PropertyInfo pi)
         {
             if (!pi.CanRead)
             {
@@ -75,7 +80,11 @@ public sealed class StaticExtension(string member) : MarkupExtension
             return pi.GetValue(null, null);
         }
 
-        if (getMemberType.GetField(Member, BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy) is FieldInfo fi)
+        // Avoid the field use `new` keyword.
+        if (getMemberType
+            .GetFields(BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
+            .Where(field => field.Name == Member)
+            .FirstOrDefault() is FieldInfo fi)
         {
             return fi.GetValue(null);
         }
