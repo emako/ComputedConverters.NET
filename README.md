@@ -553,6 +553,36 @@ Use StringFormat without Binding and support `Array<string>`.
 </ui:TitleBar.Title>
 ```
 
+#### 4.10 ServiceLocator
+
+Getting IoC support in xaml.
+
+```xaml
+<Grid>
+    <Grid.Resources>
+        <c:SetServiceLocator Value="{c:Unbinding {Binding ServiceProvider, Source={c:Static local:App.Current}}}" />
+    </Grid.Resources>
+    <c:ServiceLocator Type="{x:Type local:ServiceLocatorTestPage}" />
+</Grid>
+```
+
+```c#
+public partial class App : Application
+{
+    public ServiceProvider ServiceProvider { get; }
+}
+```
+
+```c#
+public class ServiceLocatorTestPage : UserControl
+{
+    public ServiceLocatorTestPage()
+    {
+        AddChild(new TextBlock { Text = "I'm a page named ServiceLocatorTestPage" });
+    }
+}
+```
+
 
 
 ## Examples
