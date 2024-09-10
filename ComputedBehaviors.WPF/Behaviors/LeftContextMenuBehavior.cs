@@ -5,7 +5,7 @@ using System.Windows.Controls.Primitives;
 
 namespace ComputedBehaviors;
 
-public class LeftContextMenuBehavior : Behavior<FrameworkElement>
+public sealed class LeftContextMenuBehavior : Behavior<FrameworkElement>
 {
     public Point? PlacementOffset { get; set; } = null;
     public PlacementMode Placement { get; set; } = PlacementMode.Bottom;
