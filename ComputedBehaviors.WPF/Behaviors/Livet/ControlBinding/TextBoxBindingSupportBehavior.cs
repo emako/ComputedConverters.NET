@@ -8,17 +8,17 @@ namespace ComputedBehaviors;
 public class TextBoxBindingSupportBehavior : Behavior<TextBox>
 {
     public static readonly DependencyProperty SelectedTextProperty =
-       DependencyProperty.Register("SelectedText", typeof(string), typeof(TextBoxBindingSupportBehavior),
+       DependencyProperty.Register(nameof(SelectedText), typeof(string), typeof(TextBoxBindingSupportBehavior),
            new FrameworkPropertyMetadata(string.Empty, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                SourceSelectedTextChanged));
 
     public static readonly DependencyProperty SelectionLengthProperty =
-       DependencyProperty.Register("SelectionLength", typeof(int), typeof(TextBoxBindingSupportBehavior),
+       DependencyProperty.Register(nameof(SelectionLength), typeof(int), typeof(TextBoxBindingSupportBehavior),
            new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                SourceSelectionLengthChanged));
 
     public static readonly DependencyProperty SelectionStartProperty =
-       DependencyProperty.Register("SelectionStart", typeof(int), typeof(TextBoxBindingSupportBehavior),
+       DependencyProperty.Register(nameof(SelectionStart), typeof(int), typeof(TextBoxBindingSupportBehavior),
            new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
                SourceSelectionStartChanged));
 

@@ -8,7 +8,7 @@ namespace ComputedBehaviors;
 public class PasswordBoxBindingSupportBehavior : Behavior<PasswordBox>
 {
     public static readonly DependencyProperty PasswordProperty =
-        DependencyProperty.Register("Password", typeof(string), typeof(PasswordBoxBindingSupportBehavior),
+        DependencyProperty.Register(nameof(Password), typeof(string), typeof(PasswordBoxBindingSupportBehavior),
             new FrameworkPropertyMetadata(
                 string.Empty,
                 FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
