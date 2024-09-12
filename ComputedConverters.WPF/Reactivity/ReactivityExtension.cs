@@ -41,6 +41,11 @@ internal static class ReactivityExtension
         return self.Watch(expression, () => callback(getter()));
     }
 
+    public static IDisposable WatchEffect<T>(this IReactivity self, Expression<Func<T>> expression, Action callback)
+    {
+        return self.Watch(expression, () => callback());
+    }
+
     public static IDisposable WatchDeep(this IReactivity self, object target, Action callback)
     {
         return self.WatchDeep(target, _ => callback());

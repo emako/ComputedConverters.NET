@@ -61,6 +61,11 @@ public class ReactiveObject : DependencyObject
         Reactivity.Default.Watch(expression, callback);
     }
 
+    protected internal static void WatchEffect<T>(Expression<Func<T>> expression, Action callback)
+    {
+        Reactivity.Default.WatchEffect(expression, callback);
+    }
+
     protected internal static void WatchDeep<T>(object target, Action<string> callback)
     {
         Reactivity.Default.WatchDeep(target, callback);
