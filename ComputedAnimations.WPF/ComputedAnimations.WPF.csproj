@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<PackageId>ComputedAnimations.WPF</PackageId>
+		<Product>ComputedAnimations.WPF</Product>
+		<TargetFrameworks>net47;net471;net472;net48;net481;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<AssemblyName>ComputedAnimations</AssemblyName>
+		<LangVersion>latest</LangVersion>
+		<EnableWindowsTargeting>true</EnableWindowsTargeting>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<AssemblyVersion>0.3.6.0</AssemblyVersion>
+		<FileVersion>0.3.6.0</FileVersion>
+		<Version>$(VersionPrefix)0.3.6.0-beta</Version>
+		<Authors>ema</Authors>
+		<Company>ema</Company>
+		<Description>Vue-like computed in .NET XAML markup.</Description>
+		<PackageProjectUrl>https://github.com/emako/ComputedConverters.NET</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/emako/ComputedConverters.NET</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>.NET WPF Avalonia</PackageTags>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>logo.png</PackageIcon>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath="" />
+		<None Include="..\Images\logo.png" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="System.Reactive" Version="6.0.1" />
+		<PackageReference Include="System.Reactive.Linq" Version="6.0.1" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework)' == 'net47' OR '$(TargetFramework)' == 'net471' OR '$(TargetFramework)' == 'net472' OR '$(TargetFramework)' == 'net48' OR '$(TargetFramework)' == 'net481'">
+		<Reference Include="Microsoft.CSharp" />
+	</ItemGroup>
+
+</Project>
