@@ -6,11 +6,12 @@ ComputedConverters provides you with XAML markup that allows you to write inline
 
 ## Support framework
 
-ComputedConverters.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedConverters.WPF.svg)](https://nuget.org/packages/ComputedConverters.WPF)
-
-ComputedConverters.Avalonia (TBD)
-
-ValueConverters.Avalonia [![Version](https://img.shields.io/nuget/v/ValueConverters.svg)](https://www.nuget.org/packages/ValueConverters.Avalonia)
+|                    | WPF                                                          | Avalonia                                                     |
+| ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ComputedConverters | ComputedConverters.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedConverters.WPF.svg)](https://nuget.org/packages/ComputedConverters.WPF) | ComputedConverters.Avalonia (TBD)                            |
+| ComputedAnimations | ComputedAnimations.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedAnimations.WPF.svg)](https://nuget.org/packages/ComputedAnimations.WPF) | /                                                            |
+| ComputedBehaviors  | ComputedBehaviors.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedBehaviors.WPF.svg)](https://nuget.org/packages/ComputedBehaviors.WPF) | /                                                            |
+| ValueConverters    | ValueConverters [![Version](https://img.shields.io/nuget/v/ValueConverters.svg)](https://www.nuget.org/packages/ValueConverters) | ValueConverters.Avalonia [![Version](https://img.shields.io/nuget/v/ValueConverters.Avalonia.svg)](https://www.nuget.org/packages/ValueConverters.Avalonia) |
 
 ## Usage
 
