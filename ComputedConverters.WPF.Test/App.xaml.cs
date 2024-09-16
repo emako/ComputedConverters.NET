@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
 namespace ComputedConverters.Test;
@@ -23,5 +24,39 @@ public partial class App : Application
         //I18nManager.Instance.Add(ComputedConverters.WPF.Test.Properties.Resources.ResourceManager);
 
         InitializeComponent();
+
+        TestMapper();
+    }
+
+    private void TestMapper()
+    {
+        //TestMapperModel? model = new();
+        //TestMapperViewModel? viewModel = new();
+        //ReactiveMapper.WeakReference.TryGetTarget(out var mapper);
+        //viewModel = mapper?.MapFrom(model, viewModel);
+    }
+}
+
+internal class TestMapperModel
+{
+    public string? Name { get; set; }
+}
+
+internal partial class TestMapperViewModel : ObservableObject
+{
+    [ObservableProperty]
+    private string? name;
+}
+
+[ReactiveMapperIndicator]
+file class ChannelDataMapperIndicator : ReactiveMapperIndicator
+{
+    public override void CreateMap(IReactiveMapperConfigurationExpression cfg)
+    {
+        cfg.CreateMap<TestMapperModel, TestMapperViewModel>()
+           .ForAllMembersCustom((src, dest) =>
+        {
+            dest.Name = src.Name;
+        });
     }
 }

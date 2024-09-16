@@ -10,7 +10,7 @@ namespace ComputedConverters;
 /// http://referencesource.microsoft.com/#System.ComponentModel.DataAnnotations/DataAnnotations/DisplayAttribute.cs
 /// </summary>
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Method, AllowMultiple = false)]
-public class DisplayAttribute : Attribute
+public sealed class DisplayAttribute : Attribute
 {
     private const string PropertyNotSetMessage = "The {0} property has not been set.  Use the Get{0} method to get the value.";
 
