@@ -30,10 +30,9 @@ public partial class App : Application
 
     private void TestMapper()
     {
-        //TestMapperModel? model = new();
-        //TestMapperViewModel? viewModel = new();
-        //ReactiveMapper.WeakReference.TryGetTarget(out var mapper);
-        //viewModel = mapper?.MapFrom(model, viewModel);
+        TestMapperModel? model = new();
+        TestMapperViewModel? viewModel = new();
+        viewModel = model.MapFrom(viewModel);
     }
 }
 

@@ -3,7 +3,7 @@
 namespace ComputedConverters;
 
 [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-public sealed class LocaleDescriptionAttribute(string locale, string description, bool isFallback = false) : Attribute
+public class LocaleDescriptionAttribute(string locale, string description, bool isFallback = false) : Attribute
 {
     private string locale = locale;
     public virtual string Locale => locale;

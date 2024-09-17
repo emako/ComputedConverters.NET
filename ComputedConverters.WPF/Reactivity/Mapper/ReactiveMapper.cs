@@ -4,69 +4,44 @@ namespace ComputedConverters;
 
 public partial class ReactiveMapper : IReactiveMapper
 {
-    public TDestination MapFrom<TSource, TDestination>(TSource source, TDestination destination)
+    public TDestination Map<TSource, TDestination>(TSource source, TDestination destination)
     {
-        throw new NotImplementedException();
-    }
-
-    public TDestination MapFrom<TSource, TDestination>(TSource source)
-    {
-        throw new NotImplementedException();
-    }
-
-    public TDestination MapTo<TSource, TDestination>(TDestination destination, TSource source)
-    {
-        throw new NotImplementedException();
-    }
-
-    public TDestination MapTo<TSource, TDestination>(TDestination destination)
-    {
-        throw new NotImplementedException();
-    }
-
-    public TDestination MapFromCloneable<TSource, TDestination>(TSource source, TDestination destination)
-    {
-        throw new NotImplementedException();
-    }
-
-    public TDestination MapFromCloneable<TSource, TDestination>(TSource source)
-    {
-        throw new NotImplementedException();
-    }
-
-    public TDestination MapToCloneable<TSource, TDestination>(TDestination destination, TSource source)
-    {
-        throw new NotImplementedException();
-    }
-
-    public TDestination MapToCloneable<TSource, TDestination>(TDestination destination)
-    {
-        throw new NotImplementedException();
-    }
-
-    public TDestination Map<TSource, TDestination>(TSource source, TDestination destination, Action<IReactiveMapperConfigurationExpression>? configure = null)
-    {
-        throw new NotImplementedException();
+        if (MethodCache.TryGetValue(new(typeof(TSource), typeof(TDestination)), out Action<object?, object?> method))
+        {
+            method.Invoke(source, destination);
+            return destination;
+        }
+        else
+        {
+            return PropertyCopier.Map(source, destination);
+        }
     }
 }
 
 public interface IReactiveMapper
 {
-    public TDestination MapFrom<TSource, TDestination>(TSource source, TDestination destination);
+    public TDestination Map<TSource, TDestination>(TSource source, TDestination destination);
+}
 
-    public TDestination MapFrom<TSource, TDestination>(TSource source);
+public static class ReactiveMapperExtension
+{
+    public static TDestination MapFrom<TSource, TDestination>(this TSource source, TDestination destination)
+    {
+        return ReactiveMapperProvider.Service!.Map(source, destination);
+    }
 
-    public TDestination MapTo<TSource, TDestination>(TDestination destination, TSource source);
+    public static TDestination MapFrom<TSource, TDestination>(this TSource source)
+    {
+        return ReactiveMapperProvider.Service!.Map(source, Activator.CreateInstance<TDestination>());
+    }
 
-    public TDestination MapTo<TSource, TDestination>(TDestination destination);
+    public static TSource MapTo<TSource, TDestination>(this TDestination destination, TSource source)
+    {
+        return ReactiveMapperProvider.Service!.Map(destination, source);
+    }
 
-    public TDestination MapFromCloneable<TSource, TDestination>(TSource source, TDestination destination);
-
-    public TDestination MapFromCloneable<TSource, TDestination>(TSource source);
-
-    public TDestination MapToCloneable<TSource, TDestination>(TDestination destination, TSource source);
-
-    public TDestination MapToCloneable<TSource, TDestination>(TDestination destination);
-
-    public TDestination Map<TSource, TDestination>(TSource source, TDestination destination, Action<IReactiveMapperConfigurationExpression>? configure = null);
+    public static TSource MapTo<TSource, TDestination>(this TDestination destination)
+    {
+        return ReactiveMapperProvider.Service!.Map(destination, Activator.CreateInstance<TSource>());
+    }
 }

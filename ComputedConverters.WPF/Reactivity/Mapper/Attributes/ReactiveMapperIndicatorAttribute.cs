@@ -3,4 +3,4 @@
 namespace ComputedConverters;
 
 [AttributeUsage(AttributeTargets.Class)]
-public sealed class MapperIndicatorAttribute : Attribute;
+public sealed class ReactiveMapperIndicatorAttribute : Attribute;

@@ -10,8 +10,6 @@ public class ReactiveMapperConfiguration
 
     public ReactiveMapperConfiguration(ReactiveMapperConfigurationExpression configurationExpression)
     {
-        //_mappers = configurationExpression.Mappers.ToArray();
-        throw new NotImplementedException();
     }
 
     private static ReactiveMapperConfigurationExpression Build(Action<IReactiveMapperConfigurationExpression> configure)
@@ -28,6 +26,6 @@ public class ReactiveMapperConfiguration
 
     public IReactiveMapper CreateMapper()
     {
-        throw new NotImplementedException();
+        return new ReactiveMapper();
     }
 }
