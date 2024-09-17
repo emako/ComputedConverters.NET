@@ -47,11 +47,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.1" />
 		<PackageReference Include="EleCho.WpfSuite" Version="0.8.1" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+		<PackageReference Include="MSTest.TestFramework" Version="3.6.0" />
 		<PackageReference Include="WPF-UI" Version="3.0.5" />
-		<PackageReference Include="WPF-UI.Violeta" Version="3.0.5.7" />
+		<PackageReference Include="WPF-UI.Violeta" Version="3.0.5.12" />
 	</ItemGroup>
 
     <ItemGroup>

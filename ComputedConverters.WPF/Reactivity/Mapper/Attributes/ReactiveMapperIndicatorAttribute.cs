@@ -2,5 +2,5 @@
 
 namespace ComputedConverters;
 
-[AttributeUsage(AttributeTargets.Class)]
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
 public sealed class ReactiveMapperIndicatorAttribute : Attribute;

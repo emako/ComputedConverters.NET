@@ -2,5 +2,5 @@
 
 namespace ComputedConverters;
 
-[AttributeUsage(AttributeTargets.Property)]
+[AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
 public sealed class ICloneableAttribute : Attribute;

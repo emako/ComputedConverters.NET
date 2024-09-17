@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Windows;
 
 namespace ComputedConverters;
 
@@ -24,7 +26,7 @@ public partial class ReactiveMapper
             }
             else
             {
-                var methodValue = CreateCopyMethod(methodKey.SourceType, methodKey.DestinationType);
+                var methodValue = CreatePropertyCloneMethod(methodKey.SourceType, methodKey.DestinationType);
 
                 _ = _methodCache.TryAdd(methodKey, new(() => methodValue));
                 _ = methodValue.DynamicInvoke(source, destination);
@@ -32,9 +34,9 @@ public partial class ReactiveMapper
             }
         }
 
-        public static Action<object?, object?> CreateCopyMethod(Type sourceType, Type targetType)
+        public static Action<object?, object?> CreatePropertyCloneMethod(Type sourceType, Type targetType)
         {
-            DynamicMethod dynamicMethod = new("CopyProperties", null, [typeof(object), typeof(object)], typeof(PropertyCopier).Module, true);
+            DynamicMethod dynamicMethod = new("PropertyClone", null, [typeof(object), typeof(object)], typeof(PropertyCopier).Module, true);
             ILGenerator il = dynamicMethod.GetILGenerator();
 
             PropertyInfo[] properties = sourceType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
@@ -42,12 +44,7 @@ public partial class ReactiveMapper
             {
                 PropertyInfo? targetProp = targetType.GetProperty(sourceProp.Name, BindingFlags.Public | BindingFlags.Instance);
 
-                if (targetProp == null)
-                {
-                    continue;
-                }
-
-                if (!sourceProp.CanRead || !targetProp.CanWrite)
+                if (targetProp == null || !sourceProp.CanRead || !targetProp.CanWrite)
                 {
                     continue;
                 }
@@ -60,47 +57,43 @@ public partial class ReactiveMapper
                 if (targetProp.GetCustomAttribute(typeof(ICloneableAttribute)) is ICloneableAttribute { }
                  && typeof(ICloneable).IsAssignableFrom(sourceProp.PropertyType))
                 {
-#if false // Uncheck nullable.
+                    // Pseudocode: TAR = ((ICloneable)SRC).Clone();
                     il.Emit(OpCodes.Ldarg_1);
                     il.Emit(OpCodes.Ldarg_0);
                     il.Emit(OpCodes.Callvirt, sourceProp.GetGetMethod()!);
                     il.Emit(OpCodes.Callvirt, typeof(ICloneable).GetMethod(nameof(ICloneable.Clone))!);
                     il.Emit(OpCodes.Castclass, sourceProp.PropertyType);
-                    il.Emit(OpCodes.Callvirt, targetProp.GetSetMethod()!);
-#else // Check nullable.
-                    il.Emit(OpCodes.Ldarg_0);
-                    il.Emit(OpCodes.Callvirt, sourceProp.GetGetMethod()!);
-
-                    Label notNullLabel = il.DefineLabel();
-                    Label endLabel = il.DefineLabel();
-
-                    il.Emit(OpCodes.Dup);
-                    il.Emit(OpCodes.Brtrue_S, notNullLabel);
-
-                    il.Emit(OpCodes.Pop);
-                    il.Emit(OpCodes.Ldarg_1);
-                    il.Emit(OpCodes.Ldnull);
-                    il.Emit(OpCodes.Callvirt, targetProp.GetSetMethod()!);
-                    il.Emit(OpCodes.Br_S, endLabel);
-
-                    il.MarkLabel(notNullLabel);
-                    il.Emit(OpCodes.Ldarg_1);
-                    il.Emit(OpCodes.Callvirt, typeof(ICloneable).GetMethod(nameof(ICloneable.Clone))!);
-                    il.Emit(OpCodes.Castclass, sourceProp.PropertyType);
-                    il.Emit(OpCodes.Callvirt, targetProp.GetSetMethod()!);
-
-                    il.MarkLabel(endLabel);
-#endif
-                }
-                else
-                {
-                    if (targetProp.PropertyType == sourceProp.PropertyType)
+                    if (targetProp.PropertyType.IsValueType)
                     {
-                        il.Emit(OpCodes.Ldarg_1);
-                        il.Emit(OpCodes.Ldarg_0);
-                        il.Emit(OpCodes.Callvirt, sourceProp.GetGetMethod()!);
-                        il.Emit(OpCodes.Callvirt, targetProp.GetSetMethod()!);
+                        il.Emit(OpCodes.Unbox_Any, targetProp.PropertyType);
                     }
+                    il.Emit(OpCodes.Callvirt, targetProp.GetSetMethod()!);
+                }
+                else if (targetProp.GetCustomAttribute(typeof(ITypeConverterAttribute)) is ITypeConverterAttribute { } typeConverterAttribute)
+                {
+                    // Pseudocode: TAR = ITypeConverter.Convert(SRC);
+                    il.Emit(OpCodes.Ldarg_1);
+                    il.Emit(OpCodes.Newobj, Type.GetType(typeConverterAttribute.ConverterTypeName)!.GetConstructor(Type.EmptyTypes)!);
+                    il.Emit(OpCodes.Ldarg_0);
+                    il.Emit(OpCodes.Callvirt, sourceProp.GetGetMethod()!);
+                    il.Emit(OpCodes.Callvirt, typeof(ITypeConverter).GetMethod(nameof(ITypeConverter.Convert))!);
+                    if (targetProp.PropertyType.IsValueType)
+                    {
+                        il.Emit(OpCodes.Unbox_Any, targetProp.PropertyType);
+                    }
+                    il.Emit(OpCodes.Callvirt, targetProp.GetSetMethod()!);
+                }
+                else if (targetProp.PropertyType == sourceProp.PropertyType)
+                {
+                    // Pseudocode: TAR = SRC;
+                    il.Emit(OpCodes.Ldarg_1);
+                    il.Emit(OpCodes.Ldarg_0);
+                    il.Emit(OpCodes.Callvirt, sourceProp.GetGetMethod()!);
+                    if (targetProp.PropertyType.IsValueType)
+                    {
+                        il.Emit(OpCodes.Unbox_Any, targetProp.PropertyType);
+                    }
+                    il.Emit(OpCodes.Callvirt, targetProp.GetSetMethod()!);
                 }
             }
 

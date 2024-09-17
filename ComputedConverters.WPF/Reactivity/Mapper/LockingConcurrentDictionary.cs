@@ -4,11 +4,9 @@ using System.Collections.Generic;
 
 namespace ComputedConverters;
 
-public readonly struct LockingConcurrentDictionary<TKey, TValue>(Func<TKey, TValue> valueFactory) where TKey : notnull
+public readonly struct LockingConcurrentDictionary<TKey, TValue>() where TKey : notnull
 {
     private readonly ConcurrentDictionary<TKey, Lazy<TValue>> _dictionary = new();
-
-    private readonly Func<TKey, Lazy<TValue>> _valueFactory = (TKey key) => new Lazy<TValue>(() => valueFactory(key));
 
     public TValue this[TKey key]
     {
@@ -21,11 +19,6 @@ public readonly struct LockingConcurrentDictionary<TKey, TValue>(Func<TKey, TVal
     public bool TryAdd(TKey key, Lazy<TValue> value)
     {
         return _dictionary.TryAdd(key, value);
-    }
-
-    public TValue GetOrAdd(TKey key)
-    {
-        return _dictionary.GetOrAdd(key, _valueFactory).Value;
     }
 
     public TValue GetOrAdd(TKey key, Func<TKey, Lazy<TValue>> valueFactory)
