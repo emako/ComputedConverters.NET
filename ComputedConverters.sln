@@ -5,11 +5,17 @@ VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputedConverters.WPF", "ComputedConverters.WPF\ComputedConverters.WPF.csproj", "{4A8EFA97-C32F-426B-9FA0-27669997D976}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputedConverters.WPF.Test", "ComputedConverters.WPF.Test\ComputedConverters.WPF.Test.csproj", "{BF7E6E0D-D3DE-4AD6-BD70-612B445499C7}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputedBehaviors.WPF", "ComputedBehaviors.WPF\ComputedBehaviors.WPF.csproj", "{E6C59AD7-C60A-4FBA-A0A6-EA19D26CC629}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputedAnimations.WPF", "ComputedAnimations.WPF\ComputedAnimations.WPF.csproj", "{BFD67ECD-8802-4249-A9D5-D53D91B29AE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ILGen", "ILGen", "{70882CC0-766C-4A68-9410-376F5FCA3F19}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactiveMapper", "ILGen\ReactiveMapper\ReactiveMapper.csproj", "{ED051F39-A661-41FF-8A84-77D94C31EA87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9017F64F-6545-44AA-82A8-CDD53FBD76B2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputedConverters.WPF.Test", "Test\ComputedConverters.WPF.Test\ComputedConverters.WPF.Test.csproj", "{B49E3CFA-A78B-4EC8-B4AA-E21963E70203}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +27,6 @@ Global
 		{4A8EFA97-C32F-426B-9FA0-27669997D976}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A8EFA97-C32F-426B-9FA0-27669997D976}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A8EFA97-C32F-426B-9FA0-27669997D976}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BF7E6E0D-D3DE-4AD6-BD70-612B445499C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF7E6E0D-D3DE-4AD6-BD70-612B445499C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF7E6E0D-D3DE-4AD6-BD70-612B445499C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF7E6E0D-D3DE-4AD6-BD70-612B445499C7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E6C59AD7-C60A-4FBA-A0A6-EA19D26CC629}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E6C59AD7-C60A-4FBA-A0A6-EA19D26CC629}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6C59AD7-C60A-4FBA-A0A6-EA19D26CC629}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,9 +35,21 @@ Global
 		{BFD67ECD-8802-4249-A9D5-D53D91B29AE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFD67ECD-8802-4249-A9D5-D53D91B29AE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFD67ECD-8802-4249-A9D5-D53D91B29AE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED051F39-A661-41FF-8A84-77D94C31EA87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED051F39-A661-41FF-8A84-77D94C31EA87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED051F39-A661-41FF-8A84-77D94C31EA87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED051F39-A661-41FF-8A84-77D94C31EA87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B49E3CFA-A78B-4EC8-B4AA-E21963E70203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B49E3CFA-A78B-4EC8-B4AA-E21963E70203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B49E3CFA-A78B-4EC8-B4AA-E21963E70203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B49E3CFA-A78B-4EC8-B4AA-E21963E70203}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{ED051F39-A661-41FF-8A84-77D94C31EA87} = {70882CC0-766C-4A68-9410-376F5FCA3F19}
+		{B49E3CFA-A78B-4EC8-B4AA-E21963E70203} = {9017F64F-6545-44AA-82A8-CDD53FBD76B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6193EB1-93B7-477F-A1DD-9C6C769C54A9}
