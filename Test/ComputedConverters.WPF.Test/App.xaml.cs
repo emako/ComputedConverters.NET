@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
 
@@ -33,8 +32,8 @@ public partial class App : Application
 
     private void TestMapper()
     {
-        TestMapperModel? model = new();
-        TestMapperViewModel? viewModel = new();
+        TestMapperModel model = new();
+        TestMapperViewModel viewModel = new();
         viewModel = model.MapFrom(viewModel);
 
         Assert.AreEqual(model.Name!.GetHashCode(), viewModel.Name!.GetHashCode());

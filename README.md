@@ -8,7 +8,7 @@ ComputedConverters provides you with XAML markup that allows you to write inline
 
 |                    | WPF                                                          | Avalonia                                                     |
 | ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ComputedConverters | ComputedConverters.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedConverters.WPF.svg)](https://nuget.org/packages/ComputedConverters.WPF) | ComputedConverters.Avalonia (TBD)                            |
+| ComputedConverters | ComputedConverters.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedConverters.WPF.svg)](https://nuget.org/packages/ComputedConverters.WPF) | ComputedConverters.Avalonia<br />(TBD)                       |
 | ComputedAnimations | ComputedAnimations.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedAnimations.WPF.svg)](https://nuget.org/packages/ComputedAnimations.WPF) | /                                                            |
 | ComputedBehaviors  | ComputedBehaviors.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedBehaviors.WPF.svg)](https://nuget.org/packages/ComputedBehaviors.WPF) | /                                                            |
 | ValueConverters    | ValueConverters [![Version](https://img.shields.io/nuget/v/ValueConverters.svg)](https://www.nuget.org/packages/ValueConverters) | ValueConverters.Avalonia [![Version](https://img.shields.io/nuget/v/ValueConverters.Avalonia.svg)](https://www.nuget.org/packages/ValueConverters.Avalonia) |
@@ -101,6 +101,18 @@ public partial class ViewModel : ReactiveObject
 		WatchDeep(obj, path => Debug.WriteLine(path))
     }
 }
+```
+
+#### 1.5 Mapper
+
+IL based auto mapper will auto copy the property from source to target object with the same property name.
+
+For more configuration, to set the `ICloneableAttribute`, `ITypeConverterAttribute` and `NotMappedAttribute` for target property attribute.
+
+```c#
+TestMapperModel model = new();
+TestMapperViewModel viewModel = new();
+viewModel = model.MapFrom(viewModel); // Auto copy the properties from model to viewModel.
 ```
 
 ### 2. Value Converters
