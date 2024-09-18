@@ -56,7 +56,11 @@ internal sealed class TestMapperModel
 
     public MyClass? Value3 { get; set; } = null;
 
-    public string Thickness { get; set; } = "1,0,1,0";
+    public int Value4 { get; set; } = default;
+
+    public string ThicknessUnbox { get; set; } = "1,0,1,0";
+
+    public Thickness ThicknessBox { get; set; } = new(1, 0, 1, 0);
 
     public string ThicknessClass { get; set; } = "1,0,1,0";
 }
@@ -77,8 +81,15 @@ internal partial class TestMapperViewModel : ObservableObject
     private MyClass? value3 = default!;
 
     [ObservableProperty]
+    private int value4 = default;
+
+    [ObservableProperty]
     [property: ITypeConverter(typeof(StringToThicknessTypeConverter))]
-    private Thickness thickness = default!;
+    private Thickness thicknessUnbox = default!;
+
+    [ObservableProperty]
+    [property: ITypeConverter(typeof(ThicknessToStringTypeConverter))]
+    private string thicknessBox = default!;
 
     [ObservableProperty]
     [property: ITypeConverter(typeof(StringToThicknessClassTypeConverter))]
@@ -109,6 +120,9 @@ public sealed class MyClass : ICloneable
     }
 }
 
+/// <summary>
+/// Test unbox
+/// </summary>
 public sealed class StringToThicknessTypeConverter : ITypeConverter
 {
     public override object? Convert(object? value)
@@ -124,6 +138,21 @@ public sealed class StringToThicknessTypeConverter : ITypeConverter
             {
                 return new Thickness(left, top, right, bottom);
             }
+        }
+        return base.Convert(value);
+    }
+}
+
+/// <summary>
+/// Test box
+/// </summary>
+public sealed class ThicknessToStringTypeConverter : ITypeConverter
+{
+    public override object? Convert(object? value)
+    {
+        if (value is Thickness str)
+        {
+            return $"{str.Left},{str.Top},{str.Right},{str.Bottom}";
         }
         return base.Convert(value);
     }

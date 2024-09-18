@@ -1,8 +1,6 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Windows;
 
 namespace ComputedConverters;
 
@@ -55,7 +53,8 @@ public partial class ReactiveMapper
                 }
 
                 if (targetProp.GetCustomAttribute(typeof(ICloneableAttribute)) is ICloneableAttribute { }
-                 && typeof(ICloneable).IsAssignableFrom(sourceProp.PropertyType))
+                 && typeof(ICloneable).IsAssignableFrom(sourceProp.PropertyType)
+                 && targetProp.PropertyType == sourceProp.PropertyType)
                 {
                     // Pseudocode: TAR = ((ICloneable)SRC).Clone();
                     il.Emit(OpCodes.Ldarg_1);
@@ -63,10 +62,6 @@ public partial class ReactiveMapper
                     il.Emit(OpCodes.Callvirt, sourceProp.GetGetMethod()!);
                     il.Emit(OpCodes.Callvirt, typeof(ICloneable).GetMethod(nameof(ICloneable.Clone))!);
                     il.Emit(OpCodes.Castclass, sourceProp.PropertyType);
-                    if (targetProp.PropertyType.IsValueType)
-                    {
-                        il.Emit(OpCodes.Unbox_Any, targetProp.PropertyType);
-                    }
                     il.Emit(OpCodes.Callvirt, targetProp.GetSetMethod()!);
                 }
                 else if (targetProp.GetCustomAttribute(typeof(ITypeConverterAttribute)) is ITypeConverterAttribute { } typeConverterAttribute)
@@ -76,10 +71,18 @@ public partial class ReactiveMapper
                     il.Emit(OpCodes.Newobj, Type.GetType(typeConverterAttribute.ConverterTypeName)!.GetConstructor(Type.EmptyTypes)!);
                     il.Emit(OpCodes.Ldarg_0);
                     il.Emit(OpCodes.Callvirt, sourceProp.GetGetMethod()!);
+                    if (!targetProp.PropertyType.IsValueType && sourceProp.PropertyType.IsValueType)
+                    {
+                        il.Emit(OpCodes.Box, sourceProp.PropertyType);
+                    }
                     il.Emit(OpCodes.Callvirt, typeof(ITypeConverter).GetMethod(nameof(ITypeConverter.Convert))!);
-                    if (targetProp.PropertyType.IsValueType)
+                    if (targetProp.PropertyType.IsValueType && !sourceProp.PropertyType.IsValueType)
                     {
                         il.Emit(OpCodes.Unbox_Any, targetProp.PropertyType);
+                    }
+                    if (!targetProp.PropertyType.IsValueType && sourceProp.PropertyType.IsValueType)
+                    {
+                        il.Emit(OpCodes.Castclass, targetProp.PropertyType);
                     }
                     il.Emit(OpCodes.Callvirt, targetProp.GetSetMethod()!);
                 }
@@ -89,10 +92,6 @@ public partial class ReactiveMapper
                     il.Emit(OpCodes.Ldarg_1);
                     il.Emit(OpCodes.Ldarg_0);
                     il.Emit(OpCodes.Callvirt, sourceProp.GetGetMethod()!);
-                    if (targetProp.PropertyType.IsValueType)
-                    {
-                        il.Emit(OpCodes.Unbox_Any, targetProp.PropertyType);
-                    }
                     il.Emit(OpCodes.Callvirt, targetProp.GetSetMethod()!);
                 }
             }
