@@ -10,7 +10,7 @@ namespace ComputedConverters;
 
 public class ReactiveObject : DependencyObject
 {
-    private readonly IDictionary<string, IStrongBox> _cache = new Dictionary<string, IStrongBox>();
+    private readonly Dictionary<string, IStrongBox> _cache = [];
 
     private MulticastDelegate? _propertyChangedDelegate;
 
@@ -21,7 +21,7 @@ public class ReactiveObject : DependencyObject
             throw new InvalidOperationException($"{GetType().FullName} not implement from INotifyPropertyChanged.");
         }
 
-        if (!_cache.ContainsKey(propertyName))
+        if (!_cache.TryGetValue(propertyName, out _))
         {
             _cache.Add(propertyName, new StrongBox<T>(expression.Compile()()));
             Reactivity.Default.Watch(expression, value =>

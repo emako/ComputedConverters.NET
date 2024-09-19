@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ComputedConverters;
 
-internal class ConditionalNode
+internal class ConditionalNode(Func<bool> testGetter, bool isRoot = false)
 {
     [Flags]
     private enum NodeType
@@ -15,13 +15,13 @@ internal class ConditionalNode
         Test = 7
     }
 
-    private readonly Func<bool> _testGetter;
-    private readonly IDictionary<DependencyNode, NodeType> _allNodes = new Dictionary<DependencyNode, NodeType>();
+    private readonly Func<bool> _testGetter = testGetter ?? throw new ArgumentNullException(nameof(testGetter));
+    private readonly Dictionary<DependencyNode, NodeType> _allNodes = [];
 
     private IReadOnlyCollection<DependencyNode>? _ifTrueNodes;
     private IReadOnlyCollection<DependencyNode>? _ifFalseNodes;
 
-    public bool IsRoot { get; }
+    public bool IsRoot { get; } = isRoot;
 
     public bool IsActivated { get; set; }
 
@@ -31,12 +31,6 @@ internal class ConditionalNode
     public ConditionalNode? IfTrueChild { get; set; }
 
     public ConditionalNode? IfFalseChild { get; set; }
-
-    public ConditionalNode(Func<bool> testGetter, bool isRoot = false)
-    {
-        IsRoot = isRoot;
-        _testGetter = testGetter ?? throw new ArgumentNullException(nameof(testGetter));
-    }
 
     public IDisposable Initialize()
     {
@@ -92,7 +86,7 @@ internal class ConditionalNode
         }
 
         NodeType nodeType = GetNodeTypeFromConditionalNodeType(type);
-        if (!_allNodes.ContainsKey(node))
+        if (!_allNodes.TryGetValue(node, out _))
         {
             _allNodes.Add(node, nodeType);
         }
@@ -150,7 +144,7 @@ internal class ConditionalNode
         }
         else
         {
-            nodes.ForEach(item => item.IsActivated = activate);
+            nodes?.ForEach(item => item.IsActivated = activate);
         }
     }
 }
