@@ -18,7 +18,9 @@ ComputedConverters provides you with XAML markup that allows you to write inline
 Add XML namespace to your XAML file:
 
 ```xaml
-<Window xmlns:c="http://schemas.github.com/computedconverters/2024/xaml">
+<Window xmlns:a="http://schemas.github.com/computedanimations/2024/xaml"
+        xmlns:b="http://schemas.github.com/computedbehaviors/2024/xaml"
+        xmlns:c="http://schemas.github.com/computedconverters/2024/xaml">
 </Window>
 ```
 

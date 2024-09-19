@@ -32,16 +32,23 @@ public partial class App : Application
 
     private void TestMapper()
     {
-        TestMapperModel model = new();
-        TestMapperViewModel viewModel = new();
-        viewModel = model.MapFrom(viewModel);
+        {
+            TestMapperModel model = new();
+            TestMapperViewModel viewModel = new();
+            viewModel = model.MapFrom(viewModel);
 
-        Assert.AreEqual(model.Name!.GetHashCode(), viewModel.Name!.GetHashCode());
-        Assert.IsFalse(ReferenceEquals(model.Value1, viewModel.Value1));
-        Assert.IsTrue(ReferenceEquals(model.Value2, viewModel.Value2));
-        Assert.IsTrue(ReferenceEquals(model.Value3, viewModel.Value3));
-        Assert.AreEqual(model.ThicknessClass, viewModel.ThicknessClass.ToString());
-        Assert.AreEqual(viewModel.ThicknessClass.ToString(), new StringToThicknessClassTypeConverter().Convert(model.ThicknessClass)!.ToString());
+            Assert.AreEqual(model.Name!.GetHashCode(), viewModel.Name!.GetHashCode());
+            Assert.IsFalse(ReferenceEquals(model.Value1, viewModel.Value1));
+            Assert.IsTrue(ReferenceEquals(model.Value2, viewModel.Value2));
+            Assert.IsTrue(ReferenceEquals(model.Value3, viewModel.Value3));
+            Assert.AreEqual(model.ThicknessClass, viewModel.ThicknessClass.ToString());
+            Assert.AreEqual(viewModel.ThicknessClass.ToString(), new StringToThicknessClassTypeConverter().Convert(model.ThicknessClass)!.ToString());
+        }
+
+        {
+            TestMapperModel model = new();
+            TestMapperViewModel viewModel = model.MapFrom<TestMapperModel, TestMapperViewModel>();
+        }
     }
 }
 
