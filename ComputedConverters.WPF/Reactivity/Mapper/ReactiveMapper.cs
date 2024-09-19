@@ -33,7 +33,7 @@ public static class ReactiveMapperExtension
     /// <param name="source">Source object to map from</param>
     /// <param name="destination">Destination object to map into</param>
     /// <returns>The mapped destination object, same instance as the destination object</returns>
-    public static TDestination MapFrom<TSource, TDestination>(this TSource source, TDestination destination)
+    public static TDestination MapTo<TSource, TDestination>(this TSource source, TDestination destination)
     {
         return ReactiveMapperProvider.Service!.Map(source, destination);
     }
@@ -45,9 +45,9 @@ public static class ReactiveMapperExtension
     /// <typeparam name="TDestination">Destination type</typeparam>
     /// <param name="source">Source object to map from</param>
     /// <returns>The mapped destination object, same instance as the destination object</returns>
-    public static TDestination MapFrom<TSource, TDestination>(this TSource source)
+    public static TDestination MapTo<TSource, TDestination>(this TSource source) where TDestination : new()
     {
-        return ReactiveMapperProvider.Service!.Map(source, Activator.CreateInstance<TDestination>());
+        return ReactiveMapperProvider.Service!.Map(source, new TDestination());
     }
 
     /// <summary>
@@ -58,9 +58,9 @@ public static class ReactiveMapperExtension
     /// <param name="destination">Destination object to map into</param>
     /// <param name="source">Source object to map from</param>
     /// <returns>The mapped destination object, same instance as the destination object</returns>
-    public static TSource MapTo<TSource, TDestination>(this TDestination destination, TSource source)
+    public static TDestination MapFrom<TDestination, TSource>(this TDestination destination, TSource source)
     {
-        return ReactiveMapperProvider.Service!.Map(destination, source);
+        return ReactiveMapperProvider.Service!.Map(source, destination);
     }
 
     /// <summary>
@@ -70,8 +70,8 @@ public static class ReactiveMapperExtension
     /// <typeparam name="TDestination">Destination type</typeparam>
     /// <param name="destination">Destination object to map into</param>
     /// <returns>The mapped destination object, same instance as the destination object</returns>
-    public static TSource MapTo<TSource, TDestination>(this TDestination destination)
+    public static TDestination MapFrom<TDestination, TSource>(this TDestination destination) where TSource : new()
     {
-        return ReactiveMapperProvider.Service!.Map(destination, Activator.CreateInstance<TSource>());
+        return ReactiveMapperProvider.Service!.Map(new TSource(), destination);
     }
 }

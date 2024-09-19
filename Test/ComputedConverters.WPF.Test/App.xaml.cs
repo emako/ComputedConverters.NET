@@ -35,7 +35,7 @@ public partial class App : Application
         {
             TestMapperModel model = new();
             TestMapperViewModel viewModel = new();
-            viewModel = model.MapFrom(viewModel);
+            _ = model.MapTo(viewModel);
 
             Assert.AreEqual(model.Name!.GetHashCode(), viewModel.Name!.GetHashCode());
             Assert.IsFalse(ReferenceEquals(model.Value1, viewModel.Value1));
@@ -47,7 +47,14 @@ public partial class App : Application
 
         {
             TestMapperModel model = new();
-            TestMapperViewModel viewModel = model.MapFrom<TestMapperModel, TestMapperViewModel>();
+            TestMapperViewModel viewModel = null!;
+            viewModel = model.MapTo<TestMapperModel, TestMapperViewModel>();
+        }
+
+        {
+            TestMapperModel model = new();
+            TestMapperViewModel viewModel = new();
+            _ = viewModel.MapFrom(model);
         }
     }
 }
