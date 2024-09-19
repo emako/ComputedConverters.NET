@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -9,51 +8,30 @@ public static class ReactiveMapperAssemblyResolver
 {
     private static readonly HashSet<Assembly> stock = [];
 
-    public static void Register(Assembly? assembly = null)
+    public static void Register(params Assembly[] assemblies)
     {
-        if (assembly == null)
+        if (assemblies.Length == 0)
         {
-            StackTrace stackTrace = new(2);
-            StackFrame? stackFrame = stackTrace.GetFrame(1);
+            StackTrace stackTrace = new(1);
+            StackFrame? stackFrame = stackTrace.GetFrame(0);
             MethodBase? methodBase = stackFrame?.GetMethod()!;
 
-            assembly = methodBase?.DeclaringType?.Assembly;
+            assemblies = [methodBase?.DeclaringType?.Assembly!];
         }
 
-        if (assembly == null)
+        if (assemblies == null)
         {
             return;
         }
 
-        if (!stock.Contains(assembly))
+        foreach (Assembly assembly in assemblies)
         {
-            _ = stock.Add(assembly);
+            if (!stock.Contains(assembly))
+            {
+                _ = stock.Add(assembly);
+            }
+            Debug.WriteLine($"[MapperAssemblyResolver] Register assembly named `{assemblies}`.");
         }
-        Debug.WriteLine($"[MapperAssemblyResolver] Register assembly named `{assembly}`.");
-    }
-
-    [Obsolete("Normally we can't Unregister")]
-    public static void Unregister(Assembly? assembly = null)
-    {
-        if (assembly == null)
-        {
-            StackTrace stackTrace = new(2);
-            StackFrame? stackFrame = stackTrace.GetFrame(1);
-            MethodBase? methodBase = stackFrame?.GetMethod()!;
-
-            assembly = methodBase?.DeclaringType?.Assembly;
-        }
-
-        if (assembly == null)
-        {
-            return;
-        }
-
-        if (stock.Contains(assembly))
-        {
-            _ = stock.Remove(assembly);
-        }
-        Debug.WriteLine($"[MapperAssemblyResolver] Unregister assembly named `{assembly}`.");
     }
 
     public static IEnumerable<Assembly> Resolve()
