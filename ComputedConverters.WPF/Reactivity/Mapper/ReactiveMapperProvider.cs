@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
@@ -35,15 +36,15 @@ public static class ReactiveMapperProvider
                 continue;
             }
 
-            var types = assembly.GetTypes()
+            IEnumerable<Type> types = assembly.GetTypes()
                 .Where(t => t.GetCustomAttribute<ReactiveMapperIndicatorAttribute>() != null
                         || typeof(IReactiveMapperIndicator).IsAssignableFrom(t));
 
-            foreach (var type in types)
+            foreach (Type type in types)
             {
                 try
                 {
-                    var instance = (IReactiveMapperIndicator)Activator.CreateInstance(type)!;
+                    IReactiveMapperIndicator instance = (IReactiveMapperIndicator)Activator.CreateInstance(type)!;
                     instance.CreateMap(cfg);
                 }
                 catch (Exception e)
@@ -51,6 +52,11 @@ public static class ReactiveMapperProvider
                     Debug.WriteLine(e);
                 }
             }
+        }
+
+        foreach (var cache in cfg.MethodCache)
+        {
+            ReactiveMapper.MethodCache.TryAdd(cache.Key, new(() => cache.Value!));
         }
     }
 }

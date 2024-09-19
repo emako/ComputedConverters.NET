@@ -32,6 +32,8 @@ public partial class App : Application
 
     private void TestMapper()
     {
+        ReactiveMapperAssemblyResolver.Register();
+
         {
             TestMapperModel model = new();
             TestMapperViewModel viewModel = new();
@@ -55,6 +57,13 @@ public partial class App : Application
             TestMapperModel model = new();
             TestMapperViewModel viewModel = new();
             _ = viewModel.MapFrom(model);
+        }
+
+        {
+            ChannelPlot source = new() { Name = "0x00" };
+            ChannelPlot target = new();
+
+            _ = source.MapTo(target);
         }
     }
 }
@@ -107,19 +116,6 @@ internal partial class TestMapperViewModel : ObservableObject
     [ObservableProperty]
     [property: ITypeConverter(typeof(StringToThicknessClassTypeConverter))]
     private ThicknessClass thicknessClass = default!;
-}
-
-[ReactiveMapperIndicator]
-file class ChannelDataMapperIndicator : ReactiveMapperIndicator
-{
-    public override void CreateMap(IReactiveMapperConfigurationExpression cfg)
-    {
-        cfg.CreateMap<TestMapperModel, TestMapperViewModel>()
-           .ForAllMembersCustom((src, dest) =>
-        {
-            dest.Name = src.Name;
-        });
-    }
 }
 
 public sealed class MyClass : ICloneable
@@ -202,4 +198,22 @@ public sealed class ThicknessClass(double left, double top, double right, double
     {
         return $"{left},{top},{right},{bottom}";
     }
+}
+
+[ReactiveMapperIndicator]
+file sealed class ChannelDataMapperIndicator : ReactiveMapperIndicator
+{
+    public override void CreateMap(IReactiveMapperConfigurationExpression cfg)
+    {
+        cfg.CreateMap<ChannelPlot, ChannelPlot>()
+           .ForAllMembersCustom((src, dest) =>
+        {
+            dest.Name = src.Name;
+        });
+    }
+}
+
+public sealed class ChannelPlot
+{
+    public string Name { get; set; } = "Name";
 }
