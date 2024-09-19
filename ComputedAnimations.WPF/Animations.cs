@@ -215,6 +215,17 @@ public static partial class Animations
         }
     }
 
+    public static void OnAnimationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        if (d is FrameworkElement element)
+        {
+            if (e.NewValue is AnimationSettings settings)
+            {
+                AnimationEventFetch.AddEventHandler(d, settings.Event, () => RunAnimation(element, settings));
+            }
+        }
+    }
+
     private static void Timeline_Completed(object? sender, object e)
     {
         var timeline = (sender as ClockGroup)?.Timeline as Timeline;

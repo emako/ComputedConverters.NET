@@ -65,11 +65,7 @@ public static partial class Animations
     /// Triggers the Primary or Secondary animation when a True value is set (on either animation, not both at once).
     /// </summary>
     public static readonly DependencyProperty CombinedBindingProperty =
-        DependencyProperty.RegisterAttached(
-            "CombinedBinding",
-            typeof(bool),
-            typeof(Animations),
-            new PropertyMetadata(false, OnCombinedBindingChanged));
+        DependencyProperty.RegisterAttached("CombinedBinding", typeof(bool), typeof(Animations), new PropertyMetadata(false, OnCombinedBindingChanged));
 
     public static bool GetPrimaryBinding(DependencyObject obj) => (bool)obj.GetValue(PrimaryBindingProperty);
 
@@ -110,6 +106,39 @@ public static partial class Animations
     /// </summary>
     public static readonly DependencyProperty SecondaryProperty =
         DependencyProperty.RegisterAttached("Secondary", typeof(IAnimationSettings), typeof(Animations), new PropertyMetadata(null, OnSecondaryChanged));
+
+    public static void SetTertiary(DependencyObject obj, AnimationSettings value)
+        => obj.SetValue(TertiaryProperty, value);
+
+    /// <summary>
+    /// The Tertiary animation but only bind the event to run animation.
+    /// </summary>
+    public static readonly DependencyProperty TertiaryProperty
+        = DependencyProperty.RegisterAttached("Tertiary", typeof(AnimationSettings), typeof(Animations), new(null, OnAnimationChanged));
+
+    public static AnimationSettings GetQuaternary(DependencyObject obj)
+        => (AnimationSettings)obj.GetValue(QuaternaryProperty);
+
+    public static void SetQuaternary(DependencyObject obj, AnimationSettings value)
+        => obj.SetValue(QuaternaryProperty, value);
+
+    /// <summary>
+    /// The Quaternary animation but only bind the event to run animation.
+    /// </summary>
+    public static readonly DependencyProperty QuaternaryProperty
+        = DependencyProperty.RegisterAttached("Quaternary", typeof(AnimationSettings), typeof(Animations), new(null, OnAnimationChanged));
+
+    public static AnimationSettings GetQuinary(DependencyObject obj)
+        => (AnimationSettings)obj.GetValue(QuinaryProperty);
+
+    public static void SetQuinary(DependencyObject obj, AnimationSettings value)
+        => obj.SetValue(QuinaryProperty, value);
+
+    /// <summary>
+    /// The Quinary animation but only bind the event to run animation.
+    /// </summary>
+    public static readonly DependencyProperty QuinaryProperty
+        = DependencyProperty.RegisterAttached("Quinary", typeof(AnimationSettings), typeof(Animations), new(null, OnAnimationChanged));
 
     public static AnimationSettings GetStartWith(DependencyObject obj) => (AnimationSettings)obj.GetValue(StartWithProperty);
 
