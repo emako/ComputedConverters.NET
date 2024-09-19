@@ -15,11 +15,7 @@ public static partial class Animations
     /// Specifies that InitializeElement has executed for the corresponding FrameworkElement
     /// </summary>
     internal static readonly DependencyProperty IsInitializedProperty =
-        DependencyProperty.RegisterAttached(
-            "IsInitialized",
-            typeof(bool),
-            typeof(Animations),
-            new PropertyMetadata(false));
+        DependencyProperty.RegisterAttached("IsInitialized", typeof(bool), typeof(Animations), new PropertyMetadata(false));
 
     internal static Guid GetElementGuid(DependencyObject obj) => (Guid)obj.GetValue(ElementGuidProperty);
 
@@ -29,11 +25,7 @@ public static partial class Animations
     /// Guid attached to a FrameworkElement, used to identify them (used internally).
     /// </summary>
     internal static readonly DependencyProperty ElementGuidProperty =
-        DependencyProperty.RegisterAttached(
-            "ElementGuid",
-            typeof(Guid),
-            typeof(Animations),
-            new PropertyMetadata(Guid.Empty));
+        DependencyProperty.RegisterAttached("ElementGuid", typeof(Guid), typeof(Animations), new PropertyMetadata(Guid.Empty));
 
     internal static Guid GetTimelineGuid(DependencyObject obj) => (Guid)obj.GetValue(TimelineGuidProperty);
 
@@ -43,11 +35,7 @@ public static partial class Animations
     /// Guid attached to a FrameworkElement, used to identify them (used internally).
     /// </summary>
     internal static readonly DependencyProperty TimelineGuidProperty =
-        DependencyProperty.RegisterAttached(
-            "TimelineGuid",
-            typeof(Guid),
-            typeof(Animations),
-            new PropertyMetadata(Guid.Empty));
+        DependencyProperty.RegisterAttached("TimelineGuid", typeof(Guid), typeof(Animations), new PropertyMetadata(Guid.Empty));
 
     internal static CompositeDisposable GetDisposables(DependencyObject obj) => (CompositeDisposable)obj.GetValue(DisposablesProperty);
 
@@ -57,11 +45,7 @@ public static partial class Animations
     ///  Internal property to hold an element's disposables
     /// </summary>
     internal static readonly DependencyProperty DisposablesProperty =
-        DependencyProperty.RegisterAttached(
-            "Disposables",
-            typeof(CompositeDisposable),
-            typeof(Animations),
-            new PropertyMetadata(null));
+        DependencyProperty.RegisterAttached("Disposables", typeof(CompositeDisposable), typeof(Animations), new PropertyMetadata(null));
 
     public static DebugTarget GetEnableDebugging(DependencyObject obj) => (DebugTarget)obj.GetValue(EnableDebuggingProperty);
 
@@ -71,11 +55,7 @@ public static partial class Animations
     /// Specifies the target location to start debugging from for the corresponding animation (only when a debugger is attached)
     /// </summary>
     public static readonly DependencyProperty EnableDebuggingProperty =
-        DependencyProperty.RegisterAttached(
-            "EnableDebugging",
-            typeof(DebugTarget),
-            typeof(Animations),
-            new PropertyMetadata(DebugTarget.None));
+        DependencyProperty.RegisterAttached("EnableDebugging", typeof(DebugTarget), typeof(Animations), new PropertyMetadata(DebugTarget.None));
 
     public static bool GetCombinedBinding(DependencyObject obj) => (bool)obj.GetValue(CombinedBindingProperty);
 
@@ -99,11 +79,7 @@ public static partial class Animations
     /// Triggers the Primary animation when a True value is set.
     /// </summary>
     public static readonly DependencyProperty PrimaryBindingProperty =
-        DependencyProperty.RegisterAttached(
-            "PrimaryBinding",
-            typeof(bool),
-            typeof(Animations),
-            new PropertyMetadata(false, OnPrimaryBindingChanged));
+        DependencyProperty.RegisterAttached("PrimaryBinding", typeof(bool), typeof(Animations), new PropertyMetadata(false, OnPrimaryBindingChanged));
 
     public static IAnimationSettings GetPrimary(DependencyObject obj) => (IAnimationSettings)obj.GetValue(PrimaryProperty);
 
@@ -113,11 +89,7 @@ public static partial class Animations
     /// The Primary animation intended to run on FrameworkElement's Loaded event or a value change on PrimaryBinding.
     /// </summary>
     public static readonly DependencyProperty PrimaryProperty =
-        DependencyProperty.RegisterAttached(
-            "Primary",
-            typeof(IAnimationSettings),
-            typeof(Animations),
-            new PropertyMetadata(null, OnPrimaryChanged));
+        DependencyProperty.RegisterAttached("Primary", typeof(IAnimationSettings), typeof(Animations), new PropertyMetadata(null, OnPrimaryChanged));
 
     public static bool GetSecondaryBinding(DependencyObject obj) => (bool)obj.GetValue(SecondaryBindingProperty);
 
@@ -127,11 +99,7 @@ public static partial class Animations
     /// Triggers the Secondary animation when a True value is set.
     /// </summary>
     public static readonly DependencyProperty SecondaryBindingProperty =
-        DependencyProperty.RegisterAttached(
-            "SecondaryBinding",
-            typeof(bool),
-            typeof(Animations),
-            new PropertyMetadata(false, OnSecondaryBindingChanged));
+        DependencyProperty.RegisterAttached("SecondaryBinding", typeof(bool), typeof(Animations), new PropertyMetadata(false, OnSecondaryBindingChanged));
 
     public static IAnimationSettings GetSecondary(DependencyObject obj) => (IAnimationSettings)obj.GetValue(SecondaryProperty);
 
@@ -141,11 +109,7 @@ public static partial class Animations
     /// The Secondary animation intended to run only through a value change on SecondaryBinding.
     /// </summary>
     public static readonly DependencyProperty SecondaryProperty =
-        DependencyProperty.RegisterAttached(
-            "Secondary",
-            typeof(IAnimationSettings),
-            typeof(Animations),
-            new PropertyMetadata(null, OnSecondaryChanged));
+        DependencyProperty.RegisterAttached("Secondary", typeof(IAnimationSettings), typeof(Animations), new PropertyMetadata(null, OnSecondaryChanged));
 
     public static AnimationSettings GetStartWith(DependencyObject obj) => (AnimationSettings)obj.GetValue(StartWithProperty);
 
@@ -155,22 +119,14 @@ public static partial class Animations
     /// Initializes the element with the specified settings.
     /// </summary>
     public static readonly DependencyProperty StartWithProperty =
-        DependencyProperty.RegisterAttached(
-            "StartWith",
-            typeof(AnimationSettings),
-            typeof(Animations),
-            new PropertyMetadata(null, OnStartWithChanged));
+        DependencyProperty.RegisterAttached("StartWith", typeof(AnimationSettings), typeof(Animations), new PropertyMetadata(null, OnStartWithChanged));
 
     public static int GetIterationCount(DependencyObject obj) => (int)obj.GetValue(IterationCountProperty);
 
     public static void SetIterationCount(DependencyObject obj, int value) => obj.SetValue(IterationCountProperty, value);
 
     public static readonly DependencyProperty IterationCountProperty =
-        DependencyProperty.RegisterAttached(
-            "IterationCount",
-            typeof(int),
-            typeof(Animations),
-            new PropertyMetadata(1));
+        DependencyProperty.RegisterAttached("IterationCount", typeof(int), typeof(Animations), new PropertyMetadata(1));
 
     public static IterationBehavior GetIterationBehavior(DependencyObject obj) => (IterationBehavior)obj.GetValue(IterationBehaviorProperty);
 
@@ -180,11 +136,7 @@ public static partial class Animations
     /// Specifies the iteration behavior for the animation
     /// </summary>
     public static readonly DependencyProperty IterationBehaviorProperty =
-        DependencyProperty.RegisterAttached(
-            "IterationBehavior",
-            typeof(IterationBehavior),
-            typeof(Animations),
-            new PropertyMetadata(IterationBehavior.Count));
+        DependencyProperty.RegisterAttached("IterationBehavior", typeof(IterationBehavior), typeof(Animations), new PropertyMetadata(IterationBehavior.Count));
 
     public static ICommand GetPrimaryCompletionCommand(DependencyObject obj) => (ICommand)obj.GetValue(PrimaryCompletionCommandProperty);
 
@@ -194,11 +146,7 @@ public static partial class Animations
     /// Specifies a command that executes when the Primary animation completes
     /// </summary>
     public static readonly DependencyProperty PrimaryCompletionCommandProperty =
-        DependencyProperty.RegisterAttached(
-            "PrimaryCompletionCommand",
-            typeof(ICommand),
-            typeof(Animations),
-            new PropertyMetadata(null));
+        DependencyProperty.RegisterAttached("PrimaryCompletionCommand", typeof(ICommand), typeof(Animations), new PropertyMetadata(null));
 
     public static ICommand GetSecondaryCompletionCommand(DependencyObject obj) => (ICommand)obj.GetValue(SecondaryCompletionCommandProperty);
 
@@ -208,11 +156,7 @@ public static partial class Animations
     /// Specifies a command that executes when the Secondary animation completes
     /// </summary>
     public static readonly DependencyProperty SecondaryCompletionCommandProperty =
-        DependencyProperty.RegisterAttached(
-            "SecondaryCompletionCommand",
-            typeof(ICommand),
-            typeof(Animations),
-            new PropertyMetadata(null));
+        DependencyProperty.RegisterAttached("SecondaryCompletionCommand", typeof(ICommand), typeof(Animations), new PropertyMetadata(null));
 
     public static bool GetAllowOpacityReset(DependencyObject obj) => (bool)obj.GetValue(AllowOpacityResetProperty);
 
@@ -225,9 +169,5 @@ public static partial class Animations
     /// https://docs.microsoft.com/en-us/dotnet/framework/wpf/graphics-multimedia/how-to-set-a-property-after-animating-it-with-a-storyboard?view=netframework-4.7.2#remove-an-animation-from-an-individual-property
     /// </remarks>
     public static readonly DependencyProperty AllowOpacityResetProperty =
-        DependencyProperty.RegisterAttached(
-            "AllowOpacityReset",
-            typeof(bool),
-            typeof(Animations),
-            new PropertyMetadata(true));
+        DependencyProperty.RegisterAttached("AllowOpacityReset", typeof(bool), typeof(Animations), new PropertyMetadata(true));
 }

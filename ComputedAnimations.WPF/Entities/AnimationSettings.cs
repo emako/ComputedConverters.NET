@@ -33,11 +33,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// Specifies the animation types to include in the composite animation
     /// </summary>
     public static readonly DependencyProperty KindProperty =
-        DependencyProperty.Register(
-            nameof(Kind),
-            typeof(AnimationKind),
-            typeof(AnimationSettings),
-            new PropertyMetadata(DefaultSettings.Kind));
+        DependencyProperty.Register(nameof(Kind), typeof(AnimationKind), typeof(AnimationSettings), new PropertyMetadata(DefaultSettings.Kind));
 
     public double Duration
     {
@@ -49,11 +45,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// Specifies the duration of the composite animation
     /// </summary>
     public static readonly DependencyProperty DurationProperty =
-        DependencyProperty.Register(
-            nameof(Duration),
-            typeof(double),
-            typeof(AnimationSettings),
-            new PropertyMetadata(DefaultSettings.Duration));
+        DependencyProperty.Register(nameof(Duration), typeof(double), typeof(AnimationSettings), new PropertyMetadata(DefaultSettings.Duration));
 
     public double Delay
     {
@@ -65,11 +57,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// Specifies the delay of the composite animation
     /// </summary>
     public static readonly DependencyProperty DelayProperty =
-        DependencyProperty.Register(
-            nameof(Delay),
-            typeof(double),
-            typeof(AnimationSettings),
-            new PropertyMetadata(0d));
+        DependencyProperty.Register(nameof(Delay), typeof(double), typeof(AnimationSettings), new PropertyMetadata(0d));
 
     public double Opacity
     {
@@ -81,11 +69,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// Specifies the target opacity of the composite animation
     /// </summary>
     public static readonly DependencyProperty OpacityProperty =
-        DependencyProperty.Register(
-            nameof(Opacity),
-            typeof(double),
-            typeof(AnimationSettings),
-            new PropertyMetadata(1d));
+        DependencyProperty.Register(nameof(Opacity), typeof(double), typeof(AnimationSettings), new PropertyMetadata(1d));
 
     public Offset OffsetX
     {
@@ -100,11 +84,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// OffsetX must be a double or a star-based value (ex: 150 or 0.75*)
     /// </remarks>
     public static readonly DependencyProperty OffsetXProperty =
-        DependencyProperty.Register(
-            nameof(OffsetX),
-            typeof(Offset),
-            typeof(AnimationSettings),
-            new PropertyMetadata(Offset.Empty));
+        DependencyProperty.Register(nameof(OffsetX), typeof(Offset), typeof(AnimationSettings), new PropertyMetadata(Offset.Empty));
 
     public Offset OffsetY
     {
@@ -119,11 +99,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// OffsetY must be a double or a star-based value (ex: 150 or 0.75*)
     /// </remarks>
     public static readonly DependencyProperty OffsetYProperty =
-        DependencyProperty.Register(
-            nameof(OffsetY),
-            typeof(Offset),
-            typeof(AnimationSettings),
-            new PropertyMetadata(Offset.Empty));
+        DependencyProperty.Register(nameof(OffsetY), typeof(Offset), typeof(AnimationSettings), new PropertyMetadata(Offset.Empty));
 
     public double ScaleX
     {
@@ -135,11 +111,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// Specifies the target x-scaling of the composite animation
     /// </summary>
     public static readonly DependencyProperty ScaleXProperty =
-        DependencyProperty.Register(
-            nameof(ScaleX),
-            typeof(double),
-            typeof(AnimationSettings),
-            new PropertyMetadata(1d));
+        DependencyProperty.Register(nameof(ScaleX), typeof(double), typeof(AnimationSettings), new PropertyMetadata(1d));
 
     public double ScaleY
     {
@@ -151,11 +123,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// Specifies the target y-scaling of the composite animation
     /// </summary>
     public static readonly DependencyProperty ScaleYProperty =
-        DependencyProperty.Register(
-            nameof(ScaleY),
-            typeof(double),
-            typeof(AnimationSettings),
-            new PropertyMetadata(1d));
+        DependencyProperty.Register(nameof(ScaleY), typeof(double), typeof(AnimationSettings), new PropertyMetadata(1d));
 
     public double Rotation
     {
@@ -167,11 +135,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// Specifies the target rotation (in degrees) of the composite animation
     /// </summary>
     public static readonly DependencyProperty RotationProperty =
-        DependencyProperty.Register(
-            nameof(Rotation),
-            typeof(double),
-            typeof(AnimationSettings),
-            new PropertyMetadata(0d));
+        DependencyProperty.Register(nameof(Rotation), typeof(double), typeof(AnimationSettings), new PropertyMetadata(0d));
 
     // ColorAnimation supported only on Uno and WPF (not on native UWP due to Composition-only implementations)
     public Color Color
@@ -184,11 +148,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// Specifies the target color of the composite animation
     /// </summary>
     public static readonly DependencyProperty ColorProperty =
-        DependencyProperty.Register(
-            nameof(Color),
-            typeof(Color),
-            typeof(AnimationSettings),
-            new PropertyMetadata(Colors.Transparent));
+        DependencyProperty.Register(nameof(Color), typeof(Color), typeof(AnimationSettings), new PropertyMetadata(Colors.Transparent));
 
     public ColorTarget ColorOn
     {
@@ -200,11 +160,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// Specifies the target property for a color animation
     /// </summary>
     public static readonly DependencyProperty ColorOnProperty =
-        DependencyProperty.Register(
-            nameof(ColorOn),
-            typeof(ColorTarget),
-            typeof(AnimationSettings),
-            new PropertyMetadata(ColorTarget.Background));
+        DependencyProperty.Register(nameof(ColorOn), typeof(ColorTarget), typeof(AnimationSettings), new PropertyMetadata(ColorTarget.Background));
 
     public double BlurRadius
     {
@@ -216,11 +172,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// Specifies the blur amount of the composite animation
     /// </summary>
     public static readonly DependencyProperty BlurRadiusProperty =
-        DependencyProperty.Register(
-            nameof(BlurRadius),
-            typeof(double),
-            typeof(AnimationSettings),
-            new PropertyMetadata(0d));
+        DependencyProperty.Register(nameof(BlurRadius), typeof(double), typeof(AnimationSettings), new PropertyMetadata(0d));
 
     public Point TransformCenterPoint
     {
@@ -232,11 +184,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// Specifies the center point of the element's transform
     /// </summary>
     public static readonly DependencyProperty TransformCenterPointProperty =
-        DependencyProperty.Register(
-            nameof(TransformCenterPoint),
-            typeof(Point),
-            typeof(AnimationSettings),
-            new PropertyMetadata(DefaultSettings.TransformCenterPoint));
+        DependencyProperty.Register(nameof(TransformCenterPoint), typeof(Point), typeof(AnimationSettings), new PropertyMetadata(DefaultSettings.TransformCenterPoint));
 
     public TransformationType TransformOn
     {
@@ -248,11 +196,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// Specifies the transformation type to use (render or layout)
     /// </summary>
     public static readonly DependencyProperty TransformOnProperty =
-        DependencyProperty.Register(
-            nameof(TransformOn),
-            typeof(TransformationType),
-            typeof(AnimationSettings),
-            new PropertyMetadata(DefaultSettings.TransformOn));
+        DependencyProperty.Register(nameof(TransformOn), typeof(TransformationType), typeof(AnimationSettings), new PropertyMetadata(DefaultSettings.TransformOn));
 
     public EasingType Easing
     {
@@ -264,11 +208,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// Specifies the easing of the composite animation
     /// </summary>
     public static readonly DependencyProperty EasingProperty =
-        DependencyProperty.Register(
-            nameof(Easing),
-            typeof(EasingType),
-            typeof(AnimationSettings),
-            new PropertyMetadata(DefaultSettings.Easing));
+        DependencyProperty.Register(nameof(Easing), typeof(EasingType), typeof(AnimationSettings), new PropertyMetadata(DefaultSettings.Easing));
 
     public EasingMode EasingMode
     {
@@ -283,11 +223,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// This property is disregarded for controls based on ListViewBase (UWP) or ListBox (WPF)
     /// </remarks>
     public static readonly DependencyProperty EasingModeProperty =
-        DependencyProperty.Register(
-            nameof(EasingMode),
-            typeof(EasingMode),
-            typeof(AnimationSettings),
-            new PropertyMetadata(DefaultSettings.Mode));
+        DependencyProperty.Register(nameof(EasingMode), typeof(EasingMode), typeof(AnimationSettings), new PropertyMetadata(DefaultSettings.Mode));
 
     public string Event
     {
@@ -299,11 +235,7 @@ public class AnimationSettings : DependencyObject, IAnimationSettings, IEquality
     /// Specifies the event used to trigger the composite animation
     /// </summary>
     public static readonly DependencyProperty EventProperty =
-        DependencyProperty.Register(
-            nameof(Event),
-            typeof(string),
-            typeof(AnimationSettings),
-            new PropertyMetadata(DefaultSettings.Event));
+        DependencyProperty.Register(nameof(Event), typeof(string), typeof(AnimationSettings), new PropertyMetadata(DefaultSettings.Event));
 
     internal bool HasNoneEvent()
         => Event?.Equals(None, StringComparison.OrdinalIgnoreCase) ?? false;

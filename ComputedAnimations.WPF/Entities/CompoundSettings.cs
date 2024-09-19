@@ -25,16 +25,12 @@ public class CompoundSettings : DependencyObject, IAnimationSettings, IEqualityC
     /// Specifies the event used to trigger the composite animation
     /// </summary>
     public static readonly DependencyProperty EventProperty =
-        DependencyProperty.Register(
-            nameof(Event),
-            typeof(string),
-            typeof(CompoundSettings),
-            new PropertyMetadata(DefaultSettings.Event));
+        DependencyProperty.Register(nameof(Event), typeof(string), typeof(CompoundSettings), new PropertyMetadata(DefaultSettings.Event));
 
     ///// <summary>
     ///// Specifies the list of AnimationSettings used for a compound animation
     ///// </summary>
-    public List<AnimationSettings> Sequence { get; set; } = new List<AnimationSettings>();
+    public List<AnimationSettings> Sequence { get; set; } = [];
 
     public bool Equals(CompoundSettings other)
     {

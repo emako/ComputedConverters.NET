@@ -11,11 +11,7 @@ public static partial class Animations
     public static void SetItemsBinding(ListBox obj, bool value) => obj.SetValue(ItemsBindingProperty, value);
 
     public static readonly DependencyProperty ItemsBindingProperty =
-        DependencyProperty.RegisterAttached(
-            "ItemsBinding",
-            typeof(bool),
-            typeof(Animations),
-            new PropertyMetadata(false, OnItemsBindingChanged));
+        DependencyProperty.RegisterAttached("ItemsBinding", typeof(bool), typeof(Animations), new PropertyMetadata(false, OnItemsBindingChanged));
 
     public static AnimationSettings GetItems(ListBox obj) => (AnimationSettings)obj.GetValue(ItemsProperty);
 
@@ -25,11 +21,7 @@ public static partial class Animations
     /// The List animation intended to run on List's Loaded event or a value change on ItemsBinding.
     /// </summary>
     public static readonly DependencyProperty ItemsProperty =
-        DependencyProperty.RegisterAttached(
-            "Items",
-            typeof(AnimationSettings),
-            typeof(Animations),
-            new PropertyMetadata(null, OnItemsChanged));
+        DependencyProperty.RegisterAttached("Items", typeof(AnimationSettings), typeof(Animations), new PropertyMetadata(null, OnItemsChanged));
 
     public static double GetInterElementDelay(ListBox obj) => (double)obj.GetValue(InterElementDelayProperty);
 
@@ -40,11 +32,7 @@ public static partial class Animations
     /// </summary>
     /// <remarks>NOTE: Delay is being overwritten by InterElementDelay. Therefore, a lb animation currently can't have an initial Delay.</remarks>
     public static readonly DependencyProperty InterElementDelayProperty =
-        DependencyProperty.RegisterAttached(
-            "InterElementDelay",
-            typeof(double),
-            typeof(Animations),
-            new PropertyMetadata(DefaultSettings.InterElementDelay));
+        DependencyProperty.RegisterAttached("InterElementDelay", typeof(double), typeof(Animations), new PropertyMetadata(DefaultSettings.InterElementDelay));
 
     public static bool GetAnimateOnLoad(ListBox obj) => (bool)obj.GetValue(AnimateOnLoadProperty);
 
@@ -54,11 +42,7 @@ public static partial class Animations
     /// Specifies if the item animations should animate when the list control has loaded
     /// </summary>
     public static readonly DependencyProperty AnimateOnLoadProperty =
-        DependencyProperty.RegisterAttached(
-            "AnimateOnLoad",
-            typeof(bool),
-            typeof(Animations),
-            new PropertyMetadata(true));
+        DependencyProperty.RegisterAttached("AnimateOnLoad", typeof(bool), typeof(Animations), new PropertyMetadata(true));
 
     public static bool GetAnimateOnItemsSourceChange(ListBox obj) => (bool)obj.GetValue(AnimateOnItemsSourceChangeProperty);
 
@@ -68,11 +52,7 @@ public static partial class Animations
     /// Specifies if the item animations should re-animate when there is a change on ItemsSource
     /// </summary>
     public static readonly DependencyProperty AnimateOnItemsSourceChangeProperty =
-        DependencyProperty.RegisterAttached(
-            "AnimateOnItemsSourceChange",
-            typeof(bool),
-            typeof(Animations),
-            new PropertyMetadata(true));
+        DependencyProperty.RegisterAttached("AnimateOnItemsSourceChange", typeof(bool), typeof(Animations), new PropertyMetadata(true));
 
     // TODO: NOT WORKING... ListBox.ItemContainerGenerator.ContainerFromIndex(...)
     // cannot fetch an item not within view
