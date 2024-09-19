@@ -59,19 +59,6 @@ internal static class ReactivityExtension
         }
     }
 
-    internal static void ForEach<T>(this IEnumerable<T>? enumerable, Action<T> callback)
-    {
-        if (enumerable == null)
-        {
-            return;
-        }
-
-        foreach (T item in enumerable)
-        {
-            callback(item);
-        }
-    }
-
     internal static bool IsNotify(this Type type)
     {
         return typeof(INotifyPropertyChanged).IsAssignableFrom(type)
