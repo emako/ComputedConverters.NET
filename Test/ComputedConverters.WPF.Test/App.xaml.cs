@@ -85,6 +85,8 @@ internal sealed class TestMapperModel
     public Thickness ThicknessBox { get; set; } = new(1, 0, 1, 0);
 
     public string ThicknessClass { get; set; } = "1,0,1,0";
+
+    public int? Null { get; set; } = null;
 }
 
 internal partial class TestMapperViewModel : ObservableObject
@@ -116,6 +118,8 @@ internal partial class TestMapperViewModel : ObservableObject
     [ObservableProperty]
     [property: ITypeConverter(typeof(StringToThicknessClassTypeConverter))]
     private ThicknessClass thicknessClass = default!;
+
+    public int? Null { get; set; } = 96110;
 }
 
 public sealed class MyClass : ICloneable
