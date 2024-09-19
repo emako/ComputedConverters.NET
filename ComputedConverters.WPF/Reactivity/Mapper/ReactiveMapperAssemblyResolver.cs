@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -31,6 +32,7 @@ public static class ReactiveMapperAssemblyResolver
         Debug.WriteLine($"[MapperAssemblyResolver] Register assembly named `{assembly}`.");
     }
 
+    [Obsolete("Normally we can't Unregister")]
     public static void Unregister(Assembly? assembly = null)
     {
         if (assembly == null)
