@@ -114,7 +114,7 @@ For more configuration, to set the `ICloneableAttribute`, `ITypeConverterAttribu
 ```c#
 TestMapperModel model = new();
 TestMapperViewModel viewModel = new();
-viewModel = model.MapFrom(viewModel); // Auto copy the properties from model to viewModel.
+viewModel = model.MapTo(viewModel); // Auto copy the properties from model to viewModel.
 ```
 
 ### 2. Value Converters
