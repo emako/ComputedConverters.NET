@@ -19,11 +19,12 @@ public sealed class CastConverter : SingletonValueConverterBase<CastConverter>
 
     public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
+        // TODO: Use IL Emit instead of System.Convert.ChangeType.
         return System.Convert.ChangeType(value, TargetType ?? targetType);
     }
 
     public override object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return System.Convert.ChangeType(value, TargetType ?? targetType);
+        throw new NotImplementedException();
     }
 }
