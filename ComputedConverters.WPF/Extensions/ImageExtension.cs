@@ -99,6 +99,7 @@ internal static class ImageExtension
         // Not supported.
         return null;
 #else
+
         var bitmap = new System.Drawing.Bitmap(
             source.PixelWidth,
             source.PixelHeight,

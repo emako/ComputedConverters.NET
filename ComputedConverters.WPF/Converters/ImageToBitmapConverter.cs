@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
 
 namespace ComputedConverters;
 
@@ -19,12 +18,10 @@ public sealed class ImageToBitmapConverter : SingletonValueConverterBase<ImageTo
 
         if (valueType.FullName == "System.Drawing.Image")
         {
-            Type typeOfBitmap = valueType.Assembly.GetTypes()
-                .Where(t => t.FullName == "System.Drawing.Bitmap")
-                .FirstOrDefault()!;
-
             // Use ctor: new Bitmap(image);
-            return typeOfBitmap.GetConstructor([valueType])?.Invoke([value]);
+            return valueType.Assembly.GetType("System.Drawing.Bitmap")
+                !.GetConstructor([valueType])
+                ?.Invoke([value]);
         }
         else if (valueType.FullName == "System.Drawing.Bitmap")
         {
