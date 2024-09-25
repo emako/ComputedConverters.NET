@@ -8,7 +8,7 @@ ComputedConverters provides you with XAML markup that allows you to write inline
 
 |                    | WPF                                                          | Avalonia                                                     |
 | ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ComputedConverters | ComputedConverters.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedConverters.WPF.svg)](https://nuget.org/packages/ComputedConverters.WPF) | ComputedConverters.Avalonia<br />(TBD)                       |
+| ComputedConverters | ComputedConverters.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedConverters.WPF.svg)](https://nuget.org/packages/ComputedConverters.WPF) | ComputedConverters.Avalonia (TBD)                            |
 | ComputedAnimations | ComputedAnimations.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedAnimations.WPF.svg)](https://nuget.org/packages/ComputedAnimations.WPF) | /                                                            |
 | ComputedBehaviors  | ComputedBehaviors.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedBehaviors.WPF.svg)](https://nuget.org/packages/ComputedBehaviors.WPF) | /                                                            |
 | ValueConverters    | ValueConverters [![Version](https://img.shields.io/nuget/v/ValueConverters.svg)](https://www.nuget.org/packages/ValueConverters) | ValueConverters.Avalonia [![Version](https://img.shields.io/nuget/v/ValueConverters.Avalonia.svg)](https://www.nuget.org/packages/ValueConverters.Avalonia) |
@@ -19,8 +19,8 @@ Add XML namespace to your XAML file:
 
 ```xaml
 <Application xmlns:a="http://schemas.github.com/computedanimations/2024/xaml"
-                      xmlns:b="http://schemas.github.com/computedbehaviors/2024/xaml"
-                      xmlns:c="http://schemas.github.com/computedconverters/2024/xaml">
+      xmlns:b="http://schemas.github.com/computedbehaviors/2024/xaml"
+      xmlns:c="http://schemas.github.com/computedconverters/2024/xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -30,6 +30,10 @@ Add XML namespace to your XAML file:
     </Application.Resources>
 </Application>
 ```
+
+> [!TIP]
+>
+> Sample code is not fully introduced, more features please pay more attention to the source code!
 
 ### 1. Reactivity
 
@@ -58,7 +62,7 @@ public partial class ViewModel : ReactiveObject
 }
 ```
 
-And also `ReactiveCollection<T>` / `Ref<T>` are availabled.
+Additionally `ReactiveCollection<T>` and `Ref<T>` are availabled.
 
 `ReactiveCollection<T>` is similar to Vue `reactive(T[])`.
 
@@ -211,7 +215,7 @@ private PartyMode partyMode;
 <Label Content="{Binding PartyMode, Converter={StaticResource EnumWrapperConverter}}" /> 
 ```
 
-### 3. Computed Markup
+### 3. Computed Markups
 
 #### 3.1 Setup
 
@@ -379,7 +383,7 @@ The P0-P4 values are useful for crossing name scope boundaries like DataTemplate
 
 This markup extension evaluates exactly like a ComputedConverter except there are no P0-P9 variables, and it is evaluated at load. The markup extension returns the result of the expression.
 
-### 4. Useful Markup
+### 4. Useful Markups
 
 #### 4.1 DynamicResource
 
@@ -653,11 +657,18 @@ Behaviors that make non bindable property to be bindable property.
 
 ## Examples
 
-[Test](https://github.com/emako/ComputedConverters.NET/tree/master/ComputedConverters.WPF.Test)
-
-[VSEnc](https://github.com/lemutec/VSEnc)
+[Test](https://github.com/emako/ComputedConverters.NET/tree/master/ComputedConverters.WPF.Test) / [VSEnc](https://github.com/lemutec/VSEnc)
 
 ## Thanks
 
-https://github.com/emako/ComputedConverters.NET/discussions/2
+**Idea list here**
 
+https://github.com/OrgEleCho/EleCho.WpfSuite
+https://github.com/JohannesMoersch/QuickConverter
+https://github.com/thomasgalliker/ValueConverters.NET
+https://github.com/CommunityToolkit/Maui
+https://github.com/XAMLMarkupExtensions/XAMLMarkupExtensions
+https://github.com/DingpingZhang/WpfExtensions
+https://github.com/Kinnara/ModernWpf
+https://github.com/runceel/Livet
+https://github.com/XamlFlair/XamlFlair
