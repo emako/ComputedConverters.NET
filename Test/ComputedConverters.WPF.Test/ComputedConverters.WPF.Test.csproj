@@ -14,8 +14,13 @@
 		<Version>$(VersionPrefix)0.4.4.0-beta</Version>
     </PropertyGroup>
 
+	<ItemGroup>
+		<None Remove="*.png" />
+	</ItemGroup>
+
     <ItemGroup>
         <Resource Include="..\..\Images\logo.ico" />
+        <Resource Include="*.png" />
     </ItemGroup>
 
 	<ItemGroup>

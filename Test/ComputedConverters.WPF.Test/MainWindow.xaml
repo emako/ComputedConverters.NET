@@ -268,6 +268,23 @@
                     <c:ServiceLocator Type="{x:Type local:ServiceLocatorTestPage}" />
                 </ws:StackPanel>
             </ui:Card>
+            <!-- BitmapToImageSourceConverter -->
+            <ui:Card>
+                <ws:StackPanel>
+                    <ws:StackPanel.Resources>
+                        <c:BitmapToImageSourceConverter x:Key="BitmapToImageSourceConverter" />
+                    </ws:StackPanel.Resources>
+                    <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
+                        <TextBlock.Inlines>
+                            <TextBlock>Converter:</TextBlock>
+                            <TextBlock>BitmapToImageSourceConverter</TextBlock>
+                        </TextBlock.Inlines>
+                    </TextBlock>
+                    <Image
+                        Height="100"
+                        Source="{Binding Bitmap, Converter={StaticResource BitmapToImageSourceConverter}}" />
+                </ws:StackPanel>
+            </ui:Card>
         </ws:WrapPanel>
         <ui:TitleBar>
             <ui:TitleBar.Icon>
