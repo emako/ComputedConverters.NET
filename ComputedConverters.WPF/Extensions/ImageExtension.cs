@@ -96,6 +96,7 @@ internal static class ImageExtension
     public static object? ToBitmap(this BitmapSource source)
     {
 #if NET5_0_OR_GREATER
+        // Not supported.
         return null;
 #else
         var bitmap = new System.Drawing.Bitmap(
