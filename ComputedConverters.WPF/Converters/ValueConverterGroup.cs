@@ -27,7 +27,7 @@ public sealed class ValueConverterGroup : IValueConverter
     {
         if (Converters is IEnumerable<IValueConverter> converters)
         {
-            return converters.Reverse().Aggregate(value, (current, converter) => converter.Convert(current, targetType, parameter, culture));
+            return converters.Reverse().Aggregate(value, (current, converter) => converter.ConvertBack(current, targetType, parameter, culture));
         }
 
         return DependencyProperty.UnsetValue;
