@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9017F64F-6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ComputedConverters.WPF.Test", "Test\ComputedConverters.WPF.Test\ComputedConverters.WPF.Test.csproj", "{B49E3CFA-A78B-4EC8-B4AA-E21963E70203}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cast", "ILGen\Cast\Cast.csproj", "{34A0FEF0-67D9-4015-B812-33EE81AB33C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{B49E3CFA-A78B-4EC8-B4AA-E21963E70203}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B49E3CFA-A78B-4EC8-B4AA-E21963E70203}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B49E3CFA-A78B-4EC8-B4AA-E21963E70203}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34A0FEF0-67D9-4015-B812-33EE81AB33C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34A0FEF0-67D9-4015-B812-33EE81AB33C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34A0FEF0-67D9-4015-B812-33EE81AB33C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34A0FEF0-67D9-4015-B812-33EE81AB33C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{ED051F39-A661-41FF-8A84-77D94C31EA87} = {70882CC0-766C-4A68-9410-376F5FCA3F19}
 		{B49E3CFA-A78B-4EC8-B4AA-E21963E70203} = {9017F64F-6545-44AA-82A8-CDD53FBD76B2}
+		{34A0FEF0-67D9-4015-B812-33EE81AB33C5} = {70882CC0-766C-4A68-9410-376F5FCA3F19}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6193EB1-93B7-477F-A1DD-9C6C769C54A9}

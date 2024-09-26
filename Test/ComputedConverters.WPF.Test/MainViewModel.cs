@@ -1,8 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
-using System.IO.Packaging;
 using System.IO;
+using System.IO.Packaging;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -81,6 +81,9 @@ public partial class MainViewModel : ReactiveObject
 
     [ObservableProperty]
     private System.Drawing.Bitmap bitmap = new(ResourceHelper.GetStream("pack://application:,,,/ComputedConverters.Test;component/test.png"));
+
+    [ObservableProperty]
+    private TestEnum castConverterObject = TestEnum.First;
 }
 
 public class StaticClass

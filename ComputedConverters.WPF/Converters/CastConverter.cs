@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Data;
 
@@ -19,12 +20,41 @@ public sealed class CastConverter : SingletonValueConverterBase<CastConverter>
 
     public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        // TODO: Use IL Emit instead of System.Convert.ChangeType.
-        return System.Convert.ChangeType(value, TargetType ?? targetType);
+        try
+        {
+            var cast = CreateCastFunction(TargetType ?? targetType);
+            return cast.Invoke(value);
+        }
+        catch
+        {
+            ///
+        }
+
+        return value;
     }
 
     public override object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
+    }
+
+    public static Func<object?, object?> CreateCastFunction(Type targetType)
+    {
+        DynamicMethod dynamicMethod = new("Cast", typeof(object), [typeof(object)], true);
+        ILGenerator il = dynamicMethod.GetILGenerator();
+
+        il.Emit(OpCodes.Ldarg_0);
+        if (targetType.IsValueType)
+        {
+            il.Emit(OpCodes.Unbox_Any, targetType);
+            il.Emit(OpCodes.Box, targetType);
+        }
+        else
+        {
+            il.Emit(OpCodes.Castclass, targetType);
+        }
+        il.Emit(OpCodes.Ret);
+
+        return (Func<object?, object?>)dynamicMethod.CreateDelegate(typeof(Func<object?, object?>));
     }
 }
