@@ -5,10 +5,13 @@ using System.Windows.Data;
 
 namespace ComputedConverters;
 
+/// <summary>
+/// Writes Debuge.WriteLine with value, targetType, parameter and culture.
+/// </summary>
 [ValueConversion(typeof(object), typeof(object))]
-public sealed class DebugConverter : IValueConverter
+public sealed class DebugConverter : SingletonValueConverterBase<DebugConverter>
 {
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         Debug.WriteLine("DebugConverter.Convert(value={0}, targetType={1}, parameter={2}, culture={3}",
             value ?? "null",
@@ -19,7 +22,7 @@ public sealed class DebugConverter : IValueConverter
         return value;
     }
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         Debug.WriteLine("DebugConverter.ConvertBack(value={0}, targetType={1}, parameter={2}, culture={3}",
              value ?? "null",
