@@ -4,14 +4,23 @@
 
 ComputedConverters provides you with XAML markup that allows you to write inline converters (Vue-like computed method) and expand some converters commonly used.
 
+Salad bowl project here.
+
 ## Support framework
 
-|                    | WPF                                                          | Avalonia                                                     |
-| ------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ComputedConverters | ComputedConverters.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedConverters.WPF.svg)](https://nuget.org/packages/ComputedConverters.WPF) | ComputedConverters.Avalonia (TBD)                            |
-| ComputedAnimations | ComputedAnimations.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedAnimations.WPF.svg)](https://nuget.org/packages/ComputedAnimations.WPF) | /                                                            |
-| ComputedBehaviors  | ComputedBehaviors.WPF [![NuGet](https://img.shields.io/nuget/v/ComputedBehaviors.WPF.svg)](https://nuget.org/packages/ComputedBehaviors.WPF) | /                                                            |
-| ValueConverters    | ValueConverters [![Version](https://img.shields.io/nuget/v/ValueConverters.svg)](https://www.nuget.org/packages/ValueConverters) | ValueConverters.Avalonia [![Version](https://img.shields.io/nuget/v/ValueConverters.Avalonia.svg)](https://www.nuget.org/packages/ValueConverters.Avalonia) |
+Computed series library
+
+| Package/Framework  | WPF                                                          | Avalonia |
+| ------------------ | ------------------------------------------------------------ | -------- |
+| ComputedConverters | [![NuGet](https://img.shields.io/nuget/v/ComputedConverters.WPF.svg)](https://nuget.org/packages/ComputedConverters.WPF) | TBD      |
+| ComputedAnimations | [![NuGet](https://img.shields.io/nuget/v/ComputedAnimations.WPF.svg)](https://nuget.org/packages/ComputedAnimations.WPF) | No Plan  |
+| ComputedBehaviors  | [![NuGet](https://img.shields.io/nuget/v/ComputedBehaviors.WPF.svg)](https://nuget.org/packages/ComputedBehaviors.WPF) | No Plan  |
+
+ValueConverters library
+
+| Package/Framework | WPF                                                          | Avalonia                                                     |
+| ----------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ValueConverters   | [![Version](https://img.shields.io/nuget/v/ValueConverters.svg)](https://www.nuget.org/packages/ValueConverters) | [![Version](https://img.shields.io/nuget/v/ValueConverters.Avalonia.svg)](https://www.nuget.org/packages/ValueConverters.Avalonia) |
 
 ## Usage
 
@@ -31,6 +40,8 @@ Add XML namespace to your XAML file:
 </Application>
 ```
 
+## Samples
+
 > [!TIP]
 >
 > Sample code is not fully introduced, more features please pay more attention to the source code!
@@ -44,9 +55,7 @@ Reactivity is a vue-like MVVM concept.
 - Use `ComputedConverters` only.
 
 ```c#
-public class ViewModel : Reactive
-{
-}
+public class ViewModel : Reactive;
 ```
 
 - Recommend: Use `ComputedConverters` with `CommunityToolkit.Mvvm`.
@@ -57,9 +66,7 @@ public class ViewModel : Reactive
 
 ```c#
 [ObservableObject]
-public partial class ViewModel : ReactiveObject
-{
-}
+public partial class ViewModel : ReactiveObject;
 ```
 
 Additionally `ReactiveCollection<T>` and `Ref<T>` are availabled.
@@ -166,17 +173,14 @@ class ViewModel
 enum TestLocaleEnum
 {
     [LocaleDescription("en", "First", isFallback: true)]
-    [LocaleDescription("ja", "ファースト")]
     [LocaleDescription("zh", "第一个")]
     First = 1,
 
     [LocaleDescription("en", "Second", isFallback: true)]
-    [LocaleDescription("ja", "セカンド")]
     [LocaleDescription("zh", "第二个")]
     Second = 2,
 
     [LocaleDescription("en", "Third", isFallback: true)]
-    [LocaleDescription("ja", "サード")]
     [LocaleDescription("zh", "第三个")]
     Third = 3
 }
@@ -184,9 +188,9 @@ enum TestLocaleEnum
 
 #### 2.4 EnumWrapperConverter
 
-EnumWrapperConverter is used to display localized enums. The concept is fairly simple: Enums are annotated with localized string resources and wrapped into EnumWrapper. The view uses the EnumWrapperConverter to extract the localized string resource from the resx file. Following step-by-step instructions show how to localize and bind a simple enum type in a WPF view:
+EnumWrapperConverter is used to display localized enums. The concept is fairly simple: Enums are annotated with localized string resources and wrapped into EnumWrapper. The view uses the EnumWrapperConverter to extract the localized string resource from the resx file. Following step-by-step instructions show how to localize and bind a simple enum type in a view:
 
-1. Define new public enum type and annotate enum values with [Display] attributes:
+1. Define new public enum type and annotate enum values with `[Display]` attributes:
 
 ```c#
 [DataContract] 
@@ -200,9 +204,7 @@ public enum PartyMode
 } 
 ```
 
-2. Create StringResources.resx and define strings with appropriate keys (e.g. "PartyMode__Off"). Make sure PublicResXFileCodeGenerator is used to generate the .Designer.cs file. (If ResXFileCodeGenerator is used, the resource lookup operations may require more time to complete).
-3. Create StringResources.resx for other languages (e.g. StringResources.de.resx) and translate all strings accordingly. Use [Multilingual App Toolkit](https://visualstudiogallery.msdn.microsoft.com/6dab9154-a7e1-46e4-bbfa-18b5e81df520) for easy localization of the defined string resources.
-4. Expose enum property in the ViewModel.
+2. Expose enum property in the ViewModel.
 
 ```c#
 [ObservableProperty]
@@ -653,22 +655,32 @@ Behaviors that make non bindable property to be bindable property.
 <Border a:Animations.Primary="{StaticResource FadeIn}" />
 ```
 
-[More Animations](./ComputedAnimations.WPF/DefaultAnimations.xaml) 
+[See more animations from here ...](./ComputedAnimations.WPF/DefaultAnimations.xaml) 
 
-## Examples
+## Projects
 
-[Test](https://github.com/emako/ComputedConverters.NET/tree/master/ComputedConverters.WPF.Test) / [VSEnc](https://github.com/lemutec/VSEnc)
+[emako/ComputedConverters.WPF.Test](https://github.com/emako/ComputedConverters.NET/tree/master/ComputedConverters.WPF.Test)
+
+[lemutec/VSEnc](https://github.com/lemutec/VSEnc)
 
 ## Thanks
 
-**Idea list here**
+Idea list here, and standing on the shoulders of giants.
 
 https://github.com/OrgEleCho/EleCho.WpfSuite
+
 https://github.com/JohannesMoersch/QuickConverter
+
 https://github.com/thomasgalliker/ValueConverters.NET
+
 https://github.com/CommunityToolkit/Maui
+
 https://github.com/XAMLMarkupExtensions/XAMLMarkupExtensions
+
 https://github.com/DingpingZhang/WpfExtensions
+
 https://github.com/Kinnara/ModernWpf
+
 https://github.com/runceel/Livet
+
 https://github.com/XamlFlair/XamlFlair
