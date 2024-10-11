@@ -125,7 +125,7 @@ public partial class ViewModel : ReactiveObject
 
 #### 1.5 Mapper
 
-IL based auto mapper will auto copy the property from source to target object with the same property name.
+IL based auto mapper will auto **shallow** copy the property from source to target object with the same property name.
 
 For more configuration, to set the `ICloneableAttribute`, `ITypeConverterAttribute` and `NotMappedAttribute` for target property attribute.
 
