@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xaml.Behaviors;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -8,6 +9,7 @@ namespace ComputedBehaviors;
 public class DropFileBehavior : Behavior<UIElement>
 {
     public bool IsHandleDrop { get; set; } = false;
+    public bool IsHandleMulti { get; set; } = false;
 
     public string[]? Data
     {
@@ -71,11 +73,18 @@ public class DropFileBehavior : Behavior<UIElement>
             }
         }
 
-        if (IsHandleDrop)
+        if (IsHandleDrop && isFileDrop)
         {
-            if (sender is TextBox && isFileDrop)
+            if (sender is TextBox textBox)
             {
-                ((TextBox)sender!).Text = string.Join(Environment.NewLine, Data!);
+                if (IsHandleMulti)
+                {
+                    textBox.Text = string.Join(Environment.NewLine, Data!);
+                }
+                else
+                {
+                    textBox.Text = Data!.FirstOrDefault();
+                }
             }
         }
     }
