@@ -83,7 +83,13 @@
                     </TextBlock>
                     <TextBlock
                         Foreground="{c:SolidColorBrush {c:Color '#980230'}}"
-                        Text="Color" />
+                        Text="Color: #980230" />
+                    <TextBlock
+                        Foreground="{c:SolidColorBrush {StaticResource SystemFillColorCaution}}"
+                        Text="Color: SystemFillColorCaution" />
+                    <TextBlock
+                        Foreground="{c:SolidColorBrush {c:UnDynamicResource {DynamicResource SystemFillColorCaution}}}"
+                        Text="Color: SystemFillColorCaution" />
                 </ws:StackPanel>
             </ui:Card>
             <!-- IfConverter -->

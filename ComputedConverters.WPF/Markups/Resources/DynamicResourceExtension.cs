@@ -11,7 +11,7 @@ namespace ComputedConverters;
 /// </summary>
 /// <param name="resourceKey"></param>
 [MarkupExtensionReturnType(typeof(object))]
-public sealed class DynamicResourceExtension(object? resourceKey) : MarkupExtension
+public class DynamicResourceExtension(object? resourceKey) : MarkupExtension
 {
     [ConstructorArgument(nameof(ResourceKey))]
     public object? ResourceKey { get; set; } = resourceKey;
