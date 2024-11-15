@@ -17,7 +17,7 @@ public sealed class ThemeResourceExtension(object? resourceKey) : StaticResource
     {
     }
 
-    public override object ProvideValue(IServiceProvider serviceProvider)
+    public override object? ProvideValue(IServiceProvider serviceProvider)
     {
         if (ResourceKey is string key && key.StartsWith("SystemColor", StringComparison.Ordinal))
         {
@@ -84,7 +84,7 @@ public sealed class ThemeResourceExtension(object? resourceKey) : StaticResource
                     throw new ArgumentException($"{value} must be of type {nameof(ThemeResourceExtension)}", nameof(value));
                 }
 
-                return new InstanceDescriptor(typeof(ThemeResourceExtension).GetConstructor([typeof(object)]), new object[] { dynamicResource.ResourceKey });
+                return new InstanceDescriptor(typeof(ThemeResourceExtension).GetConstructor([typeof(object)]), new object[] { dynamicResource.ResourceKey! });
             }
             return base.ConvertTo(context, culture, value, destinationType!);
         }
