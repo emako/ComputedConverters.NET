@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -55,5 +56,13 @@ public class ReactiveCollection<T> : ObservableCollection<T>
     {
         Items.Clear();
         AddRange(range);
+    }
+
+    public virtual void Remove(Func<T, bool> predicate)
+    {
+        foreach (T item in this.Where(predicate))
+        {
+            Remove(item);
+        }
     }
 }
