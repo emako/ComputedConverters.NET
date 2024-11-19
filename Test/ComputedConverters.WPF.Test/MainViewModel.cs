@@ -79,6 +79,18 @@ public partial class MainViewModel : ReactiveObject
         }
     }
 
+    [RelayCommand]
+    private void ContextMenuLoaded(RelayEventParameter param)
+    {
+        (object sender, EventArgs e) = param.Deconstruct<EventArgs>();
+    }
+
+    [RelayCommand]
+    private void ContextMenuOpened(RelayEventParameter param)
+    {
+        (object sender, EventArgs e) = param.Deconstruct<EventArgs>();
+    }
+
     [ObservableProperty]
     private System.Drawing.Bitmap bitmap = new(ResourceHelper.GetStream("pack://application:,,,/ComputedConverters.Test;component/test.png"));
 

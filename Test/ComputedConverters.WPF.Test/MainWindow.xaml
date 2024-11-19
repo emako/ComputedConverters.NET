@@ -326,6 +326,29 @@
                     </ui:StackPanel>
                 </ws:StackPanel>
             </ui:Card>
+            <!-- CastConverter -->
+            <ui:Card>
+                <ws:StackPanel>
+                    <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
+                        <TextBlock.Inlines>
+                            <TextBlock>Markup:</TextBlock>
+                            <TextBlock>EventBinding</TextBlock>
+                        </TextBlock.Inlines>
+                    </TextBlock>
+                    <ui:StackPanel
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <ui:StackPanel.ContextMenu>
+                            <ContextMenu
+                                Loaded="{c:EventBinding ContextMenuLoadedCommand}"
+                                Opened="{c:EventBinding ContextMenuOpenedCommand}">
+                                <MenuItem Header="XXX" />
+                            </ContextMenu>
+                        </ui:StackPanel.ContextMenu>
+                        <TextBlock Text="ContextMenuOpened" />
+                    </ui:StackPanel>
+                </ws:StackPanel>
+            </ui:Card>
         </ws:WrapPanel>
         <ui:TitleBar>
             <ui:TitleBar.Icon>

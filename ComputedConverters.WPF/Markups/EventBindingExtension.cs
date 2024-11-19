@@ -40,41 +40,39 @@ public sealed class EventBindingExtension : MarkupExtension
 
     public override object? ProvideValue(IServiceProvider serviceProvider)
     {
-        if (serviceProvider.GetService(typeof(IProvideValueTarget)) is IProvideValueTarget targetProvider
-         && targetProvider.TargetObject is FrameworkElement
-         && targetProvider.TargetProperty is MemberInfo memberInfo)
-        {
-            Type? eventHandlerType = null!;
+        if (serviceProvider.GetService(typeof(IProvideValueTarget)) is IProvideValueTarget targetProvider)
+            if (targetProvider.TargetObject is FrameworkElement)
+                if (targetProvider.TargetProperty is MemberInfo memberInfo)
+                {
+                    Type? eventHandlerType = null!;
 
-            if (memberInfo is EventInfo eventInfo)
-            {
-                eventHandlerType = eventInfo.EventHandlerType ?? throw new InvalidOperationException("Could not create event binding.");
-            }
-            else if (memberInfo is MethodInfo methodInfo)
-            {
-                eventHandlerType = methodInfo.GetParameters()[1].ParameterType;
-            }
-            else
-            {
-                return null;
-            }
+                    if (memberInfo is EventInfo eventInfo)
+                    {
+                        eventHandlerType = eventInfo.EventHandlerType ?? throw new InvalidOperationException("Could not create event binding.");
+                    }
+                    else if (memberInfo is MethodInfo methodInfo)
+                    {
+                        eventHandlerType = methodInfo.GetParameters()[1].ParameterType;
+                    }
+                    else
+                    {
+                        return null;
+                    }
 
-            MethodInfo handler = eventHandlerType.GetMethod("Invoke") ?? throw new InvalidOperationException("Could not create event binding.");
-            DynamicMethod method = new(string.Empty, handler.ReturnType, [typeof(object), typeof(object)]);
+                    MethodInfo handler = eventHandlerType.GetMethod("Invoke") ?? throw new InvalidOperationException("Could not create event binding.");
+                    DynamicMethod method = new(string.Empty, handler.ReturnType, [typeof(object), typeof(object)]);
 
-            ILGenerator ilGenerator = method.GetILGenerator();
-            ilGenerator.Emit(OpCodes.Ldarg_0);
-            ilGenerator.Emit(OpCodes.Ldarg_1);
-            ilGenerator.Emit(OpCodes.Ldstr, Command);
-            ilGenerator.Emit(OpCodes.Call, EventHandlerImplMethod ?? throw new InvalidOperationException("Could not create event binding."));
-            ilGenerator.Emit(OpCodes.Ret);
+                    ILGenerator ilGenerator = method.GetILGenerator();
+                    ilGenerator.Emit(OpCodes.Ldarg_0);
+                    ilGenerator.Emit(OpCodes.Ldarg_1);
+                    ilGenerator.Emit(OpCodes.Ldstr, Command);
+                    ilGenerator.Emit(OpCodes.Call, EventHandlerImplMethod ?? throw new InvalidOperationException("Could not create event binding."));
+                    ilGenerator.Emit(OpCodes.Ret);
 
-            return method.CreateDelegate(eventHandlerType);
-        }
-        else
-        {
-            throw new InvalidOperationException("Could not create event binding.");
-        }
+                    return method.CreateDelegate(eventHandlerType);
+                }
+
+        throw new InvalidOperationException("Could not create event binding.");
     }
 }
 
