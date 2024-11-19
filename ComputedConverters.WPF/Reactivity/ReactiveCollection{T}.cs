@@ -60,7 +60,7 @@ public class ReactiveCollection<T> : ObservableCollection<T>
 
     public virtual void Remove(Func<T, bool> predicate)
     {
-        foreach (T item in this.Where(predicate))
+        foreach (T item in this.Where(predicate).ToArray())
         {
             Remove(item);
         }
