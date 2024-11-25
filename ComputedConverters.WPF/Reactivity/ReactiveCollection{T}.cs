@@ -65,4 +65,26 @@ public class ReactiveCollection<T> : ObservableCollection<T>
             Remove(item);
         }
     }
+
+    public void MoveUp(T item)
+    {
+        int index = IndexOf(item);
+
+        if (index <= 0)
+        {
+            return;
+        }
+        Move(index, index - 1);
+    }
+
+    public void MoveDown(T item)
+    {
+        int index = IndexOf(item);
+
+        if (index < 0 || index >= Count - 1)
+        {
+            return;
+        }
+        Move(index, index + 1);
+    }
 }
