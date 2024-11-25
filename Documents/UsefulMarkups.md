@@ -91,12 +91,12 @@ Use the `Conditional expression` in XAML.
 ```xaml
 <UserControl>
     <c:If Condition="{Binding IsLoading}">
-        <c:If.True>
+        <c:If.TrueValue>
             <views:LoadingView />
-        </c:If.True>
-        <c:If.False>
+        </c:If.TrueValue>
+        <c:If.FalseValue>
             <views:LoadedView />
-        </c:If.False>
+        </c:If.FalseValue>
     </c:If>
 </UserControl>
 ```
