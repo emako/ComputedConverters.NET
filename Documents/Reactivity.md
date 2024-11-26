@@ -13,7 +13,7 @@ public class ViewModel : Reactive;
 - Recommend: Use `ComputedConverters` with `CommunityToolkit.Mvvm`.
 
 ```xml
-<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+<PackageReference Include="CommunityToolkit.Mvvm" Version="8.X.X" />
 ```
 
 ```c#
@@ -86,3 +86,23 @@ TestMapperModel model = new();
 TestMapperViewModel viewModel = new();
 viewModel = model.MapTo(viewModel); // Auto copy the properties from model to viewModel.
 ```
+
+Since Mapper is designed to copy each other between `Model` and `ViewModel`, so it does not implement the deep copy function.
+
+#### 1.6 Conditional Rendering
+
+The `v-if` directive in Vue is used for conditional rendering.
+
+```xaml
+<ContentControl>
+    <c:If Condition="{Binding XXX, Mode=OneWay}">
+        <c:If.TrueValue>
+            <TextBlock Text="TRUE" />
+        </c:If.TrueValue>
+        <c:If.FalseValue>
+            <TextBlock Text="FALSE" />
+        </c:If.FalseValue>
+    </c:If>
+</ContentControl>
+```
+
