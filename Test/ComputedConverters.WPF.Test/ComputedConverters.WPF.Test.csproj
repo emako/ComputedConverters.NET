@@ -1,27 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net9.0-windows</TargetFramework>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <UseWPF>true</UseWPF>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net9.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
 		<LangVersion>latest</LangVersion>
-        <AssemblyName>ComputedConverters.Test</AssemblyName>
-        <ApplicationIcon>..\..\Images\logo.ico</ApplicationIcon>
-		<AssemblyVersion>0.4.9.0</AssemblyVersion>
-		<FileVersion>0.4.9.0</FileVersion>
-		<Version>$(VersionPrefix)0.4.9.0</Version>
-    </PropertyGroup>
+		<AssemblyName>ComputedConverters.Test</AssemblyName>
+		<ApplicationIcon>..\..\Images\logo.ico</ApplicationIcon>
+		<AssemblyVersion>0.5.0.0</AssemblyVersion>
+		<FileVersion>0.5.0.0</FileVersion>
+		<Version>$(VersionPrefix)0.5.0.0</Version>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<None Remove="*.png" />
 	</ItemGroup>
 
-    <ItemGroup>
-        <Resource Include="..\..\Images\logo.ico" />
-        <Resource Include="*.png" />
-    </ItemGroup>
+	<ItemGroup>
+		<Resource Include="..\..\Images\logo.ico" />
+		<Resource Include="*.png" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<None Include="..\..\README.md" Pack="true" PackagePath="" />
@@ -61,8 +61,8 @@
 		<PackageReference Include="WPF-UI.Violeta" Version="3.0.5.23" />
 	</ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\..\ComputedConverters.WPF\ComputedConverters.WPF.csproj" />
-    </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\ComputedConverters.WPF\ComputedConverters.WPF.csproj" />
+	</ItemGroup>
 
 </Project>
