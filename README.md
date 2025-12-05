@@ -68,6 +68,8 @@ Add XML namespace to your XAML file:
 
 ## Projects
 
+Examples of projects using this library:
+
 [emako/ComputedConverters.WPF.Test](https://github.com/emako/ComputedConverters.NET/tree/master/ComputedConverters.WPF.Test)
 
 [lemutec/VSEnc](https://github.com/lemutec/VSEnc)
