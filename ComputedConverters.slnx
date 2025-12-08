@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/ILGen/">
+    <Project Path="ILGen/Cast/Cast.csproj" />
+    <Project Path="ILGen/ReactiveMapper/ReactiveMapper.csproj" />
+  </Folder>
+  <Folder Name="/Test/">
+    <Project Path="Test/ComputedConverters.WPF.Test/ComputedConverters.WPF.Test.csproj" />
+  </Folder>
+  <Project Path="ComputedAnimations.WPF/ComputedAnimations.WPF.csproj" />
+  <Project Path="ComputedBehaviors.WPF/ComputedBehaviors.WPF.csproj" />
+  <Project Path="ComputedConverters.WPF/ComputedConverters.WPF.csproj" />
+</Solution>
