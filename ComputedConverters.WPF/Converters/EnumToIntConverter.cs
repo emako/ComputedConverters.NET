@@ -49,16 +49,18 @@ public sealed class EnumToIntConverter : SingletonValueConverterBase<EnumToIntCo
         {
             throw new ArgumentNullException(nameof(value));
         }
-        if (parameter == null)
+        if (parameter is not null)
         {
-            throw new ArgumentNullException(nameof(parameter));
-        }
+            if (!Enum.IsDefined((Type)parameter, value))
+            {
+                throw new InvalidEnumArgumentException($"{value} is not valid for {parameter}.");
+            }
 
-        if (!Enum.IsDefined((Type)parameter, value))
+            return Enum.ToObject((Type)parameter, value);
+        }
+        else
         {
-            throw new InvalidEnumArgumentException($"{value} is not valid for {parameter}.");
+            return Enum.ToObject(targetType, value);
         }
-
-        return Enum.ToObject((Type)parameter, value);
     }
 }
