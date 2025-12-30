@@ -104,7 +104,7 @@ public abstract class TokenBase
                         {
                             try
                             {
-                                ret = (info as MethodInfo)!.MakeGenericMethod([.. typeArgs]);
+                                ret = (info as MethodInfo)!.MakeGenericMethod([.. typeArgs!]);
                             }
                             catch
                             {
