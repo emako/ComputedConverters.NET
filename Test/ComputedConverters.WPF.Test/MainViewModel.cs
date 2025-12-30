@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.ComponentModel;
 using System.IO;
 using System.IO.Packaging;
 using System.Text;
@@ -8,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Resources;
 using Wpf.Ui.Violeta.Controls;
+using DescriptionAttribute = System.ComponentModel.DescriptionAttribute;
 
 namespace ComputedConverters.Test;
 

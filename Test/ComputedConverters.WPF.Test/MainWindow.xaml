@@ -9,7 +9,6 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:vio="http://schemas.lepo.co/wpfui/2022/xaml/violeta"
-    xmlns:ws="https://schemas.elecho.dev/wpfsuite"
     Title="MainWindow"
     Width="1200"
     Height="800"
@@ -21,14 +20,14 @@
     mc:Ignorable="d">
     <Window.Resources />
     <Grid>
-        <ws:WrapPanel
+        <ui:WrapPanel
             Margin="16,48,16,16"
             HorizontalSpacing="8"
             VerticalSpacing="8">
             <!-- DynamicResource -->
             <!-- Unbinding -->
             <ui:Card>
-                <ws:StackPanel Spacing="8">
+                <ui:StackPanel Spacing="8">
                     <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
                         <TextBlock.Inlines>
                             <TextBlock>Markup:</TextBlock>
@@ -45,14 +44,14 @@
                     <Button
                         Command="{Binding ChangeGuidCommand}"
                         Content="ChangeGuid" />
-                </ws:StackPanel>
+                </ui:StackPanel>
             </ui:Card>
             <!-- Cast -->
             <!-- Bool -->
             <!-- GetType -->
             <!-- StringEmpty -->
             <ui:Card>
-                <ws:StackPanel>
+                <ui:StackPanel>
                     <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
                         <TextBlock.Inlines>
                             <TextBlock>Markup:</TextBlock>
@@ -67,12 +66,12 @@
                     </TextBlock>
                     <TextBlock Text="{c:Cast {c:Bool false}, TargetType={c:GetType {c:StringEmpty}}}" />
                     <TextBlock Text="{c:Cast {c:Bool true}, TargetType={c:GetType {c:StringEmpty}}}" />
-                </ws:StackPanel>
+                </ui:StackPanel>
             </ui:Card>
             <!-- Color -->
             <!-- SolidColorBrush -->
             <ui:Card>
-                <ws:StackPanel>
+                <ui:StackPanel>
                     <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
                         <TextBlock.Inlines>
                             <TextBlock>Markup:</TextBlock>
@@ -90,12 +89,12 @@
                     <TextBlock
                         Foreground="{c:SolidColorBrush {c:UnDynamicResource {DynamicResource SystemFillColorCaution}}}"
                         Text="Color: SystemFillColorCaution" />
-                </ws:StackPanel>
+                </ui:StackPanel>
             </ui:Card>
             <!-- IfConverter -->
             <!-- If -->
             <ui:Card>
-                <ws:StackPanel>
+                <ui:StackPanel>
                     <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
                         <TextBlock.Inlines>
                             <TextBlock>Converter:</TextBlock>
@@ -145,11 +144,11 @@
                             </c:If.FalseValue>
                         </c:If>
                     </UserControl>
-                </ws:StackPanel>
+                </ui:StackPanel>
             </ui:Card>
             <!-- I18N -->
             <ui:Card>
-                <ws:StackPanel>
+                <ui:StackPanel>
                     <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
                         <TextBlock.Inlines>
                             <TextBlock>Markup:</TextBlock>
@@ -157,11 +156,11 @@
                         </TextBlock.Inlines>
                     </TextBlock>
                     <TextBlock Text="{c:I18n AboutProgram}" />
-                </ws:StackPanel>
+                </ui:StackPanel>
             </ui:Card>
             <!-- LocaleDescriptionConverter -->
             <ui:Card>
-                <ws:StackPanel>
+                <ui:StackPanel>
                     <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
                         <TextBlock.Inlines>
                             <TextBlock>Converter:</TextBlock>
@@ -169,11 +168,11 @@
                         </TextBlock.Inlines>
                     </TextBlock>
                     <TextBlock Text="{Binding TestLocaleEnumValue, Converter={x:Static c:EnumLocaleDescriptionConverter.Instance}}" />
-                </ws:StackPanel>
+                </ui:StackPanel>
             </ui:Card>
             <!-- AlternatingGridColorExtension -->
             <ui:Card>
-                <ws:StackPanel>
+                <ui:StackPanel>
                     <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
                         <TextBlock.Inlines>
                             <TextBlock>Markup:</TextBlock>
@@ -208,11 +207,11 @@
                                                                 ColorOdd='Red'}"
                             Text="3" />
                     </Grid>
-                </ws:StackPanel>
+                </ui:StackPanel>
             </ui:Card>
             <!-- StaticExtension -->
             <ui:Card>
-                <ws:StackPanel>
+                <ui:StackPanel>
                     <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
                         <TextBlock.Inlines>
                             <TextBlock>Markup:</TextBlock>
@@ -226,11 +225,11 @@
                     <Label Content="{Binding StaticProperty, Source={c:Static local:StaticClass.Instance}}" />
                     <Label Content="{c:Type local:StaticClass}" />
                     <Label Content="{x:Type local:StaticClass}" />
-                </ws:StackPanel>
+                </ui:StackPanel>
             </ui:Card>
             <!-- Computed -->
             <ui:Card>
-                <ws:StackPanel>
+                <ui:StackPanel>
                     <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
                         <TextBlock.Inlines>
                             <TextBlock>Reactivity:</TextBlock>
@@ -244,11 +243,11 @@
                     <Button
                         Command="{Binding ChangeWithOrHeightCommand}"
                         Content="ChangeWithOrHeight" />
-                </ws:StackPanel>
+                </ui:StackPanel>
             </ui:Card>
             <!-- Converter -->
             <ui:Card>
-                <ws:StackPanel>
+                <ui:StackPanel>
                     <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
                         <TextBlock.Inlines>
                             <TextBlock>Markup:</TextBlock>
@@ -260,15 +259,15 @@
                         Text="Visiable on debugger attached."
                         Visibility="{c:Converter Value={x:Static diagnostics:Debugger.IsAttached},
                                                  Converter={x:Static c:BoolToVisibilityConverter.Instance}}" />
-                </ws:StackPanel>
+                </ui:StackPanel>
             </ui:Card>
             <!-- SetServiceLocator -->
             <!-- ServiceLocator -->
             <ui:Card>
-                <ws:StackPanel>
-                    <ws:StackPanel.Resources>
+                <ui:StackPanel>
+                    <ui:StackPanel.Resources>
                         <c:SetServiceLocator Value="{c:Unbinding {Binding ServiceProvider, Source={c:Static local:App.Current}}}" />
-                    </ws:StackPanel.Resources>
+                    </ui:StackPanel.Resources>
                     <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
                         <TextBlock.Inlines>
                             <TextBlock>Markup:</TextBlock>
@@ -278,14 +277,14 @@
                         </TextBlock.Inlines>
                     </TextBlock>
                     <c:ServiceLocator Type="{x:Type local:ServiceLocatorTestPage}" />
-                </ws:StackPanel>
+                </ui:StackPanel>
             </ui:Card>
             <!-- BitmapToImageSourceConverter -->
             <ui:Card>
-                <ws:StackPanel>
-                    <ws:StackPanel.Resources>
+                <ui:StackPanel>
+                    <ui:StackPanel.Resources>
                         <c:BitmapToImageSourceConverter x:Key="BitmapToImageSourceConverter" />
-                    </ws:StackPanel.Resources>
+                    </ui:StackPanel.Resources>
                     <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
                         <TextBlock.Inlines>
                             <TextBlock>Converter:</TextBlock>
@@ -296,19 +295,19 @@
                     <Image
                         Height="100"
                         Source="{Binding Bitmap, Converter={StaticResource BitmapToImageSourceConverter}}" />
-                </ws:StackPanel>
+                </ui:StackPanel>
             </ui:Card>
             <!-- CastConverter -->
             <ui:Card>
-                <ws:StackPanel>
-                    <ws:StackPanel.Resources>
+                <ui:StackPanel>
+                    <ui:StackPanel.Resources>
                         <c:CastConverter
                             x:Key="CastConverter"
                             TargetType="{c:TypeofInt}" />
                         <c:ChangeTypeConverter
                             x:Key="ChangeTypeConverter"
                             TargetType="{c:TypeofInt}" />
-                    </ws:StackPanel.Resources>
+                    </ui:StackPanel.Resources>
                     <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
                         <TextBlock.Inlines>
                             <TextBlock>Converter:</TextBlock>
@@ -324,9 +323,9 @@
                         <TextBlock Text="{Binding CastConverterObject, Converter={StaticResource CastConverter}}" />
                         <TextBlock Text="{Binding CastConverterObject, Converter={StaticResource ChangeTypeConverter}}" />
                     </ui:StackPanel>
-                </ws:StackPanel>
+                </ui:StackPanel>
             </ui:Card>
-        </ws:WrapPanel>
+        </ui:WrapPanel>
         <ui:TitleBar>
             <ui:TitleBar.Icon>
                 <ui:ImageIcon Source="pack://application:,,,/logo.ico" />
