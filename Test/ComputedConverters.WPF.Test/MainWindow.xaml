@@ -1,4 +1,4 @@
-﻿<ui:FluentWindow
+<ui:FluentWindow
     x:Class="ComputedConverters.Test.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -323,6 +323,45 @@
                         <TextBlock Text="{Binding CastConverterObject, Converter={StaticResource CastConverter}}" />
                         <TextBlock Text="{Binding CastConverterObject, Converter={StaticResource ChangeTypeConverter}}" />
                     </ui:StackPanel>
+                </ui:StackPanel>
+            </ui:Card>
+            <!-- IsInCollectionConverter -->
+            <ui:Card>
+                <ui:StackPanel>
+                    <TextBlock Foreground="{DynamicResource SystemAccentColorPrimaryBrush}">
+                        <TextBlock.Inlines>
+                            <TextBlock>Converter:</TextBlock>
+                            <TextBlock>IsInCollectionConverter</TextBlock>
+                        </TextBlock.Inlines>
+                    </TextBlock>
+                    <TextBlock Text="Test fruit array:" />
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <Binding Path="TestValue">
+                                <Binding.Converter>
+                                    <c:IsInCollectionConverter />
+                                </Binding.Converter>
+                                <Binding.ConverterParameter>
+                                    <x:Array Type="{c:TypeofString}">
+                                        <sys:String>apple</sys:String>
+                                        <sys:String>banana</sys:String>
+                                        <sys:String>orange</sys:String>
+                                    </x:Array>
+                                </Binding.ConverterParameter>
+                            </Binding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock Text="Test number list:" />
+                    <TextBlock Text="{Binding Value, Converter={x:Static c:IsInCollectionConverter.Instance}, ConverterParameter={c:String '1,2,3,4,5'}}" />
+                    <TextBlock Text="Test color set:" />
+                    <TextBlock Text="{Binding TestValue, Converter={x:Static c:IsInCollectionConverter.Instance}, ConverterParameter={c:String 'red,green,blue'}}" />
+                    <TextBlock Text="Test string parameter:" />
+                    <TextBlock Text="{Binding TestValue, Converter={x:Static c:IsInCollectionConverter.Instance}, ConverterParameter={c:String 'apple, banana; orange | grape'}}" />
+                    <TextBlock Text="Test string parameter (with brackets):" />
+                    <TextBlock Text="{Binding TestValue, Converter={x:Static c:IsInCollectionConverter.Instance}, ConverterParameter={c:String '[&quot;apple&quot;, &quot;banana&quot;; &quot;orange&quot; | &quot;grape&quot;]'}}" />
+                    <Button
+                        Command="{Binding ChangeTestValueCommand}"
+                        Content="Toggle test value" />
                 </ui:StackPanel>
             </ui:Card>
         </ui:WrapPanel>

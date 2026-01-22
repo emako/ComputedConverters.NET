@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.IO;
 using System.IO.Packaging;
@@ -66,6 +66,12 @@ public partial class MainViewModel : ReactiveObject
     }
 
     [RelayCommand]
+    private void ChangeTestValue()
+    {
+        TestValue = TestValue == "apple" ? "grape" : "apple";
+    }
+
+    [RelayCommand]
     private void Drop(RelayEventParameter param)
     {
         (object _, DragEventArgs e) = param.Deconstruct<DragEventArgs>();
@@ -84,6 +90,15 @@ public partial class MainViewModel : ReactiveObject
 
     [ObservableProperty]
     private TestEnum castConverterObject = TestEnum.First;
+
+    [ObservableProperty]
+    private string testValue = "apple";
+
+    public string[] Fruits => new[] { "apple", "banana", "orange" };
+
+    public List<int> Numbers => new() { 1, 2, 3, 4, 5 };
+
+    public HashSet<string> Colors => new() { "red", "green", "blue" };
 }
 
 public class StaticClass
