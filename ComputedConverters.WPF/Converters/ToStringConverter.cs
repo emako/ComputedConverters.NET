@@ -13,12 +13,16 @@ public sealed class ToStringConverter : SingletonValueConverterBase<ToStringConv
     {
         if (value != null && parameter != null)
         {
-            return value.GetType()
+            MethodInfo? toStringMethod = value.GetType()
                 .GetMethods(BindingFlags.Instance | BindingFlags.Public)
                 .Where(m => m.Name == nameof(ToString))
                 .Where(m => m.GetParameters().Length == 1 && m.GetParameters().First().ParameterType == parameter.GetType())
-                .FirstOrDefault()
-                ?.Invoke(value, [parameter]);
+                .FirstOrDefault();
+
+            if (toStringMethod != null)
+            {
+                return toStringMethod.Invoke(value, [parameter]);
+            }
         }
 
         return value?.ToString();
