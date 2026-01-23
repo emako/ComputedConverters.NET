@@ -55,7 +55,6 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2" />
 		<PackageReference Include="MSTest.TestFramework" Version="4.0.2" />
-		<PackageReference Include="System.Drawing.Common" Version="10.0.2" />
 		<PackageReference Include="WPF-UI.Violeta" Version="3.0.5.23" />
 	</ItemGroup>
 
