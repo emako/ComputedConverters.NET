@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<PackageId>ComputedAnimations.WPF</PackageId>
 		<Product>ComputedAnimations.WPF</Product>
-		<TargetFrameworks>net47;net471;net472;net48;net481;net6.0-windows;net7.0-windows;net8.0-windows;net9.0-windows;net10.0-windows</TargetFrameworks>
+		<TargetFrameworks>net462;net47;net471;net472;net48;net481;net6.0-windows;net7.0-windows;net8.0-windows;net9.0-windows;net10.0-windows</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 		<AssemblyName>ComputedAnimations</AssemblyName>
@@ -39,10 +39,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="System.Reactive" Version="6.1.0" />
-		<PackageReference Include="System.Reactive.Linq" Version="6.1.0" />
 	</ItemGroup>
 
-	<ItemGroup Condition="'$(TargetFramework)' == 'net47' OR '$(TargetFramework)' == 'net471' OR '$(TargetFramework)' == 'net472' OR '$(TargetFramework)' == 'net48' OR '$(TargetFramework)' == 'net481'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net462' OR '$(TargetFramework)' == 'net47' OR '$(TargetFramework)' == 'net471' OR '$(TargetFramework)' == 'net472' OR '$(TargetFramework)' == 'net48' OR '$(TargetFramework)' == 'net481'">
 		<Reference Include="Microsoft.CSharp" />
 	</ItemGroup>
 
