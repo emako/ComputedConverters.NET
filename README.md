@@ -95,3 +95,5 @@ Idea list here, and standing on the shoulders of giants.
 [runceel/Livet](runceel/Livet)
 
 [XamlFlair/XamlFlair](XamlFlair/XamlFlair)
+
+[ReactiveUI/Bindings/Converter](https://github.com/reactiveui/ReactiveUI/tree/main/src/ReactiveUI/Bindings/Converter)
