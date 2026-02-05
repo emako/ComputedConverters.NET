@@ -5,6 +5,7 @@
   </Folder>
   <Folder Name="/Test/">
     <Project Path="Test/ComputedConverters.WPF.Test/ComputedConverters.WPF.Test.csproj" />
+    <Project Path="Test/ComputedConverters.WPF.UnitTest/ComputedConverters.WPF.UnitTest.csproj" />
   </Folder>
   <Project Path="ComputedAnimations.WPF/ComputedAnimations.WPF.csproj" />
   <Project Path="ComputedBehaviors.WPF/ComputedBehaviors.WPF.csproj" />
