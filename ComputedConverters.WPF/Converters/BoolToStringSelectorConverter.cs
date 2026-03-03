@@ -9,10 +9,10 @@ namespace ComputedConverters;
 /// Parameter format: "falseString;trueString" (semicolon-separated). One-way conversion only.
 /// </summary>
 [ValueConversion(typeof(bool), typeof(string))]
-public sealed class BoolToStringSelectorConverter : IValueConverter
+public sealed class BoolToStringSelectorConverter : SingletonValueConverterBase<BoolToStringSelectorConverter>
 {
     /// <inheritdoc />
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public override object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not bool b)
             return null;
@@ -31,6 +31,8 @@ public sealed class BoolToStringSelectorConverter : IValueConverter
     }
 
     /// <inheritdoc />
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-        => throw new NotSupportedException();
+    public override object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
 }
