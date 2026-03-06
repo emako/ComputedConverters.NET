@@ -21,13 +21,29 @@ public sealed class ConverterExtension() : MarkupExtension
         {
             return Value;
         }
+        else if (Value is Binding binding)
+        {
+            Binding newBinding = new()
+            {
+                Path = binding.Path,
+                Source = binding.Source,
+                RelativeSource = binding.RelativeSource,
+                ElementName = binding.ElementName,
+                Mode = binding.Mode,
+                Converter = Converter,
+                ConverterParameter = Parameter,
+                ConverterCulture = Culture
+            };
+
+            return newBinding.ProvideValue(serviceProvider);
+        }
         else
         {
             Type targetType = typeof(object);
 
             if (serviceProvider.GetService(typeof(IProvideValueTarget)) is IProvideValueTarget provideValueTarget)
             {
-                var targetProperty = provideValueTarget.TargetProperty;
+                object targetProperty = provideValueTarget.TargetProperty;
 
                 if (targetProperty is DependencyProperty dp)
                 {
