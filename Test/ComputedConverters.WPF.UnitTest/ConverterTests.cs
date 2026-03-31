@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using ComputedConverters;
@@ -122,7 +123,7 @@ public class ConverterTests
         Assert.AreEqual(Brushes.Red, result);
     }
 
-    #endregion
+    #endregion Bool Converters
 
     #region Double Converters
 
@@ -287,7 +288,7 @@ public class ConverterTests
         Assert.AreEqual(10.0, result);
     }
 
-    #endregion
+    #endregion Double Converters
 
     #region String Converters
 
@@ -469,7 +470,7 @@ public class ConverterTests
         // Note: StringToBoolConverter requires TrueValue/FalseValue to be set properly
         // Using BoolInverter as an alternative test for string-bool conversion
         var converter = new BoolInverter();
-        
+
         var result = converter.Convert(true, typeof(bool), null, _culture);
         Assert.IsInstanceOfType(result, typeof(bool));
     }
@@ -493,7 +494,7 @@ public class ConverterTests
         Assert.AreEqual("https://example.com/", result.ToString());
     }
 
-    #endregion
+    #endregion String Converters
 
     #region Null/Empty Converters
 
@@ -569,7 +570,7 @@ public class ConverterTests
         Assert.AreEqual(false, result);
     }
 
-    #endregion
+    #endregion Null/Empty Converters
 
     #region Equality Converters
 
@@ -623,7 +624,7 @@ public class ConverterTests
         Assert.AreEqual(false, result);
     }
 
-    #endregion
+    #endregion Equality Converters
 
     #region Enum Converters
 
@@ -651,7 +652,53 @@ public class ConverterTests
         Assert.AreEqual(0, result);
     }
 
-    #endregion
+    [TestMethod]
+    public void EnumToObjectConverter_Convert_ConvertsEnumAndStringKeys()
+    {
+        ResourceDictionary items = new()
+        {
+            [nameof(DayOfWeek.Monday)] = "MondayObject",
+            ["CustomKey"] = "CustomObject",
+        };
+        EnumToObjectConverter converter = new()
+        {
+            Items = items,
+        };
+
+        object? result = converter.Convert(DayOfWeek.Monday, typeof(object), null, _culture);
+        Assert.AreEqual("MondayObject", result);
+
+        result = converter.Convert("CustomKey", typeof(object), null, _culture);
+        Assert.AreEqual("CustomObject", result);
+    }
+
+    [TestMethod]
+    public void EnumToObjectConverter_Convert_UsesDictionaryParameterWithoutChangingItems()
+    {
+        Dictionary<string, object?> items = new()
+        {
+            [nameof(DayOfWeek.Tuesday)] = "TuesdayObject",
+        };
+        EnumToObjectConverter converter = new();
+
+        object? result = converter.Convert(DayOfWeek.Tuesday, typeof(object), items, _culture);
+
+        Assert.AreEqual("TuesdayObject", result);
+        Assert.IsNull(converter.Items);
+    }
+
+    [TestMethod]
+    public void EnumToObjectConverter_Convert_UsesStringParameterMapping()
+    {
+        EnumToObjectConverter converter = new();
+
+        object? result = converter.Convert(DayOfWeek.Wednesday, typeof(object), "Wednesday:Weekday;Sunday:Weekend", _culture);
+
+        Assert.AreEqual("Weekday", result);
+        Assert.IsNull(converter.Items);
+    }
+
+    #endregion Enum Converters
 
     #region Type Converters
 
@@ -693,7 +740,7 @@ public class ConverterTests
         Assert.AreEqual("1.2", result);
     }
 
-    #endregion
+    #endregion Type Converters
 
     #region Collection Converters
 
@@ -720,7 +767,7 @@ public class ConverterTests
         Assert.AreEqual("test", result[0]);
     }
 
-    #endregion
+    #endregion Collection Converters
 
     #region DateTime Converters
 
@@ -735,7 +782,7 @@ public class ConverterTests
         Assert.AreEqual("2024-01-15", result);
     }
 
-    #endregion
+    #endregion DateTime Converters
 
     #region Visibility Converters
 
@@ -744,10 +791,12 @@ public class ConverterTests
     {
         // Note: VisibilityInverter has a bug in DependencyProperty registration (type mismatch)
         // Using BoolToVisibilityConverter with IsInverted as an alternative
-        var converter = new BoolToVisibilityConverter();
-        converter.TrueValue = Visibility.Visible;
-        converter.FalseValue = Visibility.Collapsed;
-        converter.IsInverted = true;
+        var converter = new BoolToVisibilityConverter()
+        {
+            TrueValue = Visibility.Visible,
+            FalseValue = Visibility.Collapsed,
+            IsInverted = true,
+        };
 
         var result = converter.Convert(true, typeof(Visibility), null, _culture);
         Assert.AreEqual(Visibility.Collapsed, result);
@@ -756,7 +805,7 @@ public class ConverterTests
         Assert.AreEqual(Visibility.Visible, result);
     }
 
-    #endregion
+    #endregion Visibility Converters
 
     #region Color Converters
 
@@ -780,7 +829,7 @@ public class ConverterTests
         Assert.IsInstanceOfType(result, typeof(Color));
     }
 
-    #endregion
+    #endregion Color Converters
 
     #region Utility Converters
 
@@ -877,5 +926,5 @@ public class ConverterTests
         Assert.AreEqual(false, result);
     }
 
-    #endregion
+    #endregion Utility Converters
 }
