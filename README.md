@@ -65,6 +65,116 @@ Add XML namespace to your XAML file:
 
 [Documents/ComputedAnimations.md](Documents/ComputedAnimations.md)
 
+### 7. CalcBinding
+
+`CalcBinding` is a powerful markup extension that lets you write arithmetic, logical, and relational **expressions** directly inside XAML binding paths — no code-behind converter required.
+
+#### Setup
+
+Add the namespace to your XAML:
+
+```xaml
+xmlns:c="http://schemas.github.com/computedconverters/2024/xaml"
+```
+
+#### Basic Usage
+
+Use `c:Binding` in place of the standard `{Binding}` markup extension. The `Path` property accepts any valid C# expression.
+
+**Arithmetic**
+
+```xaml
+<TextBlock Text="{c:Binding Path='Width * 2 + Height'}" />
+```
+
+**Boolean expression → Visibility**
+
+```xaml
+<!-- Collapsed when IsActive is false (default) -->
+<Border Visibility="{c:Binding Path='IsActive'}" />
+
+<!-- Hidden when IsActive is false -->
+<Border Visibility="{c:Binding Path='IsActive', FalseToVisibility=Hidden}" />
+```
+
+**Logical operators** (`and` / `or` / `not` are accepted as alternatives to `&&` / `||` / `!`):
+
+```xaml
+<Button IsEnabled="{c:Binding Path='IsLoggedIn and not IsBusy'}" />
+```
+
+**Relational / comparison** (`less` is accepted as `<`):
+
+```xaml
+<TextBlock Text="{c:Binding Path='Score less 100 ? \'Low\' : \'High\''}" />
+```
+
+**Math functions**
+
+```xaml
+<TextBlock Text="{c:Binding Path='Math.Round(Price, 2)'}" />
+<Ellipse Width="{c:Binding Path='Math.Sqrt(Area)'}" />
+```
+
+**String formatting**
+
+```xaml
+<TextBlock Text="{c:Binding Path='FirstName + \" \" + LastName'}" />
+```
+
+**Static property / Enum**
+
+```xaml
+xmlns:vm="clr-namespace:MyApp.ViewModels"
+xmlns:local="clr-namespace:MyApp.Models"
+
+<TextBlock Text="{c:Binding Path='local:AppSettings.Title'}" />
+<Border Visibility="{c:Binding Path='Status == local:Status.Active'}" />
+```
+
+#### Two-Way Binding
+
+For invertible single-property expressions, two-way binding is supported automatically:
+
+```xaml
+<TextBox Text="{c:Binding Path='Price * 1.2', Mode=TwoWay}" />
+```
+
+#### Additional Properties
+
+All standard `Binding` properties are supported: `Mode`, `UpdateSourceTrigger`, `ElementName`, `RelativeSource`, `Source`, `StringFormat`, `FallbackValue`, `ValidatesOnDataErrors`, `ValidatesOnExceptions`, etc.
+
+| Property | Default | Description |
+|---|---|---|
+| `Path` | — | C# expression string |
+| `FalseToVisibility` | `Collapsed` | Controls `false → Visibility` mapping (`Collapsed` or `Hidden`) |
+| `SingleQuotes` | `false` | Treat `'` as string delimiters instead of `"` |
+| `FallbackValue` | `UnsetValue` | Value used when the expression cannot be evaluated |
+
+#### Enabling Trace Logging
+
+To enable diagnostic output, configure the `CalcBindingTracer` trace source in your app config:
+
+```xml
+<system.diagnostics>
+  <sources>
+    <source name="CalcBindingTracer" switchValue="Verbose">
+      <listeners>
+        <add name="console" type="System.Diagnostics.ConsoleTraceListener" />
+      </listeners>
+    </source>
+  </sources>
+</system.diagnostics>
+```
+
+#### Replacing the Expression Parser
+
+You can swap the built-in `DynamicExpresso`-based parser with a custom implementation:
+
+```csharp
+ComputedConverters.CalcBinding.Binding.ReplaceExpressionParser(new MyCustomParser());
+```
+
 
 ## Projects
 

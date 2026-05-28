@@ -33,6 +33,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	    <Compile Remove="Markups\CalcBinding\**" />
+	    <EmbeddedResource Remove="Markups\CalcBinding\**" />
+	    <None Remove="Markups\CalcBinding\**" />
+	    <Page Remove="Markups\CalcBinding\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Include="..\README.md" Pack="true" PackagePath="" />
 		<None Include="..\Images\logo.png" Pack="true" PackagePath="" />
 	</ItemGroup>
@@ -48,6 +55,10 @@
 	<ItemGroup Condition="'$(Configuration)' == 'TEST'">
 		<PackageReference Include="System.Drawing.Common" Version="8.0.8" />
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Scripting" Version="4.12.0-1.final" />
+	</ItemGroup>
+
+	<ItemGroup>
+	    <!--<PackageReference Include="DynamicExpresso.Core" Version="2.16.0" />-->
 	</ItemGroup>
 
 </Project>
